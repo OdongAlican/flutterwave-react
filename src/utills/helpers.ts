@@ -1,0 +1,1 @@
+export const searchTableData = (content: string) => console.log(content);
