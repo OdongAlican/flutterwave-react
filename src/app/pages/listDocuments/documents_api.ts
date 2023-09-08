@@ -1,17 +1,14 @@
-import axios from "axios";
-import { AxiosInstance, baseUrl } from "../../../core/api/baseURL"
+import {
+    AxiosInstance,
+    baseUrl
+} from "../../../core/api/baseURL";
+import { IResponseData } from "./interface";
 
-export const fetchDocuments = async () => {
+export const fetchDocuments = async (): Promise<IResponseData | any> => {
     try {
-        // const response = await AxiosInstance.get(`${baseUrl}/queries/nodes?term=test&skipCount=0&maxItems=100`);
-        const response = await axios.get('/api/-default-/public/alfresco/versions/1/queries/nodes?term=doc&skipCount=0&maxItems=100', {
-            headers: {
-                Authorization: "Basic YWRtaW46YWRtaW4=",
-                Accept: "application/json"
-            }
-        })
-        console.log(response, "response data")
+        const response = await AxiosInstance.get(`${baseUrl}/queries/nodes?term=test&skipCount=0&maxItems=100`);
+        return response;
     } catch (error) {
-        console.log(error, "Error Message");
+        return error;
     }
-}
+};

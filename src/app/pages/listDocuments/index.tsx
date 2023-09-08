@@ -2,11 +2,16 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Typography } from '@mui/material'
 import { fetchDocuments } from './documents_api';
+import { IResponseData } from './interface';
 
 const ListDocuments = () => {
   const getDocumentList = async () => {
-    const data = await fetchDocuments();
-    console.log(data, "server data!!");
+    const data: IResponseData = await fetchDocuments();
+
+    if (data?.status === 200
+      && data.statusText === 'OK') {
+      console.log(data, 'response stuff!!');
+    }
   };
 
   useEffect(() => {
