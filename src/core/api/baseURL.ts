@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "http://localhost:8080/alfresco/api/-default-/public/alfresco/versions/1/";
+export const baseUrl = "/api/-default-/public/alfresco/versions/1/";
 
 export const AxiosInstance = axios.create({
     baseURL: baseUrl,
