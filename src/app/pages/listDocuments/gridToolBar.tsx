@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     Box,
     FormControl,
@@ -12,14 +12,21 @@ import { entriesColumns } from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
 import DatePickerValue from '../../component/form/datePicker';
 import { Dayjs } from 'dayjs';
+import { searchTableData } from '../../../utills/helpers';
 
 interface ICustomGridToolBar { entries: IEntry[] };
 
 const CustomGridToolBar = ({ entries }: ICustomGridToolBar) => {
     const [filterState, setFilterState] = useState<string>('name');
+    const [entryList, setEntryList] = useState<IEntry[]>(entries);
+
+    useMemo(() => setEntryList(entries), [entries]);
 
     const onChange = (text: string) => setFilterState(text);
-    const handleChange = (text: string) => console.log(text, 'logged text');
+    const handleChange = (text: string) => {
+        const result = searchTableData(text, entries);
+        setEntryList(result);
+    }
     const onDateChange = (date: Dayjs | null) => console.log(date, 'date')
 
     return (
@@ -29,7 +36,7 @@ const CustomGridToolBar = ({ entries }: ICustomGridToolBar) => {
                     <Grid container xs={12}>
                         <Grid item xs={12} md={7} display='flex' alignItems='center'>
                             <Typography sx={{ fontWeight: 700, display: 'flex', alignItems: 'center' }}>
-                                {entries.length} Entries
+                                {entryList.length} Entries
                             </Typography>
                         </Grid>
                         <Grid spacing={3} container item xs={12} md={5}>

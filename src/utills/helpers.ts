@@ -1,4 +1,17 @@
-export const searchTableData = (content: string) => console.log(content);
+import { IEntry } from "../app/pages/listDocuments/interface";
+
+export const searchTableData = (
+    text: string,
+    list: IEntry[]
+): Array<IEntry> => {
+    const fileredArray: Array<IEntry> = [];
+    list.forEach(entry => {
+        if (entry.name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+            fileredArray.push(entry);
+        }
+    })
+    return fileredArray;
+}
 
 export const convertStringToUpperCase = (str: string) => {
 
