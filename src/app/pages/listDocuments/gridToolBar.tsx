@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     FormControl,
@@ -12,21 +12,18 @@ import { entriesColumns } from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
 import DatePickerValue from '../../component/form/datePicker';
 import { Dayjs } from 'dayjs';
-import { searchTableData } from '../../../utills/helpers';
 
-interface ICustomGridToolBar { entries: IEntry[] };
+interface ICustomGridToolBar { 
+    filteredEntries: IEntry[];
+    onNameChange: (text: string) => void;
+    // onDateChange: (date: Dayjs | null) => void;
+ };
 
-const CustomGridToolBar = ({ entries }: ICustomGridToolBar) => {
+const CustomGridToolBar = ({ filteredEntries, onNameChange }: ICustomGridToolBar) => {
     const [filterState, setFilterState] = useState<string>('name');
-    const [entryList, setEntryList] = useState<IEntry[]>(entries);
-
-    useMemo(() => setEntryList(entries), [entries]);
 
     const onChange = (text: string) => setFilterState(text);
-    const handleChange = (text: string) => {
-        const result = searchTableData(text, entries);
-        setEntryList(result);
-    }
+
     const onDateChange = (date: Dayjs | null) => console.log(date, 'date')
 
     return (
@@ -36,7 +33,7 @@ const CustomGridToolBar = ({ entries }: ICustomGridToolBar) => {
                     <Grid container xs={12}>
                         <Grid item xs={12} md={7} display='flex' alignItems='center'>
                             <Typography sx={{ fontWeight: 700, display: 'flex', alignItems: 'center' }}>
-                                {entryList.length} Entries
+                                {filteredEntries.length} Entries
                             </Typography>
                         </Grid>
                         <Grid spacing={3} container item xs={12} md={5}>
@@ -56,7 +53,7 @@ const CustomGridToolBar = ({ entries }: ICustomGridToolBar) => {
                                         <FormControl fullWidth>
                                             <BootstrapInput
                                                 size='small'
-                                                onChange={(e) => handleChange(e.target.value)}
+                                                onChange={(e) => onNameChange(e.target.value)}
                                                 id="entryName" label="Entry Name" variant="outlined" />
                                         </FormControl>
                                     </Grid>

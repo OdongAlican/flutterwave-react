@@ -16,9 +16,11 @@ import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
 import { entriesMocks } from '../../../utills/mocks';
 import ColumnComponent from './columns';
 import CustomGridToolBar from './gridToolBar';
+import { searchTableData } from '../../../utills/helpers';
 
 const ListDocuments = () => {
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
+  const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { columns } = ColumnComponent();
 
   const getDocumentList = async () => {
@@ -33,6 +35,8 @@ const ListDocuments = () => {
   };
 
   useEffect(() => { getDocumentList(); }, []);
+  useEffect(() => { setFilteredEntries(entries) }, [entries]);
+  const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, entries));
 
   return (
     <Box sx={{ p: 3 }}>
@@ -41,11 +45,16 @@ const ListDocuments = () => {
           sx={{ width: '100%', overflowX: 'auto' }}
         >
           <StyledDataGrid
-            {...entries}
+            {...filteredEntries}
             autoHeight
-            rows={entries}
+            rows={filteredEntries}
             slots={{ toolbar: CustomGridToolBar }}
-            slotProps={{ toolbar: { entries } }}
+            slotProps={{
+              toolbar: {
+                filteredEntries,
+                onNameChange
+              }
+            }}
             columns={columns}
             initialState={{
               pagination: {
