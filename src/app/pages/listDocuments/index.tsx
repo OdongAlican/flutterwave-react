@@ -1,10 +1,21 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { Typography } from '@mui/material'
+import
+React, {
+  useState,
+  useEffect
+} from 'react';
+import {
+  Box,
+  Card
+} from '@mui/material';
 import { fetchDocuments } from './documents_api';
-import { IResponseData } from './interface';
+import { IEntry, IResponseData } from './interface';
+import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
+import { entriesMocks } from '../../../utills/mocks';
+import { columns } from './columns';
 
 const ListDocuments = () => {
+  const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
+
   const getDocumentList = async () => {
     const data: IResponseData = await fetchDocuments();
 
@@ -14,14 +25,34 @@ const ListDocuments = () => {
     }
   };
 
-  useEffect(() => {
-    getDocumentList();
-  }, []);
+  useEffect(() => { getDocumentList(); }, []);
+  useEffect(() => { setEntries(entriesMocks); }, []);
 
   return (
-    <div>
-      <Typography>List Docs</Typography>
-    </div>
+    <Box sx={{ p: 3 }}>
+      <Card sx={{ pb: 2 }} >
+        <Box
+          sx={{ width: '100%', overflowX: 'auto' }}
+        >
+          <StyledDataGrid
+            {...entries}
+            autoHeight
+            rows={entries}
+            // slots={{ footer: CustomGridToolBar }}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+          // onRowDoubleClick={(e) => handleRowDoubleClick(e.row)}
+          />
+        </Box>
+      </Card>
+    </Box>
   )
 }
 
