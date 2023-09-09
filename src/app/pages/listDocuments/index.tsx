@@ -8,25 +8,30 @@ import {
   Card
 } from '@mui/material';
 import { fetchDocuments } from './documents_api';
-import { IEntry, IResponseData } from './interface';
+import {
+  IEntry,
+  IResponseData
+} from './interface';
 import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
 import { entriesMocks } from '../../../utills/mocks';
-import { columns } from './columns';
+import ColumnComponent from './columns';
 
 const ListDocuments = () => {
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
+  const { columns } = ColumnComponent();
 
   const getDocumentList = async () => {
     const data: IResponseData = await fetchDocuments();
 
     if (data?.status === 200
       && data.statusText === 'OK') {
-      console.log(data, 'response stuff!!');
+      setEntries(() => {
+        return data.data.list.entries.map((entry) => entry.entry)
+      });
     }
   };
 
   useEffect(() => { getDocumentList(); }, []);
-  useEffect(() => { setEntries(entriesMocks); }, []);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -38,7 +43,7 @@ const ListDocuments = () => {
             {...entries}
             autoHeight
             rows={entries}
-            // slots={{ footer: CustomGridToolBar }}
+            // slots={{ columnHeaders: CustomGridToolBar }}
             columns={columns}
             initialState={{
               pagination: {
@@ -47,8 +52,7 @@ const ListDocuments = () => {
                 },
               },
             }}
-            pageSizeOptions={[5, 10]}
-          // onRowDoubleClick={(e) => handleRowDoubleClick(e.row)}
+            pageSizeOptions={[5, 10, 15]}
           />
         </Box>
       </Card>

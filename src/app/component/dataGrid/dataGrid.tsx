@@ -4,7 +4,6 @@ import { DataGrid } from '@mui/x-data-grid';
 
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     display: "flex",
-    flexDirection: "column-reverse",
     border: 'none',
     "& .MuiDataGrid-columnHeaders": {
         fontSize: 15,

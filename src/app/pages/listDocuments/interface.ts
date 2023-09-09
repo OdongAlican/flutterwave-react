@@ -37,7 +37,7 @@ export interface IResponseData {
     data: {
         list: {
             pagination: IPagination;
-            entries: Array<IEntry>
+            entries: Array<{ entry: IEntry }>
         }
     }
 }
