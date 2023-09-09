@@ -15,6 +15,7 @@ import {
 import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
 import { entriesMocks } from '../../../utills/mocks';
 import ColumnComponent from './columns';
+import CustomGridToolBar from './gridToolBar';
 
 const ListDocuments = () => {
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
@@ -43,7 +44,8 @@ const ListDocuments = () => {
             {...entries}
             autoHeight
             rows={entries}
-            // slots={{ columnHeaders: CustomGridToolBar }}
+            slots={{ toolbar: CustomGridToolBar }}
+            slotProps={{ toolbar: { entries } }}
             columns={columns}
             initialState={{
               pagination: {

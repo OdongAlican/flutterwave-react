@@ -4,7 +4,6 @@ import { DataGrid } from '@mui/x-data-grid';
 
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     display: "flex",
-    border: 'none',
     "& .MuiDataGrid-columnHeaders": {
         fontSize: 15,
         borderTop: "0.6px solid rgba(0,0,0,0.05) !important",
@@ -29,6 +28,7 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     },
     '&.MuiDataGrid-root': {
         border: 'none',
+        borderTop: `1px solid${theme.palette.grey[300]} !important`,
     },
     "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
         outline: "none !important",
