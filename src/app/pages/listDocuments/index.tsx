@@ -48,7 +48,7 @@ const ListDocuments = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 4 }}>
       <Card sx={{ pb: 2 }} >
         <Box
           sx={{ width: '100%', overflowX: 'auto' }}
