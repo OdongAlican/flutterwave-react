@@ -4,7 +4,7 @@ import NavBar from "../../component/navigation/navBar";
 
 const Home = () => {
   return (
-    <Box>
+    <Box sx={{ height: '90vh' }}>
       <NavBar />
       <Outlet />
     </Box>

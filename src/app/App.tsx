@@ -1,14 +1,14 @@
-import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "../core/routes/appRoutes";
+import { Box } from "@mui/material";
 
 const App = () => {
   return (
-    <div>
+    <Box>
       <Router>
         <AppRoutes />
       </Router>
-    </div>
+    </Box>
   );
 }
 
