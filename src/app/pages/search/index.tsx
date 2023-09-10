@@ -13,7 +13,10 @@ const SearchComponent = () => {
         <Box sx={{ height: '100%' }}>
             <Grid sx={{ height: '100%' }} container xs={12}>
                 <Grid item xs={6}>
-                    <Button startIcon={<SearchIcon />} variant='contained' onClick={() => navigate(ROUTES.LIST_DOCUMENTS)}>Search</Button>
+                    <Button
+                        startIcon={<SearchIcon />}
+                        variant='contained'
+                        onClick={() => navigate(ROUTES.LIST_DOCUMENTS)}>Search</Button>
                 </Grid>
                 <Grid sx={{ height: '100%' }} item xs={6}>
                     <p>Sample information</p>
