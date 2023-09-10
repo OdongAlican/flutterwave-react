@@ -35,6 +35,7 @@ const ColumnComponent = () => {
     {
         field: 'createdAt',
         headerName: 'Date Created',
+        description: 'This column displays entries creation date.',
         flex: 1,
         minWidth: 100,
         renderCell: params => {
@@ -48,7 +49,7 @@ const ColumnComponent = () => {
     {
         field: 'name',
         headerName: 'Name',
-        description: 'This column displays various canteen Name.',
+        description: 'This column displays various Entries name.',
         minWidth: 100,
         flex: 1,
         renderCell: params => {
@@ -62,7 +63,7 @@ const ColumnComponent = () => {
     {
         field: 'nodeType',
         headerName: 'Node Type',
-        description: 'This column displays various canteen Node Types.',
+        description: 'This column displays various Node Types.',
         minWidth: 100,
         flex: 1,
         renderCell: params => {

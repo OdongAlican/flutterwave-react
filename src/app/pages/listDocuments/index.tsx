@@ -16,7 +16,11 @@ import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
 import { entriesMocks } from '../../../utills/mocks';
 import ColumnComponent from './columns';
 import CustomGridToolBar from './gridToolBar';
-import { searchTableData } from '../../../utills/helpers';
+import {
+  formatDate,
+  searchTableData
+} from '../../../utills/helpers';
+import { Dayjs } from 'dayjs';
 
 const ListDocuments = () => {
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
@@ -37,6 +41,10 @@ const ListDocuments = () => {
   useEffect(() => { getDocumentList(); }, []);
   useEffect(() => { setFilteredEntries(entries) }, [entries]);
   const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, entries));
+  const onDateChange = (date: Dayjs | null) => {
+    const filterValue = formatDate(date?.format() as string).split(' ')[0];
+    setFilteredEntries(searchTableData(filterValue, entries));
+  }
 
   return (
     <Box sx={{ p: 3 }}>
@@ -52,7 +60,8 @@ const ListDocuments = () => {
             slotProps={{
               toolbar: {
                 filteredEntries,
-                onNameChange
+                onNameChange,
+                onDateChange
               }
             }}
             columns={columns}

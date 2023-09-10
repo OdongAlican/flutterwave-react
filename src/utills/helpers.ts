@@ -6,7 +6,12 @@ export const searchTableData = (
 ): Array<IEntry> => {
     const fileredArray: Array<IEntry> = [];
     list.forEach(entry => {
-        if (entry.name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+        if (parseInt(text.split('-')[0], 10)) {
+            if (entry.createdAt.indexOf(text) !== -1) {
+                fileredArray.push(entry);
+            }
+        }
+        else if (entry.name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
             fileredArray.push(entry);
         }
     })
@@ -19,7 +24,6 @@ export const convertStringToUpperCase = (str: string) => {
 
     for (var i = 0; i < arr.length; i++) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-
     };
 
     const str2 = arr.join(" ");

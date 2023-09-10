@@ -6,25 +6,15 @@ import {
     Toolbar,
     Typography
 } from '@mui/material';
-import { IEntry } from './interface';
 import SelectOption from '../../component/form/selectOptions';
 import { entriesColumns } from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
 import DatePickerValue from '../../component/form/datePicker';
-import { Dayjs } from 'dayjs';
+import { ICustomGridToolBar } from './interface';
 
-interface ICustomGridToolBar { 
-    filteredEntries: IEntry[];
-    onNameChange: (text: string) => void;
-    // onDateChange: (date: Dayjs | null) => void;
- };
-
-const CustomGridToolBar = ({ filteredEntries, onNameChange }: ICustomGridToolBar) => {
+const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICustomGridToolBar) => {
     const [filterState, setFilterState] = useState<string>('name');
-
     const onChange = (text: string) => setFilterState(text);
-
-    const onDateChange = (date: Dayjs | null) => console.log(date, 'date')
 
     return (
         <Box sx={{ p: 1 }}>

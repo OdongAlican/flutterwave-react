@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs"
+
 export interface IEntry {
     createdAt: string,
     isFolder: boolean,
@@ -40,4 +42,10 @@ export interface IResponseData {
             entries: Array<{ entry: IEntry }>
         }
     }
-}
+};
+
+export interface ICustomGridToolBar { 
+    filteredEntries: IEntry[];
+    onNameChange: (text: string) => void;
+    onDateChange: (date: Dayjs | null) => void;
+ };
