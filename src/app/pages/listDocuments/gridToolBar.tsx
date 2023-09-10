@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
     Box,
+    Button,
     FormControl,
     Grid,
     Toolbar,
@@ -11,8 +12,9 @@ import { entriesColumns } from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
 import DatePickerValue from '../../component/form/datePicker';
 import { ICustomGridToolBar } from './interface';
+import LoopIcon from '@mui/icons-material/Loop';
 
-const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICustomGridToolBar) => {
+const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange, refresh }: ICustomGridToolBar) => {
     const [filterState, setFilterState] = useState<string>('name');
     const onChange = (text: string) => setFilterState(text);
 
@@ -27,7 +29,7 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICus
                             </Typography>
                         </Grid>
                         <Grid spacing={3} container item xs={12} md={5}>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <FormControl size='small' fullWidth>
                                     <SelectOption
                                         options={entriesColumns}
@@ -39,7 +41,7 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICus
                             </Grid>
                             {
                                 filterState === 'name' ? (
-                                    <Grid item xs={6}>
+                                    <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <BootstrapInput
                                                 size='small'
@@ -48,7 +50,7 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICus
                                         </FormControl>
                                     </Grid>
                                 ) : (
-                                    <Grid item xs={6}>
+                                    <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <DatePickerValue
                                                 onChange={onDateChange}
@@ -58,6 +60,11 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange }: ICus
                                     </Grid>
                                 )
                             }
+                            <Grid item xs={4}>
+                                <FormControl size='small' fullWidth>
+                                    <Button onClick={() => refresh()} sx={{ px: 2 }} startIcon={<LoopIcon />} variant="contained">Refresh</Button>
+                                </FormControl>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Box>

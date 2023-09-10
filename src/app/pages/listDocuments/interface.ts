@@ -48,4 +48,5 @@ export interface ICustomGridToolBar {
     filteredEntries: IEntry[];
     onNameChange: (text: string) => void;
     onDateChange: (date: Dayjs | null) => void;
+    refresh: () => void;
  };

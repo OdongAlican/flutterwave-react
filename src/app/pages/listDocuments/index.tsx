@@ -41,6 +41,7 @@ const ListDocuments = () => {
   useEffect(() => { getDocumentList(); }, []);
   useEffect(() => { setFilteredEntries(entries) }, [entries]);
   const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, entries));
+  const refresh = () => setFilteredEntries(entries);
   const onDateChange = (date: Dayjs | null) => {
     const filterValue = formatDate(date?.format() as string).split(' ')[0];
     setFilteredEntries(searchTableData(filterValue, entries));
@@ -61,7 +62,8 @@ const ListDocuments = () => {
               toolbar: {
                 filteredEntries,
                 onNameChange,
-                onDateChange
+                onDateChange,
+                refresh
               }
             }}
             columns={columns}
