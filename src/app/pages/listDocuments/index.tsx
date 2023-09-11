@@ -21,14 +21,21 @@ import {
   searchTableData
 } from '../../../utills/helpers';
 import { Dayjs } from 'dayjs';
+import { useParams } from 'react-router';
+import { IEntriesState } from './documents_slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store';
 
 const ListDocuments = () => {
+  const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
+
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { columns } = ColumnComponent();
+  const { query } = useParams();
 
   const getDocumentList = async () => {
-    const data: IResponseData = await fetchDocuments();
+    const data: IResponseData = await fetchDocuments(((query || "")));
 
     if (data?.status === 200
       && data.statusText === 'OK') {
@@ -38,6 +45,7 @@ const ListDocuments = () => {
     }
   };
 
+  useEffect(() => setEntries(data), [data])
   useEffect(() => { getDocumentList(); }, []);
   useEffect(() => { setFilteredEntries(entries) }, [entries]);
   const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, entries));

@@ -30,7 +30,7 @@ const NavBar = () => {
                             <Button onClick={() => navigate(ROUTES.HOME) } color="inherit">Back</Button>
                         ) : null
                     }
-                    <Button color="inherit">Login</Button>
+                    {/* <Button color="inherit">Login</Button> */}
                 </Toolbar>
             </AppBar>
         </Box>

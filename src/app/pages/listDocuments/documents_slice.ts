@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IEntry } from './interface';
 
-interface IEntriesState {
+export interface IEntriesState {
     data: IEntry[];
 }
 

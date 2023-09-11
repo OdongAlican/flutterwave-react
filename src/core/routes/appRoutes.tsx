@@ -12,7 +12,7 @@ const AppRoutes = () => {
         <Routes>
             <Route path='/' element={<Home />} >
                 <Route index element={<SearchComponent />} />
-                <Route path={ROUTES.LIST_DOCUMENTS} element={<ListDocuments />} />
+                <Route path={`${ROUTES.LIST_DOCUMENTS}/:query`} element={<ListDocuments />} />
             </Route>
         </Routes>
     )
