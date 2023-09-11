@@ -43,17 +43,14 @@ const NavBar = () => {
                             color: `${cyan[700]}`
                         }}>A Tradition of Legal Excellence</Typography>
                     </Typography>
-                    {
-                        pathname.includes(ROUTES.LIST_DOCUMENTS) ? (
-                            <Button onClick={() => navigate(ROUTES.HOME)} color="inherit">Back</Button>
-                        ) : null
-                    }
-                    <Button size='small' sx={{
-                        ...linkStyles,
-                        mr: '10px',
-                        borderBottom: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
-                        p: 0
-                    }}>Home</Button>
+                    <Button
+                        onClick={() => navigate(ROUTES.HOME)}
+                        size='small' sx={{
+                            ...linkStyles,
+                            mr: '10px',
+                            borderBottom: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
+                            p: 0
+                        }}>Home</Button>
                     <Button size='small' sx={{
                         ...linkStyles,
                         borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
