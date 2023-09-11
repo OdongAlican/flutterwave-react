@@ -4,7 +4,7 @@ import {
     FormControl,
     FormHelperText,
     Grid,
-    Avatar
+    InputAdornment
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
@@ -20,8 +20,7 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import Logo from '../../../assets/images/Logo.png';
-import { grey } from '@mui/material/colors';
+import { cyan } from '@mui/material/colors';
 
 const SearchComponent = () => {
     const navigate = useNavigate();
@@ -43,34 +42,23 @@ const SearchComponent = () => {
             && data.statusText === 'OK') {
             const res = data.data.list.entries.map((entry) => entry.entry);
             dispatch(loadData(res));
-            navigate(`${ROUTES.LIST_DOCUMENTS}/${formData.query}`);
+            if (res.length > 0) {
+                navigate(`${ROUTES.LIST_DOCUMENTS}/${formData.query}`);
+            }
         }
     }
 
     return (
         <Box sx={{ height: '100%' }}>
-            <Grid sx={{ height: '100%' }} container xs={12}>
+            <Grid sx={{ height: '100%', display: 'flex', alignItems: 'center' }} container xs={12}>
                 <Grid
                     item
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    xs={6}>
+                    xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
-                        <Box sx={{
-                            display: 'flex',
-                            justifyContent: 'center'
-                        }}>
-                            <Avatar sx={{ mr: 2, bgcolor: grey[50],height: 100, width: 100 }} alt="LDC" src={Logo} />
-                        </Box>
-                        <Grid
-                            sx={{
-                                // height: 400,
-                                // bgcolor: 'cyan',
-                            }}
-                            item
-                            xs={12}
-                        >
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <FormControl fullWidth>
                                 <Controller
                                     control={control}
@@ -78,9 +66,36 @@ const SearchComponent = () => {
                                     rules={{ required: true }}
                                     render={({ field: { onChange, onBlur } }) => (
                                         <BootstrapInput
-                                            size='small'
+                                            placeholder='Search text'
+                                            InputProps={{
+                                                style: {
+                                                    padding: 0,
+                                                    borderRadius: 25,
+                                                    height: '45px',
+                                                    backgroundColor: '#fff',
+                                                    paddingRight: '10px'
+                                                },
+                                                startAdornment: <InputAdornment position="start">
+                                                    <Button
+                                                        type='submit'
+                                                        variant='contained'
+                                                        sx={{
+                                                            bgcolor: cyan[700],
+                                                            borderRadius: 25,
+                                                            width: '200px',
+                                                            borderTopRightRadius: '0',
+                                                            borderBottomRightRadius:'0',
+                                                            height: '45px'
+                                                        }}
+                                                    >
+                                                        Search
+                                                    </Button>
+                                                </InputAdornment>,
+                                                endAdornment: <InputAdornment position='end' >
+                                                        <SearchIcon />
+                                                </InputAdornment>
+                                            }}
                                             id='query'
-                                            label='Search Document'
                                             variant="outlined"
                                             onBlur={onBlur}
                                             onChange={onChange}
@@ -89,30 +104,15 @@ const SearchComponent = () => {
                                     )}
                                 />
                                 {formState.errors.query && (
-                                    <FormHelperText sx={{ color: 'error.main' }}>{formState.errors.query.message}</FormHelperText>
+                                    <FormHelperText sx={{ color: '#fff', textAlign: 'end' }}>{formState.errors.query.message}</FormHelperText>
                                 )}
                             </FormControl>
-                            <Button
-                                sx={{
-                                    width: "100%",
-                                    mt: 2
-                                }}
-                                type='submit'
-                                startIcon={<SearchIcon />}
-                                variant='contained'
-                            >
-                                Search
-                            </Button>
-                        </Grid>
-
+                        </Box>
                     </form>
-                </Grid>
-                <Grid sx={{ height: '100%' }} item xs={6}>
-                    <p>Sample information</p>
                 </Grid>
             </Grid>
         </Box>
     )
 }
 
-export default SearchComponent
+export default SearchComponent;
