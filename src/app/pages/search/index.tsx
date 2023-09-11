@@ -57,13 +57,13 @@ const SearchComponent = () => {
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    marginTop={20}
+                    marginTop={17}
                     xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
-                        <Typography sx={{ color: '#fff', fontSize: '35px', textAlign: 'center' }}>
+                        <Typography sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
                             Search For ?
                         </Typography>
-                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '18px', textAlign: 'center' })}>
+                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '14px', textAlign: 'center',textTransform: 'uppercase' })}>
                             Online Law Reporting Portal provides instant and easy search interface
                             <br />
                             through different types of documents

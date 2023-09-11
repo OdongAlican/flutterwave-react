@@ -56,7 +56,7 @@ const ListDocuments = () => {
   }
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ px: 4 }}>
       <Card sx={{ pb: 2 }} >
         <Box
           sx={{ width: '100%', overflowX: 'auto' }}
@@ -78,11 +78,11 @@ const ListDocuments = () => {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 10,
+                  pageSize: 5,
                 },
               },
             }}
-            pageSizeOptions={[5, 10, 15]}
+            pageSizeOptions={[5]}
           />
         </Box>
       </Card>

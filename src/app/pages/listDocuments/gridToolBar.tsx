@@ -23,12 +23,12 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange, refres
             <Toolbar>
                 <Box style={{ flex: 1 }}>
                     <Grid container xs={12}>
-                        <Grid item xs={12} md={7} display='flex' alignItems='center'>
+                        <Grid item xs={12} md={5} display='flex' alignItems='center'>
                             <Typography sx={{ fontWeight: 700, display: 'flex', alignItems: 'center' }}>
                                 {filteredEntries.length} Entries
                             </Typography>
                         </Grid>
-                        <Grid spacing={3} container item xs={12} md={5}>
+                        <Grid spacing={3} container item xs={12} md={7}>
                             <Grid item xs={4}>
                                 <FormControl size='small' fullWidth>
                                     <SelectOption

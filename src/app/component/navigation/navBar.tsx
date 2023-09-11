@@ -29,14 +29,15 @@ const NavBar = () => {
     const navigate = useNavigate();
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar sx={{ boxShadow: 'none', background: 'transparent', px: 4 }} position="static">
+            <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">
                 <Toolbar>
                     <Avatar sx={{ mr: 2, bgcolor: grey[50] }} alt="LDC" src={Logo} />
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textTransform: 'uppercase', fontSize: '16px', fontWeight: 'bold' }}>
-                        Law <span style={{ color: `${cyan[700]}` }}>Development</span> Center
+                        Law <span>Development</span> Center
                         <Typography sx={{
                             fontSize: '12px',
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            color: `${cyan[700]}`
                         }}>A Tradition of Legal Excellence</Typography>
                     </Typography>
                     {
