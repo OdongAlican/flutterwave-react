@@ -8,6 +8,26 @@ export const entriesColumns: Array<{
         },
         {
             value: 'createdAt',
-            label: 'Date'
+            label: 'Judgment Date'
+        },
+        {
+            value: 'judge',
+            label: 'Judge Name'
+        },
+        {
+            value: 'court',
+            label: 'Court'
+        },
+        {
+            value: 'parties',
+            label: 'Parties'
+        },
+        {
+            value: 'title',
+            label: 'Document Title'
+        },
+        {
+            value: 'subject',
+            label: 'Subject Matter'
         }
     ];
