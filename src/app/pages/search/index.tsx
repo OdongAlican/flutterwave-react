@@ -4,7 +4,8 @@ import {
     FormControl,
     FormHelperText,
     Grid,
-    InputAdornment
+    InputAdornment,
+    Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
@@ -56,9 +57,18 @@ const SearchComponent = () => {
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
+                    marginTop={20}
                     xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography sx={{ color: '#fff', fontSize: '35px', textAlign: 'center' }}>
+                            Search For ?
+                        </Typography>
+                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '18px', textAlign: 'center' })}>
+                            Online Law Reporting Portal provides instant and easy search interface
+                            <br />
+                            through different types of documents
+                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
                             <FormControl fullWidth>
                                 <Controller
                                     control={control}
@@ -84,7 +94,7 @@ const SearchComponent = () => {
                                                             borderRadius: 25,
                                                             width: '200px',
                                                             borderTopRightRadius: '0',
-                                                            borderBottomRightRadius:'0',
+                                                            borderBottomRightRadius: '0',
                                                             height: '45px'
                                                         }}
                                                     >
@@ -92,7 +102,7 @@ const SearchComponent = () => {
                                                     </Button>
                                                 </InputAdornment>,
                                                 endAdornment: <InputAdornment position='end' >
-                                                        <SearchIcon />
+                                                    <SearchIcon />
                                                 </InputAdornment>
                                             }}
                                             id='query'
