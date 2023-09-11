@@ -22,6 +22,7 @@ import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
 import { cyan } from '@mui/material/colors';
+import { toast } from 'react-toastify';
 
 const SearchComponent = () => {
     const navigate = useNavigate();
@@ -45,7 +46,9 @@ const SearchComponent = () => {
             dispatch(loadData(res));
             if (res.length > 0) {
                 navigate(`${ROUTES.LIST_DOCUMENTS}/${formData.query}`);
+                return;
             }
+            return toast.error('Content does not exist')
         }
     }
 
