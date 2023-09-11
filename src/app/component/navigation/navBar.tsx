@@ -7,7 +7,10 @@ import {
     Typography
 } from '@mui/material';
 import Logo from '../../../assets/images/Logo.png';
-import { cyan, grey } from '@mui/material/colors';
+import {
+    cyan,
+    grey
+} from '@mui/material/colors';
 import {
     useLocation,
     useNavigate
@@ -45,8 +48,16 @@ const NavBar = () => {
                             <Button onClick={() => navigate(ROUTES.HOME)} color="inherit">Back</Button>
                         ) : null
                     }
-                    <Button size='small' sx={{ ...linkStyles, mr: '10px', borderBottom: `2px solid ${cyan[700]}`, p: 0 }}>Home</Button>
-                    <Button size='small' sx={linkStyles}>Advanced Search</Button>
+                    <Button size='small' sx={{
+                        ...linkStyles,
+                        mr: '10px',
+                        borderBottom: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
+                        p: 0
+                    }}>Home</Button>
+                    <Button size='small' sx={{
+                        ...linkStyles,
+                        borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
+                    }}>Advanced Search</Button>
                 </Toolbar>
             </AppBar>
         </Box >
