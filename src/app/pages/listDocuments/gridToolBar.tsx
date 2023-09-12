@@ -48,8 +48,8 @@ const CustomGridToolBar = ({
                                     filterState === entriesColumns[0].value ||
                                     filterState === entriesColumns[1].value ||
                                     filterState === entriesColumns[2].value ||
-                                    filterState === entriesColumns[3].value ||
-                                    filterState === entriesColumns[4].value
+                                    filterState === entriesColumns[4].value ||
+                                    filterState === entriesColumns[5].value
                                 ) ? (
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>

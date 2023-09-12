@@ -4,7 +4,7 @@ export const entriesColumns: Array<{
 }> = [
         {
             value: 'cm:title',
-            label: 'Name'
+            label: 'Document Title'
         },
         {
             value: 'ldc:court',
