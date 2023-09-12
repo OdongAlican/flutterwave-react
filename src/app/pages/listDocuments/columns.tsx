@@ -1,93 +1,111 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { RowTypography } from "../../component/dataGrid/dataGrid";
 import { Button } from "@mui/material";
-import { 
-    convertStringToUpperCase, 
-    formatDate 
-} from "../../../utills/helpers";
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import { blue } from "@mui/material/colors";
 import { IEntry } from "./interface";
-
-const iconStyles = { color: blue[500], fontSize: 40 };
 
 const ColumnComponent = () => {
 
     const viewEntry = (entry: IEntry) => console.log(entry, 'current entry!!');
 
- const columns: GridColDef[] = [
-    {
-        field: 'isFile',
-        headerName: '',
-        flex: 0.3,
-        minWidth: 30,   
-        renderCell: params => {
-            return (
-                <RowTypography>
-                    {params.row.isFile ? (
-                        <TextSnippetIcon sx={iconStyles} />)
-                        : <InsertDriveFileIcon sx={iconStyles} />}
-                </RowTypography>
+    const columns: GridColDef[] = [
+        {
+            field: 'documentTitle',
+            headerName: 'Title',
+            description: 'This column displays document title.',
+            flex: 1.5,
+            minWidth: 150,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties['cm:title']}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'judge',
+            headerName: 'Judge',
+            description: 'This column displays the Judge name',
+            flex: 1,
+            minWidth: 100,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:judge"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'court',
+            headerName: 'Court',
+            description: 'This column displays the Court name',
+            flex: 1,
+            minWidth: 100,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:court"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'parties',
+            headerName: 'Parties',
+            description: 'This column displays the Parties',
+            flex: 0.8,
+            minWidth: 80,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:parties"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'subject',
+            headerName: 'Subject',
+            description: 'This column displays the Subject Matter',
+            flex: 0.8,
+            minWidth: 80,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:subjectMatter"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'judgementDate',
+            headerName: 'Judgement Date',
+            description: 'This column displays the Judgement Date  Matter',
+            flex: 1,
+            minWidth: 100,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:judgementDate"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'id',
+            headerName: 'Options',
+            flex: 0.7,
+            minWidth: 70,
+            sortable: false,
+            renderCell: params => (
+                <Button
+                    sx={{ textTransform: 'none' }}
+                    onClick={() => viewEntry(params.row)}
+                    variant="outlined">Details</Button>
             )
-        }
-    },
-    {
-        field: 'createdAt',
-        headerName: 'Date Created',
-        description: 'This column displays entries creation date.',
-        flex: 1,
-        minWidth: 100,
-        renderCell: params => {
-            return (
-                <RowTypography>
-                    {formatDate(params.row.createdAt)}
-                </RowTypography>
-            )
-        }
-    },
-    {
-        field: 'name',
-        headerName: 'Name',
-        description: 'This column displays various Entries name.',
-        minWidth: 100,
-        flex: 1,
-        renderCell: params => {
-            return (
-                <RowTypography>
-                    {convertStringToUpperCase(params.row.name)}
-                </RowTypography>
-            )
-        }
-    },
-    {
-        field: 'nodeType',
-        headerName: 'Node Type',
-        description: 'This column displays various Node Types.',
-        minWidth: 100,
-        flex: 1,
-        renderCell: params => {
-            return (
-                <RowTypography>
-                    {params.row.nodeType}
-                </RowTypography>
-            )
-        }
-    },
-    {
-        field: 'id',
-        headerName: 'Options',
-        flex: 0.3,
-        minWidth: 30,
-        sortable: false,
-        renderCell: params => (
-            <Button
-                sx={{ textTransform: 'none' }}
-                onClick={() => viewEntry(params.row)}
-                variant="outlined">Details</Button>
-        )
-    },
-];
+        },
+    ];
     return {
         columns
     }
