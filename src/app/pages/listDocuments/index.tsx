@@ -36,6 +36,7 @@ const ListDocuments = () => {
 
   const getDocumentList = async () => {
     const data: IResponseData = await fetchDocuments(((query || "")));
+    console.log(data,"response data!");
 
     if (data?.status === 200
       && data.statusText === 'OK') {
@@ -53,7 +54,7 @@ const ListDocuments = () => {
   const onDateChange = (date: Dayjs | null) => {
     const filterValue = formatDate(date?.format() as string).split(' ')[0];
     setFilteredEntries(searchTableData(filterValue, entries));
-  }
+  };
 
   return (
     <Box sx={{ px: 4 }}>
@@ -78,11 +79,11 @@ const ListDocuments = () => {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 5,
+                  pageSize: 10,
                 },
               },
             }}
-            pageSizeOptions={[5]}
+            pageSizeOptions={[5, 10, 15]}
           />
         </Box>
       </Card>
