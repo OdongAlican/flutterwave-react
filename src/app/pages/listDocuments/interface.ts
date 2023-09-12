@@ -26,7 +26,8 @@ interface IProperties {
     "ldc:subjectMatter": Array<string>,
     "ldc:judge": Array<string>,
     "ldc:judgementDate": string,
-    "cm:lastThumbnailModification": Array<string>
+    "cm:lastThumbnailModification": Array<string>,
+    [key: string]: string | Array<string> | any
 };
 export interface IEntry {
     createdAt: string,

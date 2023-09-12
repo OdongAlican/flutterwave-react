@@ -1,4 +1,5 @@
 import { IEntry } from "../app/pages/listDocuments/interface";
+import { entriesColumns } from "./constants";
 
 export const searchTableData = (
     text: string,
@@ -7,13 +8,21 @@ export const searchTableData = (
 ): Array<IEntry> => {
     const fileredArray: Array<IEntry> = [];
     list.forEach(entry => {
-        // if (parseInt(text.split('-')[0], 10)) {
-        //     if (entry.createdAt.indexOf(text) !== -1) {
-        //         fileredArray.push(entry);
-        //     }
-        // }
-         if (entry.properties['ldc:docTitle'].toLowerCase().indexOf(text.toLowerCase()) !== -1) {
-            fileredArray.push(entry);
+        if (
+            columnName === entriesColumns[0].value ||
+            columnName === entriesColumns[1].value ||
+            columnName === entriesColumns[2].value ||
+            columnName === entriesColumns[3].value ||
+            columnName === entriesColumns[4].value
+        ) {
+            if (entry.properties[columnName]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+                fileredArray.push(entry);
+            }
+        }
+        else {
+            if (entry.properties[columnName][0]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+                fileredArray.push(entry);
+            }
         }
     })
     return fileredArray;

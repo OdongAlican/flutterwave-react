@@ -25,23 +25,21 @@ import { useParams } from 'react-router';
 import { IEntriesState } from './documents_slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store';
+import { entriesColumns } from '../../../utills/constants';
 
 const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
 
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
-  const [filterState, setFilterState] = useState<string>('name');
+  const [filterState, setFilterState] = useState<string>(entriesColumns[0].value);
 
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { columns } = ColumnComponent();
   const { query } = useParams();
   const onColumnNameChange = (text: string) => setFilterState(text);
 
-  const columnName = 'date';
-
   const getDocumentList = async () => {
     const data: IResponseData = await fetchDocuments(((query || "")));
-    console.log(data,"response data!");
 
     if (data?.status === 200
       && data.statusText === 'OK') {
@@ -54,11 +52,11 @@ const ListDocuments = () => {
   useEffect(() => setEntries(data), [data])
   useEffect(() => { getDocumentList(); }, []);
   useEffect(() => { setFilteredEntries(entries) }, [entries]);
-  const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, columnName, entries));
+  const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, filterState, entries));
   const refresh = () => setFilteredEntries(entries);
   const onDateChange = (date: Dayjs | null) => {
     const filterValue = formatDate(date?.format() as string).split(' ')[0];
-    setFilteredEntries(searchTableData(filterValue, columnName,  entries));
+    setFilteredEntries(searchTableData(filterValue, filterState, entries));
   };
 
   return (

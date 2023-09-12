@@ -3,31 +3,27 @@ export const entriesColumns: Array<{
     label: string
 }> = [
         {
-            value: 'name',
+            value: 'cm:title',
             label: 'Name'
         },
         {
-            value: 'createdAt',
-            label: 'Judgment Date'
-        },
-        {
-            value: 'judge',
-            label: 'Judge Name'
-        },
-        {
-            value: 'court',
+            value: 'ldc:court',
             label: 'Court'
         },
         {
-            value: 'parties',
+            value: 'ldc:parties',
             label: 'Parties'
         },
         {
-            value: 'title',
-            label: 'Document Title'
+            value: 'ldc:judgementDate',
+            label: 'Judgment Date'
         },
         {
-            value: 'subject',
+            value: 'ldc:judge',
+            label: 'Judge Name'
+        },
+        {
+            value: 'ldc:subjectMatter',
             label: 'Subject Matter'
-        }
+        },
     ];
