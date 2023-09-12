@@ -25,7 +25,10 @@ import { useParams } from 'react-router';
 import { IEntriesState } from './documents_slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store';
-import { crudState, entriesColumns } from '../../../utills/constants';
+import { 
+  crudState, 
+  entriesColumns 
+} from '../../../utills/constants';
 import ModalComponent from '../../component/modal';
 
 const ListDocuments = () => {
