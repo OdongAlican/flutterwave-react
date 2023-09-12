@@ -2,10 +2,21 @@ import { GridColDef } from "@mui/x-data-grid";
 import { RowTypography } from "../../component/dataGrid/dataGrid";
 import { Button } from "@mui/material";
 import { IEntry } from "./interface";
+import { useState } from "react";
+import { entriesMocks } from "../../../utills/mocks";
+import { crudState } from "../../../utills/constants";
 
 const ColumnComponent = () => {
+    const [entry, setEntry] = useState<IEntry>(entriesMocks[0]);
+    const [state, setState] = useState<string>('');
+    const [open, setOpen] = useState<boolean>(false);
 
-    const viewEntry = (entry: IEntry) => console.log(entry, 'current entry!!');
+    const handleClose = () => setOpen(false);
+    const viewEntry = (entry: IEntry) => {
+        setEntry(entry);
+        setState(crudState.read.value);
+        setOpen(true);
+    }
 
     const columns: GridColDef[] = [
         {
@@ -107,7 +118,11 @@ const ColumnComponent = () => {
         },
     ];
     return {
-        columns
+        columns,
+        entry,
+        state,
+        open,
+        handleClose
     }
 }
 

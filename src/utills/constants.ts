@@ -27,3 +27,27 @@ export const entriesColumns: Array<{
             label: 'Subject Matter'
         },
     ];
+
+export const crudState: {
+    [key: string]: {
+        value: string,
+        key: string
+    }
+} = {
+    create: {
+        value: 'create',
+        key: 'Create'
+    },
+    update: {
+        value: 'update',
+        key: 'Update'
+    },
+    read: {
+        value: 'read',
+        key: 'Read'
+    },
+    delete: {
+        value: 'delete',
+        key: 'Delete'
+    }
+};

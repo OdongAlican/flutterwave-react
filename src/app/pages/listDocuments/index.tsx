@@ -25,17 +25,25 @@ import { useParams } from 'react-router';
 import { IEntriesState } from './documents_slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store';
-import { entriesColumns } from '../../../utills/constants';
+import { crudState, entriesColumns } from '../../../utills/constants';
+import ModalComponent from '../../component/modal';
 
 const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
 
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
   const [filterState, setFilterState] = useState<string>(entriesColumns[0].value);
-
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
-  const { columns } = ColumnComponent();
   const { query } = useParams();
+
+  const {
+    columns,
+    entry,
+    state,
+    open,
+    handleClose
+  } = ColumnComponent();
+
   const onColumnNameChange = (text: string) => setFilterState(text);
 
   const getDocumentList = async () => {
@@ -61,6 +69,13 @@ const ListDocuments = () => {
 
   return (
     <Box sx={{ px: 4 }}>
+      {
+        state === crudState.read.value ? (
+          <ModalComponent open={open} handleClose={handleClose} >
+            <span>{entry.name}</span>
+          </ModalComponent>
+        ) : null
+      }
       <Card sx={{ pb: 2 }} >
         <Box
           sx={{ width: '100%', overflowX: 'auto' }}
