@@ -2,16 +2,17 @@ import { IEntry } from "../app/pages/listDocuments/interface";
 
 export const searchTableData = (
     text: string,
+    columnName: string,
     list: IEntry[]
 ): Array<IEntry> => {
     const fileredArray: Array<IEntry> = [];
     list.forEach(entry => {
-        if (parseInt(text.split('-')[0], 10)) {
-            if (entry.createdAt.indexOf(text) !== -1) {
-                fileredArray.push(entry);
-            }
-        }
-        else if (entry.name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+        // if (parseInt(text.split('-')[0], 10)) {
+        //     if (entry.createdAt.indexOf(text) !== -1) {
+        //         fileredArray.push(entry);
+        //     }
+        // }
+         if (entry.properties['ldc:docTitle'].toLowerCase().indexOf(text.toLowerCase()) !== -1) {
             fileredArray.push(entry);
         }
     })

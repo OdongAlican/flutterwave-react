@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
     Box,
     Button,
@@ -14,9 +13,14 @@ import DatePickerValue from '../../component/form/datePicker';
 import { ICustomGridToolBar } from './interface';
 import LoopIcon from '@mui/icons-material/Loop';
 
-const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange, refresh }: ICustomGridToolBar) => {
-    const [filterState, setFilterState] = useState<string>('name');
-    const onChange = (text: string) => setFilterState(text);
+const CustomGridToolBar = ({
+    filteredEntries,
+    onNameChange,
+    onDateChange,
+    refresh,
+    onColumnNameChange,
+    filterState
+}: ICustomGridToolBar) => {
 
     return (
         <Box sx={{ p: 1 }}>
@@ -34,7 +38,7 @@ const CustomGridToolBar = ({ filteredEntries, onNameChange, onDateChange, refres
                                     <SelectOption
                                         options={entriesColumns}
                                         label='Filter by'
-                                        onChange={onChange}
+                                        onChange={onColumnNameChange}
                                         id='filterEntries'
                                     />
                                 </FormControl>

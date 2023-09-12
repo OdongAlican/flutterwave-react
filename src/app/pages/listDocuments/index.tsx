@@ -30,9 +30,14 @@ const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
 
   const [entries, setEntries] = useState<Array<IEntry>>(entriesMocks);
+  const [filterState, setFilterState] = useState<string>('name');
+
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { columns } = ColumnComponent();
   const { query } = useParams();
+  const onColumnNameChange = (text: string) => setFilterState(text);
+
+  const columnName = 'date';
 
   const getDocumentList = async () => {
     const data: IResponseData = await fetchDocuments(((query || "")));
@@ -49,11 +54,11 @@ const ListDocuments = () => {
   useEffect(() => setEntries(data), [data])
   useEffect(() => { getDocumentList(); }, []);
   useEffect(() => { setFilteredEntries(entries) }, [entries]);
-  const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, entries));
+  const onNameChange = (text: string) => setFilteredEntries(searchTableData(text, columnName, entries));
   const refresh = () => setFilteredEntries(entries);
   const onDateChange = (date: Dayjs | null) => {
     const filterValue = formatDate(date?.format() as string).split(' ')[0];
-    setFilteredEntries(searchTableData(filterValue, entries));
+    setFilteredEntries(searchTableData(filterValue, columnName,  entries));
   };
 
   return (
@@ -72,7 +77,9 @@ const ListDocuments = () => {
                 filteredEntries,
                 onNameChange,
                 onDateChange,
-                refresh
+                refresh,
+                onColumnNameChange,
+                filterState
               }
             }}
             columns={columns}

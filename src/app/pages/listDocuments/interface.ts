@@ -77,4 +77,6 @@ export interface ICustomGridToolBar {
     onNameChange: (text: string) => void;
     onDateChange: (date: Dayjs | null) => void;
     refresh: () => void;
+    filterState: string;
+    onColumnNameChange: (text: string) => void
 };
