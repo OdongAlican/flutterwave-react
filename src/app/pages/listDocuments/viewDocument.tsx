@@ -39,8 +39,6 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       });
   }, []);
 
-  const onIframeClick = () => console.log('Iframe clicked')
-
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', py: 2 }}>
@@ -56,7 +54,6 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       </Box>
       {documentContent && (
         <iframe
-          onClick={onIframeClick}
           src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))}`}
           title="Document"
           width="100%"
@@ -70,4 +67,4 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
     </Box>
   );
 }
-export default DocumentViewer
+export default DocumentViewer;
