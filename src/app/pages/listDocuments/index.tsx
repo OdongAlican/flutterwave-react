@@ -30,8 +30,7 @@ import {
   entriesColumns
 } from '../../../utills/constants';
 import ModalComponent from '../../component/modal';
-import axios from 'axios';
-import { baseUrl } from '../../../core/api/baseURL';
+import DocumentViewer from './viewDocument';
 
 const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
@@ -40,11 +39,10 @@ const ListDocuments = () => {
   const [filterState, setFilterState] = useState<string>(entriesColumns[0].value);
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { query } = useParams();
-  const [documentContent, setDocumentContent] = useState<Uint8Array | null>(null);
 
   const {
     columns,
-    // entry,
+    entry,
     state,
     open,
     handleClose
@@ -73,40 +71,12 @@ const ListDocuments = () => {
     setFilteredEntries(searchTableData(filterValue, filterState, entries));
   };
 
-  useEffect(() => {
-    const apiUrl = `${baseUrl}nodes/{documentId}/content`;
-
-    const documentId = '550e50db-22e6-44fa-ba28-0af1e325ca8c';
-
-    const username = 'admin';
-    const password = 'admin';
-
-    const headers = {
-      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
-    };
-
-    axios.get<ArrayBuffer>(apiUrl.replace('{documentId}', documentId), { headers, responseType: 'arraybuffer' })
-      .then((response) => {
-        setDocumentContent(new Uint8Array(response.data));
-      })
-      .catch((error) => {
-        console.error('Error fetching document:', error);
-      });
-  }, []);
-
   return (
     <Box sx={{ px: 4 }}>
       {
         state === crudState.read.value ? (
           <ModalComponent open={open} handleClose={handleClose} >
-            {documentContent && (
-               <iframe
-               src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))}`}
-               title="Document"
-               width="100%"
-               height="500px"
-             />
-            )}
+            <DocumentViewer entry={entry} />
           </ModalComponent>
         ) : null
       }
