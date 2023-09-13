@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React,
+{
+  useEffect,
+  useState
+} from 'react';
 import axios from 'axios';
-import { baseUrl } from '../../../core/api/baseURL';
+import {
+  baseUrl,
+  credentials
+} from '../../../core/api/baseURL';
 import { IEntry } from './interface';
-import { Box, Button, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography
+} from '@mui/material';
 
 interface IDocumentViewer {
   entry: IEntry
@@ -21,16 +32,11 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
 
-    const documentId = entry.id;
-
-    const username = 'admin';
-    const password = 'admin';
-
     const headers = {
-      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+      Authorization: `Basic ${btoa(`${credentials.username}:${credentials.password}`)}`,
     };
 
-    axios.get<ArrayBuffer>(apiUrl.replace('{documentId}', documentId), { headers, responseType: 'arraybuffer' })
+    axios.get<ArrayBuffer>(apiUrl.replace('{documentId}', entry.id), { headers, responseType: 'arraybuffer' })
       .then((response) => {
         setDocumentContent(new Uint8Array(response.data));
       })
