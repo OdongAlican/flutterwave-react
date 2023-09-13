@@ -39,8 +39,11 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
                src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))}`}
                title="Document"
                width="100%"
-               height="500px"
-              //  sandbox="allow-scripts allow-same-origin"
+               height="600px"
+               style={{
+                pointerEvents: 'none',
+                userSelect: 'none',
+              }}
              />
       )}
     </div>
