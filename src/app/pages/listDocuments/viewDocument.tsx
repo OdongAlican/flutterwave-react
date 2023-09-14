@@ -1,5 +1,6 @@
 import React,
 {
+  memo,
   useEffect,
   useState
 } from 'react';
@@ -38,7 +39,11 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
     axios.get<ArrayBuffer>(apiUrl.replace('{documentId}', entry.id), { headers, responseType: 'arraybuffer' })
       .then((response) => {
-        setDocumentContent(new Uint8Array(response.data));
+        if (response.data.byteLength <= 1048576) {
+          setDocumentContent(new Uint8Array(response.data));
+        } else{
+          console.log(response.data.byteLength, 'Longer byte lengths!!!');
+        }
       })
       .catch((error) => {
         console.error('Error fetching document:', error);
@@ -48,7 +53,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', py: 2 }}>
-        <Typography>{entry.name}</Typography>
+        <Typography>{entry.properties['cm:title']}</Typography>
         <Button
           onClick={() => {
             setIframeStyles({
@@ -60,7 +65,8 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       </Box>
       {documentContent && (
         <iframe
-          src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))}`}
+          src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))
+            }`}
           title="Document"
           width="100%"
           height="600px"
@@ -73,4 +79,4 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
     </Box>
   );
 }
-export default DocumentViewer;
+export default memo(DocumentViewer);
