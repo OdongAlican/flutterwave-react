@@ -56,6 +56,29 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       });
   }, []);
 
+
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: any }) {
+    setNumPages(numPages);
+    setPageNumber(1);
+  }
+  // const onDocumentLoadSuccess = () => console.log('something');
+  const onDocumentLoadError = () => console.log('something');
+
+  function changePage(offset: number) {
+    setPageNumber(prevPageNumber => prevPageNumber + offset);
+  }
+
+  function previousPage() {
+    changePage(-1);
+  }
+
+  function nextPage() {
+    changePage(1);
+  }
+
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', py: 2 }}>
@@ -83,12 +106,30 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
         />
       )} */}
       {documentContent ? (
-        <Document
-          file={`data:application/pdf;base64,${documentContent}`}
-        // onLoadSuccess={}
-        >
-          <Page pageNumber={1} />
-        </Document>
+        <>
+          <Document
+            file={`data:application/pdf;base64,${documentContent}`}
+            onLoadSuccess={onDocumentLoadSuccess}
+            onLoadError={onDocumentLoadError}
+          >
+            <Page pageNumber={pageNumber} />
+          </Document>
+          <div>
+            <p>
+              Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
+            </p>
+            <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
+              Previous
+            </button>
+            <button
+              type="button"
+               disabled={pageNumber >= (numPages as number)}
+              onClick={nextPage}
+            >
+              Next
+            </button>
+          </div>
+        </>
       ) : (
         <p>Loading...</p>
       )}
