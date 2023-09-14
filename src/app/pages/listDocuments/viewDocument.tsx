@@ -21,6 +21,8 @@ interface IDocumentViewer {
 
 const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [documentContent, setDocumentContent] = useState<any>(null);
+  const [numPages, setNumPages] = useState<number>();
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
@@ -46,8 +48,6 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   }, []);
 
 
-  const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
 
   const changePage = (offset: number) => {
     setPageNumber(prevPageNumber => prevPageNumber + offset);
@@ -57,40 +57,38 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
   const nextPage = () => changePage(1);
 
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+    setNumPages(numPages);
+  }
+
   return (
     <Box>
       {documentContent ? (
-        <Box>
+        <Box sx={{ bgcolor: 'teal' }}>
           <Document
             file={`data:application/pdf;base64,${documentContent}`}
+            onLoadSuccess={onDocumentLoadSuccess}
           >
             {
-              Array.from(new Array(numPages), (el, index) => (
                 <Page
                   renderTextLayer={false}
                   renderAnnotationLayer={false}
-                  key={`page_${index + 1}`}
                   pageNumber={pageNumber} >
                   <div>
-                    <p>{pageNumber}</p>
+                    <p>{pageNumber} of {numPages}</p>
                     <button type="button" onClick={previousPage}>
                       Previous
                     </button>
                     <button
                       type="button"
-                      // disabled={pageNumber >= (numPages as number)}
                       onClick={nextPage}
                     >
                       Next
                     </button>
                   </div>
                 </Page>
-              ))
             }
-            {/* <Page 
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-              */}
           </Document>
         </Box>
       ) : (
