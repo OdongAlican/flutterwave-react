@@ -15,7 +15,9 @@ import {
   Button,
   Typography
 } from '@mui/material';
-// import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
+import 'react-pdf/dist/cjs/Page/AnnotationLayer.css'
+pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer {
   entry: IEntry
@@ -67,8 +69,9 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
           }}
           sx={{ marginLeft: 'auto' }} variant='contained'>View Document</Button>
       </Box>
-      {documentContent && (
+      {/* {documentContent && (
         <iframe
+          id='my-iframe'
           src={`data:application/pdf;base64,${documentContent}`}
           title="Document"
           width="100%"
@@ -78,14 +81,17 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
             minHeight: '60vh'
           }}
         />
-      )}  
-      {/* {documentContent ? (
-        <Document file={`data:application/pdf;base64,${atob(documentContent)}`}>
+      )} */}
+      {documentContent ? (
+        <Document
+          file={`data:application/pdf;base64,${documentContent}`}
+        // onLoadSuccess={}
+        >
           <Page pageNumber={1} />
         </Document>
       ) : (
         <p>Loading...</p>
-      )} */}
+      )}
     </Box>
   );
 }
