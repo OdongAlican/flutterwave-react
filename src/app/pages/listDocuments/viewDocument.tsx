@@ -15,6 +15,7 @@ import {
   Button,
   Typography
 } from '@mui/material';
+// import { Document, Page } from 'react-pdf';
 
 interface IDocumentViewer {
   entry: IEntry
@@ -45,7 +46,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
             ''
           )
         );
-        console.log(base64,"base64!!!");
+        console.log(base64, "base64!!!");
         setDocumentContent(base64);
       })
       .catch((error) => {
@@ -77,7 +78,14 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
             minHeight: '60vh'
           }}
         />
-      )}
+      )}  
+      {/* {documentContent ? (
+        <Document file={`data:application/pdf;base64,${atob(documentContent)}`}>
+          <Page pageNumber={1} />
+        </Document>
+      ) : (
+        <p>Loading...</p>
+      )} */}
     </Box>
   );
 }
