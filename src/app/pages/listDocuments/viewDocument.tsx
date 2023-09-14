@@ -21,7 +21,7 @@ interface IDocumentViewer {
 }
 
 const DocumentViewer = ({ entry }: IDocumentViewer) => {
-  const [documentContent, setDocumentContent] = useState<Uint8Array | null>(null);
+  const [documentContent, setDocumentContent] = useState<any>(null);
   const [iframeStyles, setIframeStyles] = useState<{
     pointerEvents: string;
     userSelect: string;
@@ -39,11 +39,14 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
     axios.get<ArrayBuffer>(apiUrl.replace('{documentId}', entry.id), { headers, responseType: 'arraybuffer' })
       .then((response) => {
-        if (response.data.byteLength <= 1048576) {
-          setDocumentContent(new Uint8Array(response.data));
-        } else{
-          console.log(response.data.byteLength, 'Longer byte lengths!!!');
-        }
+        const base64 = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ''
+          )
+        );
+        console.log(base64,"base64!!!");
+        setDocumentContent(base64);
       })
       .catch((error) => {
         console.error('Error fetching document:', error);
@@ -65,14 +68,13 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       </Box>
       {documentContent && (
         <iframe
-          src={`data:application/pdf;base64,${btoa(String.fromCharCode(...Array.from(documentContent)))
-            }`}
+          src={`data:application/pdf;base64,${documentContent}`}
           title="Document"
           width="100%"
-          height="600px"
           style={{
             pointerEvents: iframeStyles.pointerEvents as any,
             userSelect: iframeStyles.userSelect as any,
+            minHeight: '60vh'
           }}
         />
       )}
