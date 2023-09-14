@@ -13,6 +13,7 @@ import { IEntry } from './interface';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/cjs/Page/AnnotationLayer.css'
 import { Box } from '@mui/material';
+import ErrorModal from '../../component/modal/errorModal';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer {
@@ -23,6 +24,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [documentContent, setDocumentContent] = useState<any>(null);
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState(1);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
@@ -50,6 +52,8 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
 
   const changePage = (offset: number) => {
+    if (pageNumber === 3) return setOpen(true);
+
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   }
 
@@ -62,8 +66,14 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
     setNumPages(numPages);
   }
 
+  const handleClose = () => setOpen(false);
+
   return (
-    <Box>
+    <Box>{
+      open ? (
+        <ErrorModal open={open} handleClose={handleClose} />
+      ) : null
+    }
       {documentContent ? (
         <Box sx={{ bgcolor: 'teal' }}>
           <Document
@@ -71,23 +81,23 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
             onLoadSuccess={onDocumentLoadSuccess}
           >
             {
-                <Page
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  pageNumber={pageNumber} >
-                  <div>
-                    <p>{pageNumber} of {numPages}</p>
-                    <button type="button" onClick={previousPage}>
-                      Previous
-                    </button>
-                    <button
-                      type="button"
-                      onClick={nextPage}
-                    >
-                      Next
-                    </button>
-                  </div>
-                </Page>
+              <Page
+                renderTextLayer={false}
+                renderAnnotationLayer={false}
+                pageNumber={pageNumber} >
+                <div>
+                  <p>{pageNumber} of {numPages}</p>
+                  <button type="button" onClick={previousPage}>
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextPage}
+                  >
+                    Next
+                  </button>
+                </div>
+              </Page>
             }
           </Document>
         </Box>
