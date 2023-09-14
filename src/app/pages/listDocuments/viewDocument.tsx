@@ -10,13 +10,9 @@ import {
   credentials
 } from '../../../core/api/baseURL';
 import { IEntry } from './interface';
-import {
-  Box,
-  Button,
-  Typography
-} from '@mui/material';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/cjs/Page/AnnotationLayer.css'
+import { Box } from '@mui/material';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer {
@@ -25,13 +21,6 @@ interface IDocumentViewer {
 
 const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [documentContent, setDocumentContent] = useState<any>(null);
-  const [iframeStyles, setIframeStyles] = useState<{
-    pointerEvents: string;
-    userSelect: string;
-  }>({
-    pointerEvents: 'none',
-    userSelect: 'none'
-  })
 
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
@@ -60,76 +49,50 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
 
-  function onDocumentLoadSuccess({ numPages }: { numPages: any }) {
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-  // const onDocumentLoadSuccess = () => console.log('something');
-  const onDocumentLoadError = () => console.log('something');
-
-  function changePage(offset: number) {
+  const changePage = (offset: number) => {
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   }
 
-  function previousPage() {
-    changePage(-1);
-  }
+  const previousPage = () => { changePage(-1); }
 
-  function nextPage() {
-    changePage(1);
-  }
+  const nextPage = () => changePage(1);
 
   return (
     <Box>
-      <Box sx={{ width: '100%', display: 'flex', py: 2 }}>
-        <Typography>{entry.properties['cm:title']}</Typography>
-        <Button
-          onClick={() => {
-            setIframeStyles({
-              pointerEvents: '',
-              userSelect: ''
-            })
-          }}
-          sx={{ marginLeft: 'auto' }} variant='contained'>View Document</Button>
-      </Box>
-      {/* {documentContent && (
-        <iframe
-          id='my-iframe'
-          src={`data:application/pdf;base64,${documentContent}`}
-          title="Document"
-          width="100%"
-          style={{
-            pointerEvents: iframeStyles.pointerEvents as any,
-            userSelect: iframeStyles.userSelect as any,
-            minHeight: '60vh'
-          }}
-        />
-      )} */}
       {documentContent ? (
-        <>
+        <Box>
           <Document
             file={`data:application/pdf;base64,${documentContent}`}
-            onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={onDocumentLoadError}
           >
-            <Page pageNumber={pageNumber} />
+            {
+              Array.from(new Array(numPages), (el, index) => (
+                <Page
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  key={`page_${index + 1}`}
+                  pageNumber={pageNumber} >
+                  <div>
+                    <p>{pageNumber}</p>
+                    <button type="button" onClick={previousPage}>
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      // disabled={pageNumber >= (numPages as number)}
+                      onClick={nextPage}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </Page>
+              ))
+            }
+            {/* <Page 
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+              */}
           </Document>
-          <div>
-            <p>
-              Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-            </p>
-            <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
-              Previous
-            </button>
-            <button
-              type="button"
-               disabled={pageNumber >= (numPages as number)}
-              onClick={nextPage}
-            >
-              Next
-            </button>
-          </div>
-        </>
+        </Box>
       ) : (
         <p>Loading...</p>
       )}
