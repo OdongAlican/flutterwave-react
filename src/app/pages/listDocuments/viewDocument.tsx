@@ -5,20 +5,22 @@ import React,
   useState
 } from 'react';
 import axios from 'axios';
+import { Box } from '@mui/material';
 import {
   baseUrl,
   credentials
 } from '../../../core/api/baseURL';
 import { IEntry } from './interface';
-import { Document, Page, pdfjs } from 'react-pdf';
+import {
+  Document,
+  Page,
+  pdfjs
+} from 'react-pdf';
 import 'react-pdf/dist/cjs/Page/AnnotationLayer.css'
-import { Box } from '@mui/material';
 import ErrorModal from '../../component/modal/errorModal';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-interface IDocumentViewer {
-  entry: IEntry
-}
+interface IDocumentViewer { entry: IEntry };
 
 const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [documentContent, setDocumentContent] = useState<any>(null);
@@ -41,7 +43,6 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
             ''
           )
         );
-        console.log(base64, "base64!!!");
         setDocumentContent(base64);
       })
       .catch((error) => {
@@ -52,17 +53,15 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
 
   const changePage = (offset: number) => {
-    if (pageNumber === 3) return setOpen(true);
+    if (pageNumber === 3 && offset > 0) return setOpen(true);
 
     setPageNumber(prevPageNumber => prevPageNumber + offset);
-  }
+  };
 
   const previousPage = () => { changePage(-1); }
-
   const nextPage = () => changePage(1);
 
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
   }
 
