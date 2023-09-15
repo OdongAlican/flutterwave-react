@@ -16,17 +16,27 @@ import {
   Page,
   pdfjs
 } from 'react-pdf';
-import 'react-pdf/dist/cjs/Page/AnnotationLayer.css'
+import 'react-pdf/dist/cjs/Page/AnnotationLayer.css';
+import styled from 'styled-components';
 import ErrorModal from '../../component/modal/errorModal';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry };
+
+const PDFDocumentWrapper = styled.div`
+  canvas {
+    width: 70% !important;
+    height: auto !important;
+  }
+`;
 
 const DocumentViewer = ({ entry }: IDocumentViewer) => {
   const [documentContent, setDocumentContent] = useState<any>(null);
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState(1);
   const [open, setOpen] = useState<boolean>(false);
+
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
@@ -50,8 +60,6 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       });
   }, []);
 
-
-
   const changePage = (offset: number) => {
     if (pageNumber === 3 && offset > 0) return setOpen(true);
 
@@ -63,9 +71,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
-  }
-
-  const handleClose = () => setOpen(false);
+  };
 
   return (
     <Box>{
@@ -74,31 +80,33 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       ) : null
     }
       {documentContent ? (
-        <Box sx={{ bgcolor: 'teal' }}>
-          <Document
-            file={`data:application/pdf;base64,${documentContent}`}
-            onLoadSuccess={onDocumentLoadSuccess}
-          >
-            {
-              <Page
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
-                pageNumber={pageNumber} >
-                <div>
-                  <p>{pageNumber} of {numPages}</p>
-                  <button type="button" onClick={previousPage}>
-                    Previous
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextPage}
-                  >
-                    Next
-                  </button>
-                </div>
-              </Page>
-            }
-          </Document>
+        <Box sx={{ overflowY: 'auto', height: '600px' }}>
+          <PDFDocumentWrapper>
+            <Document
+              file={`data:application/pdf;base64,${documentContent}`}
+              onLoadSuccess={onDocumentLoadSuccess}
+            >
+              {
+                <Page
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  pageNumber={pageNumber} >
+                  <div>
+                    <p>{pageNumber} of {numPages}</p>
+                    <button type="button" onClick={previousPage}>
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      onClick={nextPage}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </Page>
+              }
+            </Document>
+          </PDFDocumentWrapper>
         </Box>
       ) : (
         <p>Loading...</p>
@@ -106,4 +114,5 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
     </Box>
   );
 }
+
 export default memo(DocumentViewer);
