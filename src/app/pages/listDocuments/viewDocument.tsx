@@ -69,7 +69,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             (data, byte) => data + String.fromCharCode(byte),
             ''
           )
-        );
+        );  
         setDocumentContent(base64);
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }, []);
 
   const changePage = (offset: number) => {
-    if (pageNumber === 5 && offset > 0) return setOpen(true);
+    if (pageNumber === 3 && offset > 0) return setOpen(true);
 
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   };
@@ -140,11 +140,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             <DetailsSection title='Title' value={entry.properties['cm:title']} />
             <DetailsSection title='Author' value={entry.properties['cm:author']} />
             <DetailsSection title='Parties' value={entry.properties['ldc:parties']} />
-            <DetailsSection title='Judge' value={entry.properties['ldc:judge'][0]} />
+            <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
           </Box>
         </Box>
       ) : (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', p: 4, alignItems: 'center', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
       )}

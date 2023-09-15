@@ -65,8 +65,8 @@ const ColumnComponent = () => {
             field: 'parties',
             headerName: 'Parties',
             description: 'This column displays the Parties',
-            flex: 0.8,
-            minWidth: 80,
+            flex: 1.5,
+            minWidth: 150,
             renderCell: params => {
                 return (
                     <RowTypography>
@@ -92,7 +92,7 @@ const ColumnComponent = () => {
         {
             field: 'judgementDate',
             headerName: 'Judgement Date',
-            description: 'This column displays the Judgement Date  Matter',
+            description: 'This column displays the Judgement Date',
             flex: 1,
             minWidth: 100,
             renderCell: params => {

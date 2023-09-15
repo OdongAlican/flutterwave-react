@@ -12,14 +12,16 @@ export const searchTableData = (
             columnName === entriesColumns[0].value ||
             columnName === entriesColumns[1].value ||
             columnName === entriesColumns[2].value ||
-            columnName === entriesColumns[3].value 
+            columnName === entriesColumns[3].value
         ) {
-            if (entry.properties[columnName]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+            if (entry.properties[columnName]
+                && entry.properties[columnName]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
                 fileredArray.push(entry);
             }
         }
         else {
-            if (entry.properties[columnName]?.[0]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+            if (entry.properties[columnName] &&
+                entry.properties[columnName]?.[0]?.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
                 fileredArray.push(entry);
             }
         }
