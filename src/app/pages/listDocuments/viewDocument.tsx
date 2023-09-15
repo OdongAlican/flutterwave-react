@@ -5,7 +5,12 @@ import React,
   useState
 } from 'react';
 import axios from 'axios';
-import { Box } from '@mui/material';
+import {
+  Box,
+  Button,
+  Stack,
+  CircularProgress
+} from '@mui/material';
 import {
   baseUrl,
   credentials
@@ -61,7 +66,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
   }, []);
 
   const changePage = (offset: number) => {
-    if (pageNumber === 3 && offset > 0) return setOpen(true);
+    if (pageNumber === 5 && offset > 0) return setOpen(true);
 
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   };
@@ -80,7 +85,7 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
       ) : null
     }
       {documentContent ? (
-        <Box sx={{ overflowY: 'auto', height: '600px' }}>
+        <Box sx={{ overflowY: 'auto', height: '500px' }}>
           <PDFDocumentWrapper>
             <Document
               file={`data:application/pdf;base64,${documentContent}`}
@@ -91,25 +96,30 @@ const DocumentViewer = ({ entry }: IDocumentViewer) => {
                   renderTextLayer={false}
                   renderAnnotationLayer={false}
                   pageNumber={pageNumber} >
-                  <div>
-                    <p>{pageNumber} of {numPages}</p>
-                    <button type="button" onClick={previousPage}>
+                  <p>{pageNumber} of {numPages}</p>
+                  <Stack direction="row" spacing={2}>
+                    <Button
+                      disabled={pageNumber === 1 ? true : false}
+                      size='small' variant='contained' type="button" onClick={previousPage}>
                       Previous
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      size='small'
                       type="button"
                       onClick={nextPage}
                     >
                       Next
-                    </button>
-                  </div>
+                    </Button>
+                  </Stack>
                 </Page>
               }
             </Document>
           </PDFDocumentWrapper>
         </Box>
       ) : (
-        <p>Loading...</p>
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
       )}
     </Box>
   );
