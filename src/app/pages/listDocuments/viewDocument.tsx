@@ -103,37 +103,39 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
         ) : null
       }
       {documentContent ? (
-        <Box sx={{ overflowY: 'auto', height: '500px', display: "flex" }}>
-          <PDFDocumentWrapper>
-            <Document
-              file={`data:application/pdf;base64,${documentContent}`}
-              onLoadSuccess={onDocumentLoadSuccess}
-            >
-              {
-                <Page
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  pageNumber={pageNumber} >
-                  <p>{pageNumber} of {numPages}</p>
-                  <Stack direction="row" spacing={2}>
-                    <Button
-                      disabled={pageNumber === 1 ? true : false}
-                      size='small' variant='contained' type="button" onClick={previousPage}>
-                      Previous
-                    </Button>
-                    <Button
-                      size='small'
-                      type="button"
-                      onClick={nextPage}
-                    >
-                      Next
-                    </Button>
-                  </Stack>
-                </Page>
-              }
-            </Document>
-          </PDFDocumentWrapper>
-          <Box sx={{ width: "60%" }}>
+        <Box sx={{ display: 'flex' }}>
+          <Box sx={{ overflowY: 'auto', height: '500px', display: "flex", width: '70%' }}>
+            <PDFDocumentWrapper>
+              <Document
+                file={`data:application/pdf;base64,${documentContent}`}
+                onLoadSuccess={onDocumentLoadSuccess}
+              >
+                {
+                  <Page
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    pageNumber={pageNumber} >
+                    <p>{pageNumber} of {numPages}</p>
+                    <Stack direction="row" spacing={2}>
+                      <Button
+                        disabled={pageNumber === 1 ? true : false}
+                        size='small' variant='contained' type="button" onClick={previousPage}>
+                        Previous
+                      </Button>
+                      <Button
+                        size='small'
+                        type="button"
+                        onClick={nextPage}
+                      >
+                        Next
+                      </Button>
+                    </Stack>
+                  </Page>
+                }
+              </Document>
+            </PDFDocumentWrapper>
+          </Box>
+          <Box sx={{ width: "30%", height: '500px' }}>
             <Typography sx={{ textDecoration: 'underline', p: 1, fontWeight: 'bold', fontSize: '14px' }}>Details</Typography>
             <DetailsSection title='Title' value={entry.properties['cm:title']} />
             <DetailsSection title='Author' value={entry.properties['cm:author']} />
