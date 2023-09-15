@@ -76,7 +76,7 @@ const ListDocuments = () => {
       {
         state === crudState.read.value ? (
           <ModalComponent open={open} handleClose={handleClose} >
-            <DocumentViewer entry={entry} />
+            <DocumentViewer handleModalClose={handleClose} entry={entry} />
           </ModalComponent>
         ) : null
       }
