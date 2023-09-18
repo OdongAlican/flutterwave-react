@@ -69,7 +69,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             (data, byte) => data + String.fromCharCode(byte),
             ''
           )
-        );  
+        );
         setDocumentContent(base64);
       })
       .catch((error) => {
@@ -90,9 +90,22 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     setNumPages(numPages);
   };
 
+  const handleDownloadLinkClick = () => {
+    if (documentContent) {
+      const linkSource = `data:application/pdf;base64,${documentContent}`;
+      const downloadLink = document.createElement("a");
+      const fileName = `${entry.properties['cm:title']}.pdf`;
+
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    }
+  };
+
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end', borderBottom: `1px solid ${grey[400]}` }}>
+        <Button onClick={handleDownloadLinkClick}>Download</Button>
         <IconButton onClick={handleModalClose}>
           <HighlightOffIcon fontSize='medium' />
         </IconButton>

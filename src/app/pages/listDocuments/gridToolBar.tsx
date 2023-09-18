@@ -29,7 +29,7 @@ const CustomGridToolBar = ({
                     <Grid container xs={12}>
                         <Grid item xs={12} md={5} display='flex' alignItems='center'>
                             <Typography sx={{ fontWeight: 700, display: 'flex', alignItems: 'center' }}>
-                                {filteredEntries.length} Entries
+                                {filteredEntries.length} Entr{filteredEntries.length > 1 ? "ies" : "y"}
                             </Typography>
                         </Grid>
                         <Grid spacing={3} container item xs={12} md={7}>
