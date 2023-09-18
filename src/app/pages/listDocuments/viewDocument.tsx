@@ -13,7 +13,8 @@ import {
   IconButton,
   Typography,
   Grid,
-  Tooltip
+  Tooltip,
+  Avatar
 } from '@mui/material';
 import {
   baseUrl,
@@ -31,6 +32,7 @@ import styled from 'styled-components';
 import ErrorModal from '../../component/modal/errorModal';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { blue, grey } from '@mui/material/colors';
+import Logo from '../../../assets/images/Logo.png';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -105,8 +107,9 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
 
   return (
     <Box>
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end', borderBottom: `1px solid ${grey[400]}` }}>
-        <Tooltip title="Download document">
+      <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}` }}>
+        <Avatar alt="LDC" src={Logo} />
+        <Tooltip sx={{ ml: 'auto' }} title="Download document">
           <IconButton onClick={handleDownloadLinkClick}>
             <FileDownloadIcon />
           </IconButton>
@@ -172,13 +175,13 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               mt: 1,
               p: 2,
               display: 'flex',
-              alignItems:'center'
+              alignItems: 'center'
             }}>
             <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
               Enjoying this preview? Resume membership to read the full title.
-              <Typography sx={{ fontSize: '13px', color: blue[600] }}>Already purchased? Log In</Typography>
+              <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none',mx: 1 }} >Log In</Button></Typography>
             </Typography>
-            <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Book</Button>
+            <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button>
           </Stack>
         </>
       ) : documentContent &&
