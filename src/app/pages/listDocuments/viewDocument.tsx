@@ -130,7 +130,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
         <>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ overflowY: 'auto', height: '400px', display: "flex", width: '70%' }}>
-              <PDFDocumentWrapper>
+              {pageNumber <=3 ? <PDFDocumentWrapper>
                 <Document
                   file={`data:application/pdf;base64,${documentContent}`}
                   onLoadSuccess={onDocumentLoadSuccess}
@@ -158,7 +158,10 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                     </Page>
                   }
                 </Document>
-              </PDFDocumentWrapper>
+              </PDFDocumentWrapper> : 
+              (<Box>
+                Error
+              </Box>)}
             </Box>
             <Box sx={{ width: "30%", height: '400px' }}>
               <Typography sx={{ textDecoration: 'underline', p: 1, fontWeight: 'bold', fontSize: '14px' }}>Details</Typography>
