@@ -12,7 +12,8 @@ import {
   CircularProgress,
   IconButton,
   Typography,
-  Grid
+  Grid,
+  Tooltip
 } from '@mui/material';
 import {
   baseUrl,
@@ -28,7 +29,8 @@ import 'react-pdf/dist/cjs/Page/AnnotationLayer.css';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import styled from 'styled-components';
 import ErrorModal from '../../component/modal/errorModal';
-import { grey } from '@mui/material/colors';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { blue, grey } from '@mui/material/colors';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -95,7 +97,6 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       const linkSource = `data:application/pdf;base64,${documentContent}`;
       const downloadLink = document.createElement("a");
       const fileName = `${entry.properties['cm:title']}.pdf`;
-
       downloadLink.href = linkSource;
       downloadLink.download = fileName;
       downloadLink.click();
@@ -105,56 +106,85 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end', borderBottom: `1px solid ${grey[400]}` }}>
-        <Button onClick={handleDownloadLinkClick}>Download</Button>
-        <IconButton onClick={handleModalClose}>
-          <HighlightOffIcon fontSize='medium' />
-        </IconButton>
+        <Tooltip title="Download document">
+          <IconButton onClick={handleDownloadLinkClick}>
+            <FileDownloadIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Close Preview">
+          <IconButton onClick={handleModalClose}>
+            <HighlightOffIcon fontSize='medium' />
+          </IconButton>
+        </Tooltip>
       </Box>
       {
         open ? (
           <ErrorModal open={open} handleClose={handleClose} />
         ) : null
       }
-      {documentContent ? (
-        <Box sx={{ display: 'flex' }}>
-          <Box sx={{ overflowY: 'auto', height: '500px', display: "flex", width: '70%' }}>
-            <PDFDocumentWrapper>
-              <Document
-                file={`data:application/pdf;base64,${documentContent}`}
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
-                {
-                  <Page
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                    pageNumber={pageNumber} >
-                    <p>{pageNumber} of {numPages}</p>
-                    <Stack direction="row" spacing={2}>
-                      <Button
-                        disabled={pageNumber === 1 ? true : false}
-                        size='small' variant='contained' type="button" onClick={previousPage}>
-                        Previous
-                      </Button>
-                      <Button
-                        size='small'
-                        type="button"
-                        onClick={nextPage}
-                      >
-                        Next
-                      </Button>
-                    </Stack>
-                  </Page>
-                }
-              </Document>
-            </PDFDocumentWrapper>
+      {documentContent &&
+        (entry.content.mimeType === "application/pdf") ? (
+        <>
+          <Box sx={{ display: 'flex' }}>
+            <Box sx={{ overflowY: 'auto', height: '400px', display: "flex", width: '70%' }}>
+              <PDFDocumentWrapper>
+                <Document
+                  file={`data:application/pdf;base64,${documentContent}`}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                >
+                  {
+                    <Page
+                      renderTextLayer={false}
+                      renderAnnotationLayer={false}
+                      pageNumber={pageNumber} >
+                      <p>{pageNumber} of {numPages}</p>
+                      <Stack direction="row" spacing={2}>
+                        <Button
+                          disabled={pageNumber === 1 ? true : false}
+                          size='small' variant='contained' type="button" onClick={previousPage}>
+                          Previous
+                        </Button>
+                        <Button
+                          size='small'
+                          type="button"
+                          onClick={nextPage}
+                        >
+                          Next
+                        </Button>
+                      </Stack>
+                    </Page>
+                  }
+                </Document>
+              </PDFDocumentWrapper>
+            </Box>
+            <Box sx={{ width: "30%", height: '400px' }}>
+              <Typography sx={{ textDecoration: 'underline', p: 1, fontWeight: 'bold', fontSize: '14px' }}>Details</Typography>
+              <DetailsSection title='Title' value={entry.properties['cm:title']} />
+              <DetailsSection title='Author' value={entry.properties['cm:author']} />
+              <DetailsSection title='Parties' value={entry.properties['ldc:parties']} />
+              <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
+            </Box>
           </Box>
-          <Box sx={{ width: "30%", height: '500px' }}>
-            <Typography sx={{ textDecoration: 'underline', p: 1, fontWeight: 'bold', fontSize: '14px' }}>Details</Typography>
-            <DetailsSection title='Title' value={entry.properties['cm:title']} />
-            <DetailsSection title='Author' value={entry.properties['cm:author']} />
-            <DetailsSection title='Parties' value={entry.properties['ldc:parties']} />
-            <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
-          </Box>
+          <Stack
+            direction='row'
+            sx={{
+              bgcolor: grey[100],
+              mt: 1,
+              p: 2,
+              display: 'flex',
+              alignItems:'center'
+            }}>
+            <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
+              Enjoying this preview? Resume membership to read the full title.
+              <Typography sx={{ fontSize: '13px', color: blue[600] }}>Already purchased? Log In</Typography>
+            </Typography>
+            <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Book</Button>
+          </Stack>
+        </>
+      ) : documentContent &&
+        (entry.content.mimeType !== "application/pdf") ? (
+        <Box sx={{ display: 'flex', p: 4, alignItems: 'center', justifyContent: 'center' }}>
+          Preview is only available for PDF Documents
         </Box>
       ) : (
         <Box sx={{ display: 'flex', p: 4, alignItems: 'center', justifyContent: 'center' }}>
