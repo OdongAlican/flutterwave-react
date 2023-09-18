@@ -33,6 +33,7 @@ import ErrorModal from '../../component/modal/errorModal';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { blue, grey } from '@mui/material/colors';
 import Logo from '../../../assets/images/Logo.png';
+import Login from '../authentication/login';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -122,7 +123,9 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       </Box>
       {
         open ? (
-          <ErrorModal open={open} handleClose={handleClose} />
+          <ErrorModal open={open} handleClose={handleClose} >
+            <Login />
+          </ErrorModal>
         ) : null
       }
       {documentContent &&
