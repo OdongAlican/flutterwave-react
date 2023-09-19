@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import axios from 'axios';
 import {
-    Grid,
     Box,
+    Grid,
     FormControl,
     FormHelperText,
     InputAdornment,
@@ -15,16 +16,15 @@ import {
     Controller
 } from 'react-hook-form';
 import { BootstrapInput } from '../../component/form/input';
+import { IRegister } from './interface';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from './schema';
+import { registerSchema } from './schema';
+import { apiURL } from '../../../core/api/baseURL';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import axios from 'axios';
-import { apiURL } from '../../../core/api/baseURL';
-import { IAuthState } from './interface';
 
-const Login = () => {
-    const [loggingIn, setLoggingIn] = useState<boolean>(false);
+const SignUp = () => {
+    const [register, setRegister] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -36,14 +36,15 @@ const Login = () => {
         control,
         handleSubmit,
         formState: { errors }
-    } = useForm<IAuthState>({
+    } = useForm<IRegister>({
         mode: 'onChange',
-        resolver: yupResolver(schema)
+        resolver: yupResolver(registerSchema)
     });
 
-    const onSubmit = (formData: IAuthState) => {
-        setLoggingIn(true);
-        axios.post(`${apiURL}auth/login`, formData).then((response) => {
+    const onSubmit = (formData: IRegister) => {
+        console.log(formData, 'formdata');
+        setRegister(true);
+        axios.post(`${apiURL}auth/register`, formData).then((response) => {
             console.log(response.data, "response data")
         }).catch((error: any) => console.log(error))
     };
@@ -128,11 +129,11 @@ const Login = () => {
                                             textTransform: 'none'
                                         }}
                                         startIcon={
-                                            loggingIn ? (
+                                            register ? (
                                                 <CircularProgress />
                                             ) : ('')
                                         }
-                                        disabled={loggingIn}
+                                        disabled={register}
                                     >
                                         Log in
                                     </Button>
@@ -141,12 +142,12 @@ const Login = () => {
                         </Grid>
                     </Grid>
                     <Box sx={{
-                        width:'100%',
+                        width: '100%',
                         py: 1,
                         textAlign: 'center',
                         cursor: 'pointer'
                     }}>
-                        <Link>Sign up</Link>
+                        <Link>Sign in</Link>
                     </Box>
                 </Grid>
             </form>
@@ -154,4 +155,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignUp;

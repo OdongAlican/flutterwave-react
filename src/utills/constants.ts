@@ -51,3 +51,11 @@ export const crudState: {
         key: 'Delete'
     }
 };
+
+export const authComponents: {
+    register: string;
+    login: string
+} = {
+    register: 'resgister',
+    login: 'login'
+};

@@ -7,13 +7,13 @@ import {
 import { ReactNode } from 'react';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import Logo from '../../../assets/images/Logo.png';
+import { authComponents } from '../../../utills/constants';
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '30%',
     bgcolor: 'background.paper',
     boxShadow: 24,
     pb: 3,
@@ -24,9 +24,10 @@ interface IModal {
     open: boolean;
     handleClose: () => void;
     children: ReactNode;
+    component?: string;
 }
 
-const AuthModal = ({ open, handleClose, children }: IModal) => {
+const AuthModal = ({ open, handleClose, children, component }: IModal) => {
 
     return (
         <Modal
@@ -35,8 +36,7 @@ const AuthModal = ({ open, handleClose, children }: IModal) => {
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
         >
-
-            <Box sx={style}>
+            <Box sx={{ ...style, width: `${component === authComponents.register ? '60%' : '30%'}` }}>
                 <Box sx={{ display: 'flex', justifyContent: 'end', p: 1 }}>
                     <IconButton onClick={handleClose}>
                         <CancelOutlinedIcon
