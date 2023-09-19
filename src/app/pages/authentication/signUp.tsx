@@ -15,7 +15,10 @@ import {
     useForm,
     Controller
 } from 'react-hook-form';
-import { BootstrapInput, BootstrapPhoneNumber } from '../../component/form/input';
+import {
+    BootstrapInput,
+    BootstrapPhoneNumber
+} from '../../component/form/input';
 import { IRegister } from './interface';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from './schema';
@@ -48,8 +51,12 @@ const SignUp = () => {
         console.log(formData, 'formdata');
         setRegister(true);
         axios.post(`${apiURL}auth/register`, formData).then((response) => {
-            console.log(response.data, "response data")
-        }).catch((error: any) => console.log(error))
+            console.log(response.data, "response data");
+            setRegister(true);
+        }).catch((error: any) => {
+            setRegister(true);
+            console.log(error);
+        })
     };
 
     return (
