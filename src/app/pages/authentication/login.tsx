@@ -8,7 +8,6 @@ import {
     IconButton,
     Button,
     CircularProgress,
-    Link
 } from '@mui/material';
 import {
     useForm,
@@ -22,8 +21,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { apiURL } from '../../../core/api/baseURL';
 import { IAuthState } from './interface';
+interface ILogin {
+    setRegisterModal: () => void
+}
 
-const Login = () => {
+const Login = ({ setRegisterModal }: ILogin) => {
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -146,7 +148,7 @@ const Login = () => {
                         textAlign: 'center',
                         cursor: 'pointer'
                     }}>
-                        <Link>Sign up</Link>
+                        <Button onClick={setRegisterModal}>Sign up</Button>
                     </Box>
                 </Grid>
             </form>

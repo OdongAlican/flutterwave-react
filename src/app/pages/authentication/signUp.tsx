@@ -15,13 +15,16 @@ import {
     useForm,
     Controller
 } from 'react-hook-form';
-import { BootstrapInput } from '../../component/form/input';
+import { BootstrapInput, BootstrapPhoneNumber } from '../../component/form/input';
 import { IRegister } from './interface';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from './schema';
 import { apiURL } from '../../../core/api/baseURL';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 
 const SignUp = () => {
     const [register, setRegister] = useState<boolean>(false);
@@ -58,7 +61,136 @@ const SignUp = () => {
                         borderRadius: '6px'
                     })}>
                         <Grid item container spacing={3} xs={12}>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='firstname'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapInput
+                                                size='small'
+                                                id='firstname'
+                                                label='First Name'
+                                                variant="outlined"
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                error={Boolean(errors.firstname)}
+                                            />
+                                        )}
+                                    />
+                                    {errors.firstname && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.firstname.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='lastname'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapInput
+                                                size='small'
+                                                id='lastname'
+                                                label='Last Name'
+                                                variant="outlined"
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                error={Boolean(errors.lastname)}
+                                            />
+                                        )}
+                                    />
+                                    {errors.lastname && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.lastname.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='username'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapInput
+                                                size='small'
+                                                id='username'
+                                                label='User Name'
+                                                variant="outlined"
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <PersonOutlinedIcon />
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                error={Boolean(errors.username)}
+                                            />
+                                        )}
+                                    />
+                                    {errors.username && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='location'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapInput
+                                                size='small'
+                                                id='location'
+                                                label='Location'
+                                                variant="outlined"
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <LocationOnOutlinedIcon />
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                error={Boolean(errors.location)}
+                                            />
+                                        )}
+                                    />
+                                    {errors.location && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.location.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='phonenumber'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapPhoneNumber
+                                                size='small'
+                                                id='phonenumber'
+                                                label='Mobile Number'
+                                                variant="outlined"
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                error={Boolean(errors.phonenumber)}
+                                            />
+                                        )}
+                                    />
+                                    {errors.phonenumber && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.phonenumber.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
                                 <FormControl fullWidth>
                                     <Controller
                                         control={control}
@@ -72,6 +204,13 @@ const SignUp = () => {
                                                 variant="outlined"
                                                 onBlur={onBlur}
                                                 onChange={onChange}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <EmailOutlinedIcon />
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
                                                 error={Boolean(errors.email)}
                                             />
                                         )}
@@ -81,7 +220,7 @@ const SignUp = () => {
                                     )}
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <FormControl fullWidth>
                                     <Controller
                                         control={control}
@@ -118,7 +257,45 @@ const SignUp = () => {
                                     )}
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
+
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        control={control}
+                                        name='password'
+                                        rules={{ required: true }}
+                                        render={({ field: { onChange, onBlur } }) => (
+                                            <BootstrapInput
+                                                size='small'
+                                                id='password'
+                                                label='Confirm Password'
+                                                onBlur={onBlur}
+                                                onChange={onChange}
+                                                error={Boolean(errors.password)}
+                                                type={showPassword ? 'text' : 'password'}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                    {errors.password && (
+                                        <FormHelperText sx={{ color: 'error.main' }}>{errors.password.message}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} display='flex' justifyContent='center'>
                                 <Box component='div'>
                                     <Button
                                         type='submit'
@@ -126,7 +303,9 @@ const SignUp = () => {
                                         fullWidth
                                         size='large'
                                         sx={{
-                                            textTransform: 'none'
+                                            textTransform: 'none',
+                                            width: '100%',
+                                            px: 2
                                         }}
                                         startIcon={
                                             register ? (
@@ -135,7 +314,7 @@ const SignUp = () => {
                                         }
                                         disabled={register}
                                     >
-                                        Log in
+                                        Register
                                     </Button>
                                 </Box>
                             </Grid>
