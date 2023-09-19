@@ -29,7 +29,7 @@ import {
 import 'react-pdf/dist/cjs/Page/AnnotationLayer.css';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import styled from 'styled-components';
-import ErrorModal from '../../component/modal/errorModal';
+import AuthModal from '../../component/modal/authModal';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { blue, grey } from '@mui/material/colors';
 import Logo from '../../../assets/images/Logo.png';
@@ -123,9 +123,9 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       </Box>
       {
         open ? (
-          <ErrorModal open={open} handleClose={handleClose} >
+          <AuthModal open={open} handleClose={handleClose} >
             <Login />
-          </ErrorModal>
+          </AuthModal>
         ) : null
       }
       {documentContent &&
@@ -184,7 +184,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               alignItems: 'center'
             }}>
             <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
-              Enjoying this preview? Resume membership to read the full title.
+              Enjoying this preview? Purchase document to read the full content.
               <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none',mx: 1 }} >Log In</Button></Typography>
             </Typography>
             <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button>

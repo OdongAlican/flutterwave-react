@@ -8,7 +8,7 @@ import {
     IconButton,
     Button,
     CircularProgress,
-    Typography
+    Link
 } from '@mui/material';
 import {
     useForm,
@@ -47,7 +47,7 @@ const Login = () => {
     });
 
     const onSubmit = (formData: IAuthState) => {
-        console.log(formData, 'Form data');
+        setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
             console.log(response.data, "response data")
         }).catch((error: any) => console.log(error))
@@ -145,6 +145,14 @@ const Login = () => {
                             </Grid>
                         </Grid>
                     </Grid>
+                    <Box sx={{
+                        width:'100%',
+                        py: 1,
+                        textAlign: 'center',
+                        cursor: 'pointer'
+                    }}>
+                        <Link>Sign up</Link>
+                    </Box>
                 </Grid>
             </form>
         </Box>
