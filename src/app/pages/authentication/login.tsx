@@ -26,9 +26,10 @@ import { toast } from 'react-toastify';
 interface ILogin {
     setRegisterModal: () => void;
     handleClose: () => void;
+    setAccessTokenFxn: (token: string) => void;
 }
 
-const Login = ({ setRegisterModal, handleClose }: ILogin) => {
+const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => {
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -50,6 +51,7 @@ const Login = ({ setRegisterModal, handleClose }: ILogin) => {
         setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
             sessionStorage.setItem(accessTokenKey, response.data?.accesstoken);
+            setAccessTokenFxn(response.data?.accessToken as string)
             setLoggingIn(false);
             handleClose();
             toast.success(`Welcome ${response.data.firstName}`);

@@ -36,6 +36,7 @@ import Logo from '../../../assets/images/Logo.png';
 import Login from '../authentication/login';
 import { authComponents } from '../../../utills/constants';
 import SignUp from '../authentication/signUp';
+import { getAuthTokenFromSessionStorage } from '../../../utills/session';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -60,8 +61,12 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [open, setOpen] = useState<boolean>(false);
   const [component, setComponent] = useState<string>('');
+  const [accessToken, setAccessToken] = useState<string>("");
 
   const handleClose = () => setOpen(false);
+  const setAccessTokenFxn = (token: string) => {
+    setAccessToken(token);
+  }
 
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
@@ -115,16 +120,21 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     }
   };
 
+  useEffect(() => {
+    const data: string = getAuthTokenFromSessionStorage() as string;
+    setAccessToken(data);
+  }, []);
+
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}` }}>
         <Avatar alt="LDC" src={Logo} />
-        <Tooltip sx={{ ml: 'auto' }} title="Download document">
+        {accessToken?.length === 0 && <Tooltip sx={{ ml: 'auto' }} title="Download document">
           <IconButton onClick={handleDownloadLinkClick}>
             <FileDownloadIcon />
           </IconButton>
-        </Tooltip>
-        <Tooltip title="Close Preview">
+        </Tooltip>}
+        <Tooltip sx={{ ml: 'auto' }} title="Close Preview">
           <IconButton onClick={handleModalClose}>
             <HighlightOffIcon fontSize='medium' />
           </IconButton>
@@ -135,7 +145,10 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
           <AuthModal open={open} handleClose={handleClose} component={`${component === authComponents.register ? authComponents.register : authComponents.login
             }`} >
             {component === authComponents.login ?
-              <Login setRegisterModal={activeModalFxn} handleClose={handleClose} />
+              <Login
+                setAccessTokenFxn={setAccessTokenFxn}
+                setRegisterModal={activeModalFxn}
+                handleClose={handleClose} />
               : <SignUp />
             }
           </AuthModal>
@@ -187,7 +200,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
             </Box>
           </Box>
-          <Stack
+          {accessToken?.length === 0 && <Stack
             direction='row'
             sx={{
               bgcolor: grey[100],
@@ -201,7 +214,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >Log In</Button></Typography>
             </Typography>
             <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button>
-          </Stack>
+          </Stack>}
         </>
       ) : documentContent &&
         (entry.content.mimeType !== "application/pdf") ? (
