@@ -37,6 +37,7 @@ import Login from '../authentication/login';
 import { authComponents } from '../../../utills/constants';
 import SignUp from '../authentication/signUp';
 import { getAuthTokenFromSessionStorage } from '../../../utills/session';
+import Flutterwave from '../flutterwave';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -215,6 +216,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >Log In</Button></Typography>
             </Typography>
             <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button>
+            <Flutterwave />
           </Stack>}
         </>
       ) : documentContent &&
