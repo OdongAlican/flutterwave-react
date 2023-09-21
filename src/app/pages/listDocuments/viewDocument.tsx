@@ -127,18 +127,20 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
 
   return (
     <Box>
-      <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}` }}>
+      <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}`, justifyContent: 'space-between' }}>
         <Avatar alt="LDC" src={Logo} />
-        {accessToken?.length === 0 && <Tooltip sx={{ ml: 'auto' }} title="Download document">
-          <IconButton onClick={handleDownloadLinkClick}>
-            <FileDownloadIcon />
-          </IconButton>
-        </Tooltip>}
-        <Tooltip sx={{ ml: `${accessToken?.length > 0 ? "auto" : ''}` }} title="Close Preview">
-          <IconButton onClick={handleModalClose}>
-            <HighlightOffIcon fontSize='medium' />
-          </IconButton>
-        </Tooltip>
+        <Box>
+          {accessToken?.length === 0 && <Tooltip title="Download document">
+            <IconButton onClick={handleDownloadLinkClick}>
+              <FileDownloadIcon />
+            </IconButton>
+          </Tooltip>}
+          <Tooltip title="Close Preview">
+            <IconButton onClick={handleModalClose}>
+              <HighlightOffIcon fontSize='medium' />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Box>
       {
         open ? (
