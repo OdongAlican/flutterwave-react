@@ -101,6 +101,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   };
 
+  const logIn = () => {
+    setComponent(authComponents.login);
+    setOpen(true);
+  }
+
   const activeModalFxn = () => setComponent(authComponents.register);
 
   const previousPage = () => { changePage(-1); }
@@ -213,9 +218,13 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             }}>
             <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
               Enjoying this preview? Purchase document to read the full content.
-              <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >Log In</Button></Typography>
+              <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
+                Already purchased?
+                <Button onClick={logIn} size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >
+                  Log In
+                </Button>
+              </Typography>
             </Typography>
-            {/* <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button> */}
             <Flutterwave />
           </Stack>}
         </>

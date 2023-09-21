@@ -19,7 +19,6 @@ export default function Flutterwave() {
     customer: {
       email: 'kiizaj2@gmail.com',
       phone_number: '0777338787',
-      // phone_number: '0703051139',
       name: 'odong sunday',
     },
     customizations: {
