@@ -1,11 +1,16 @@
-import React from 'react';
 import { 
-  FlutterWaveButton, 
-  closePaymentModal 
+  useEffect, 
+  useState 
+} from 'react';
+import {
+  useFlutterwave,
+  closePaymentModal
 } from 'flutterwave-react-v3';
+import { Button } from '@mui/material';
 
 export default function Flutterwave() {
-   const config = {
+  const [payment, setPayment] = useState();
+  const config = {
     public_key: 'FLWPUBK-d19c3d98607c6855116185d37aa00bf5-X',
     tx_ref: Date.now(),
     amount: 500,
@@ -13,31 +18,40 @@ export default function Flutterwave() {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'kiizaj2@gmail.com',
-      phone_number: '0703051139',
+      phone_number: '0777338787',
+      // phone_number: '0703051139',
       name: 'odong sunday',
     },
     customizations: {
       title: 'My store',
-      description: 'Payment for items in cart',
+      description: 'Payment for documents',
       logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
     },
   };
 
-  const fwConfig = {
-    ...config,
-    text: 'Pay with Flutterwave!',
-    callback: (response) => {
-       console.log(response);
-      closePaymentModal() // this will close the modal programmatically
-    },
-    onClose: () => {},
-  };
+  const handleFlutterPayment = useFlutterwave(config);
+
+  useEffect(() => {
+    console.log(payment, "payment records!")
+  }, [payment]);
+
 
   return (
-    <div className="App">
-     <h1>Hello Test user</h1>
-      <FlutterWaveButton {...fwConfig} />
-    </div>
+    <Button
+      size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'
+      onClick={() => {
+        handleFlutterPayment({
+          callback: (response) => {
+            console.log(response);
+            setPayment(response)
+            closePaymentModal();
+          },
+          onClose: () => { },
+        });
+      }}
+    >
+      Purchase Document
+    </Button>
   );
 }
 
@@ -61,3 +75,24 @@ export default function Flutterwave() {
     "created_at": "2023-09-21T11:26:31.000Z"
 }
  */
+
+/*
+{
+    "status": "successful",
+    "customer": {
+        "name": "odong sunday",
+        "email": "kiizaj2@gmail.com",
+        "phone_number": "0777338787"
+    },
+    "transaction_id": 1071173239,
+    "tx_ref": 1695300046516,
+    "flw_ref": "LXOG70731695300107500592",
+    "currency": "UGX",
+    "amount": 500,
+    "charged_amount": 500,
+    "charge_response_code": "00",
+    "charge_response_message": "Request successfully processed",
+    "created_at": "2023-09-21T12:41:47.000Z"
+}
+
+*/

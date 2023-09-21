@@ -215,7 +215,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               Enjoying this preview? Purchase document to read the full content.
               <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>Already purchased? <Button size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >Log In</Button></Typography>
             </Typography>
-            <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button>
+            {/* <Button size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>Purchase Document</Button> */}
             <Flutterwave />
           </Stack>}
         </>
