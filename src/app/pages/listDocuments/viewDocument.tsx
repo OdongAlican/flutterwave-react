@@ -91,12 +91,12 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }, []);
 
   const changePage = (offset: number) => {
-    if (pageNumber === 3 && offset > 0) {
+    if (accessToken?.length === 0 &&
+      pageNumber === 3 && offset > 0) {
       setComponent(authComponents.login);
       setOpen(true);
       return;
     };
-
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   };
 
@@ -134,7 +134,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             <FileDownloadIcon />
           </IconButton>
         </Tooltip>}
-        <Tooltip sx={{ ml: 'auto' }} title="Close Preview">
+        <Tooltip sx={{ ml: `${accessToken?.length > 0 ? "auto" : ''}` }} title="Close Preview">
           <IconButton onClick={handleModalClose}>
             <HighlightOffIcon fontSize='medium' />
           </IconButton>
@@ -142,8 +142,10 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       </Box>
       {
         open ? (
-          <AuthModal open={open} handleClose={handleClose} component={`${component === authComponents.register ? authComponents.register : authComponents.login
-            }`} >
+          <AuthModal open={open}
+            handleClose={handleClose}
+            component={`${component === authComponents.register ? authComponents.register : authComponents.login
+              }`} >
             {component === authComponents.login ?
               <Login
                 setAccessTokenFxn={setAccessTokenFxn}
@@ -159,7 +161,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
         <>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ overflowY: 'auto', height: '400px', display: "flex", width: '70%' }}>
-              {pageNumber <= 3 ? <PDFDocumentWrapper>
+              <PDFDocumentWrapper>
                 <Document
                   file={`data:application/pdf;base64,${documentContent}`}
                   onLoadSuccess={onDocumentLoadSuccess}
@@ -187,10 +189,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                     </Page>
                   }
                 </Document>
-              </PDFDocumentWrapper> :
-                (<Box>
-                  Error
-                </Box>)}
+              </PDFDocumentWrapper>
             </Box>
             <Box sx={{ width: "30%", height: '400px' }}>
               <Typography sx={{ textDecoration: 'underline', p: 1, fontWeight: 'bold', fontSize: '14px' }}>Details</Typography>
