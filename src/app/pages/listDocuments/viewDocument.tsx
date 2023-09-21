@@ -134,7 +134,8 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
         open ? (
           <AuthModal open={open} handleClose={handleClose} component={`${component === authComponents.register ? authComponents.register : authComponents.login
             }`} >
-            {component === authComponents.login ? <Login setRegisterModal={activeModalFxn} />
+            {component === authComponents.login ?
+              <Login setRegisterModal={activeModalFxn} handleClose={handleClose} />
               : <SignUp />
             }
           </AuthModal>

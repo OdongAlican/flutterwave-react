@@ -21,11 +21,14 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { apiURL } from '../../../core/api/baseURL';
 import { IAuthState } from './interface';
+import { accessTokenKey } from '../../../utills/constants';
+import { toast } from 'react-toastify';
 interface ILogin {
-    setRegisterModal: () => void
+    setRegisterModal: () => void;
+    handleClose: () => void;
 }
 
-const Login = ({ setRegisterModal }: ILogin) => {
+const Login = ({ setRegisterModal, handleClose }: ILogin) => {
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -46,8 +49,14 @@ const Login = ({ setRegisterModal }: ILogin) => {
     const onSubmit = (formData: IAuthState) => {
         setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
-            console.log(response.data, "response data")
-        }).catch((error: any) => console.log(error))
+            sessionStorage.setItem(accessTokenKey, response.data?.accesstoken);
+            setLoggingIn(false);
+            handleClose();
+            toast.success(`Welcome ${response.data.firstName}`);
+        }).catch((error: any) => {
+            toast.error('Something went wrong. Confirm your credential');
+            setLoggingIn(false);
+        });
     };
 
     return (
@@ -143,7 +152,7 @@ const Login = ({ setRegisterModal }: ILogin) => {
                         </Grid>
                     </Grid>
                     <Box sx={{
-                        width:'100%',
+                        width: '100%',
                         py: 1,
                         textAlign: 'center',
                         cursor: 'pointer'

@@ -1,3 +1,4 @@
+export const accessTokenKey: string = "@access-token";
 export const entriesColumns: Array<{
     value: string;
     label: string
