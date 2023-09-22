@@ -52,46 +52,4 @@ export default function Flutterwave() {
       Purchase Document
     </Button>
   );
-}
-
-/**
- * 
- * {
-    "status": "successful",
-    "customer": {
-        "name": "odong sunday",
-        "email": "kiizaj2@gmail.com",
-        "phone_number": "0703051139"
-    },
-    "transaction_id": 1071089533,
-    "tx_ref": 1695295561800,
-    "flw_ref": "a8db4937-014b-4fb6-9969-8fb2c0c1bcaa",
-    "currency": "UGX",
-    "amount": 500,
-    "charged_amount": 500,
-    "charge_response_code": "00",
-    "charge_response_message": "Approved Or Completed Successfully",
-    "created_at": "2023-09-21T11:26:31.000Z"
-}
- */
-
-/*
-{
-    "status": "successful",
-    "customer": {
-        "name": "odong sunday",
-        "email": "kiizaj2@gmail.com",
-        "phone_number": "0777338787"
-    },
-    "transaction_id": 1071173239,
-    "tx_ref": 1695300046516,
-    "flw_ref": "LXOG70731695300107500592",
-    "currency": "UGX",
-    "amount": 500,
-    "charged_amount": 500,
-    "charge_response_code": "00",
-    "charge_response_message": "Request successfully processed",
-    "created_at": "2023-09-21T12:41:47.000Z"
-}
-
-*/
+};

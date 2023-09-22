@@ -92,7 +92,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }, []);
 
   const changePage = (offset: number) => {
-    if (accessToken?.length === 0 &&
+    if ((!accessToken || (accessToken?.length === 0)) &&
       pageNumber === 3 && offset > 0) {
       setComponent(authComponents.login);
       setOpen(true);
@@ -129,6 +129,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   useEffect(() => {
     const data: string = getAuthTokenFromSessionStorage() as string;
     setAccessToken(data);
+    return () => setAccessToken("");
   }, []);
 
   return (
@@ -207,7 +208,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
             </Box>
           </Box>
-          {accessToken?.length === 0 && <Stack
+          {(!accessToken || (accessToken?.length === 0)) && <Stack
             direction='row'
             sx={{
               bgcolor: grey[100],
