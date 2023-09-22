@@ -8,7 +8,7 @@ import {
 } from 'flutterwave-react-v3';
 import { Button } from '@mui/material';
 
-export default function Flutterwave() {
+export default function Flutterwave({ makePayment }) {
   const [payment, setPayment] = useState();
   const config = {
     public_key: 'FLWPUBK-d19c3d98607c6855116185d37aa00bf5-X',
@@ -31,7 +31,7 @@ export default function Flutterwave() {
   const handleFlutterPayment = useFlutterwave(config);
 
   useEffect(() => {
-    console.log(payment, "payment records!")
+    makePayment(payment);
   }, [payment]);
 
 

@@ -132,6 +132,10 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     return () => setAccessToken("");
   }, []);
 
+  const makePayment = (payment: any) => {
+    console.log(payment, "payment records! main")
+  }
+
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}`, justifyContent: 'space-between' }}>
@@ -208,7 +212,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
             </Box>
           </Box>
-          {(!accessToken || (accessToken?.length === 0)) && <Stack
+          <Stack
             direction='row'
             sx={{
               bgcolor: grey[100],
@@ -219,15 +223,16 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
             }}>
             <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
               Enjoying this preview? Purchase document to read the full content.
-              <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
-                Already purchased?
-                <Button onClick={logIn} size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >
-                  Log In
-                </Button>
-              </Typography>
+              {(!accessToken || (accessToken?.length === 0)) &&
+                <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
+                  Already purchased?
+                  <Button onClick={logIn} size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >
+                    Log In
+                  </Button>
+                </Typography>}
             </Typography>
-            <Flutterwave />
-          </Stack>}
+            <Flutterwave makePayment={makePayment} />
+          </Stack>
         </>
       ) : documentContent &&
         (entry.content.mimeType !== "application/pdf") ? (
