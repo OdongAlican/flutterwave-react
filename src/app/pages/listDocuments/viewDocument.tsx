@@ -17,6 +17,7 @@ import {
   Avatar
 } from '@mui/material';
 import {
+  apiURL,
   baseUrl,
   credentials
 } from '../../../core/api/baseURL';
@@ -63,6 +64,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   const [open, setOpen] = useState<boolean>(false);
   const [component, setComponent] = useState<string>('');
   const [accessToken, setAccessToken] = useState<string>("");
+  const [isPaid, setIsPaid] = useState<boolean>(false);
 
   const handleClose = () => setOpen(false);
   const setAccessTokenFxn = (token: string) => {
@@ -92,18 +94,42 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }, []);
 
   const changePage = (offset: number) => {
-    if ((!accessToken || (accessToken?.length === 0)) &&
+    if (
+      (!accessToken || (accessToken?.length === 0)) &&
       pageNumber === 3 && offset > 0) {
       setComponent(authComponents.login);
       setOpen(true);
       return;
     };
+    if (accessToken?.length > 0 && pageNumber === 3 && offset > 0 && isPaid === false) {
+      console.log("please pay to proceed!!");
+      return;
+    }
     setPageNumber(prevPageNumber => prevPageNumber + offset);
   };
 
   const logIn = () => {
     setComponent(authComponents.login);
     setOpen(true);
+  }
+
+  const checkIfUserHasPaid = () => {
+
+    const token = getAuthTokenFromSessionStorage();
+    const body = { documentId: entry.id };
+    axios.post(`${apiURL}payments/check-payment`, body, {
+      headers: { "Authorization": token }
+    }).then((response) => {
+      handleClose();
+      console.log(response.data?.paymentStatus, "paymentStatus")
+      if (response.data?.paymentStatus === "true") {
+        setIsPaid(true);
+        return
+      }
+      setIsPaid(false);
+    }).catch((error: any) => {
+      console.log(error)
+    });
   }
 
   const activeModalFxn = () => setComponent(authComponents.register);
@@ -132,9 +158,36 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     return () => setAccessToken("");
   }, []);
 
+  useEffect(() => {
+    if (accessToken?.length > 0) {
+      checkIfUserHasPaid();
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (accessToken?.length > 0) {
+      checkIfUserHasPaid();
+    }
+  }, []);
+
   const makePayment = (payment: any) => {
-    console.log(payment, "payment records! main")
+    const token = getAuthTokenFromSessionStorage();
+    const body = { documentId: entry.id };
+
+    axios.post(`${apiURL}payments/make-payment`, body, {
+      headers: { "Authorization": token }
+    }).then((response) => {
+      handleClose();
+      if (payment?.status === "successful") {
+        setIsPaid(true);
+        console.log(response, "response data");
+      }
+    }).catch((error: any) => {
+      console.log(error)
+    });
   }
+
+  console.log(isPaid, "ispaid call");
 
   return (
     <Box>
@@ -221,7 +274,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               display: 'flex',
               alignItems: 'center'
             }}>
-            <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
+            {(isPaid === false) && <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
               Enjoying this preview? Purchase document to read the full content.
               {(!accessToken || (accessToken?.length === 0)) &&
                 <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
@@ -230,8 +283,8 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                     Log In
                   </Button>
                 </Typography>}
-            </Typography>
-            <Flutterwave makePayment={makePayment} />
+            </Typography>}
+            {(isPaid === false) && <Flutterwave makePayment={makePayment} />}
           </Stack>
         </>
       ) : documentContent &&
