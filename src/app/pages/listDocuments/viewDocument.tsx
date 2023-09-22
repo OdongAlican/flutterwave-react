@@ -121,7 +121,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       headers: { "Authorization": token }
     }).then((response) => {
       handleClose();
-      console.log(response.data?.paymentStatus, "paymentStatus")
+      console.log(response.data, 'response data');
       if (response.data?.paymentStatus === "true") {
         setIsPaid(true);
         return
@@ -173,21 +173,17 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   const makePayment = (payment: any) => {
     const token = getAuthTokenFromSessionStorage();
     const body = { documentId: entry.id };
-
-    axios.post(`${apiURL}payments/make-payment`, body, {
-      headers: { "Authorization": token }
-    }).then((response) => {
-      handleClose();
-      if (payment?.status === "successful") {
+    if (payment?.status === "successful") {
+      axios.post(`${apiURL}payments/make-payment`, body, {
+        headers: { "Authorization": token }
+      }).then(() => {
+        handleClose();
         setIsPaid(true);
-        console.log(response, "response data");
-      }
-    }).catch((error: any) => {
-      console.log(error)
-    });
-  }
-
-  console.log(isPaid, "ispaid call");
+      }).catch((error: any) => {
+        console.log(error)
+      });
+    }
+  };
 
   return (
     <Box>
