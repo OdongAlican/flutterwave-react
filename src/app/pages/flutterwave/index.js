@@ -1,6 +1,6 @@
-import { 
-  useEffect, 
-  useState 
+import {
+  useEffect,
+  useState
 } from 'react';
 import {
   useFlutterwave,
@@ -8,7 +8,7 @@ import {
 } from 'flutterwave-react-v3';
 import { Button } from '@mui/material';
 
-export default function Flutterwave({ makePayment, docName }) {
+export default function Flutterwave({ makePayment, docName, inModal }) {
   const [payment, setPayment] = useState();
   const config = {
     public_key: 'FLWPUBK-d19c3d98607c6855116185d37aa00bf5-X',
@@ -37,7 +37,7 @@ export default function Flutterwave({ makePayment, docName }) {
 
   return (
     <Button
-      size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'
+      size='small' sx={{ ml: `${!inModal ? 'auto' : ''}`, height: '35px' }} variant='contained'
       onClick={() => {
         handleFlutterPayment({
           callback: (response) => {

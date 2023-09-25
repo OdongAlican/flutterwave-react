@@ -32,7 +32,10 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import styled from 'styled-components';
 import AuthModal from '../../component/modal/authModal';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { blue, grey } from '@mui/material/colors';
+import {
+  blue,
+  grey
+} from '@mui/material/colors';
 import Logo from '../../../assets/images/Logo.png';
 import Login from '../authentication/login';
 import { authComponents } from '../../../utills/constants';
@@ -101,8 +104,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       setOpen(true);
       return;
     };
-    if (accessToken?.length > 0 && pageNumber === 3 && offset > 0 && isPaid === false) {
-      console.log("please pay to proceed!!");
+    if (accessToken?.length > 0 &&
+      pageNumber === 3 &&
+      offset > 0 &&
+      isPaid === false) {
+      setOpen(true);
       return;
     }
     setPageNumber(prevPageNumber => prevPageNumber + offset);
@@ -200,7 +206,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
         </Box>
       </Box>
       {
-        open ? (
+        open && (!accessToken || accessToken?.length === 0) ? (
           <AuthModal open={open}
             handleClose={handleClose}
             component={`${component === authComponents.register ? authComponents.register : authComponents.login
@@ -212,6 +218,20 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                 handleClose={handleClose} />
               : <SignUp />
             }
+          </AuthModal>
+        ) : open && accessToken?.length > 0 ? (
+          <AuthModal open={open}
+            handleClose={handleClose}>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+              <Typography sx={{ my: 1.5, fontSize: '14px', fontWeight: 'bold'}}>
+                Purchase Document to have a full preview
+              </Typography>
+              <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} />
+            </Box>
           </AuthModal>
         ) : null
       }
@@ -258,27 +278,29 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <DetailsSection title='Judge' value={entry.properties['ldc:judge']?.[0]} />
             </Box>
           </Box>
-          <Stack
-            direction='row'
-            sx={{
-              bgcolor: grey[100],
-              mt: 1,
-              p: 2,
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-            {(isPaid === false) && <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
-              Enjoying this preview? Purchase document to read the full content.
-              {(!accessToken || (accessToken?.length === 0)) &&
-                <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
-                  Already purchased?
-                  <Button onClick={logIn} size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >
-                    Log In
-                  </Button>
-                </Typography>}
-            </Typography>}
-            {(isPaid === false) && <Flutterwave docName={entry.properties['cm:title']} makePayment={makePayment} />}
-          </Stack>
+          {pageNumber === 3
+            && isPaid === false
+            && <Stack
+              direction='row'
+              sx={{
+                bgcolor: grey[100],
+                mt: 1,
+                p: 2,
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+              {(isPaid === false) && <Typography sx={{ fontSize: "15px", fontWeight: "bold", py: 1 }}>
+                Enjoying this preview? Purchase document to read the full content.
+                {(!accessToken || (accessToken?.length === 0)) &&
+                  <Typography sx={{ fontSize: '13px', color: blue[600], mt: 1 }}>
+                    Already purchased?
+                    <Button onClick={logIn} size='small' variant='contained' sx={{ height: '25px', textTransform: 'none', mx: 1 }} >
+                      Log In
+                    </Button>
+                  </Typography>}
+              </Typography>}
+              {(isPaid === false) && <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />}
+            </Stack>}
         </>
       ) : documentContent &&
         (entry.content.mimeType !== "application/pdf") ? (
