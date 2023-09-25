@@ -5,7 +5,10 @@ import {
     FormHelperText,
     Grid,
     InputAdornment,
-    Typography
+    Stack,
+    Typography,
+    IconButton,
+    Tooltip
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
@@ -23,6 +26,10 @@ import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
 import { cyan } from '@mui/material/colors';
 import { toast } from 'react-toastify';
+import ArticleIcon from '@mui/icons-material/Article';
+import DescriptionIcon from '@mui/icons-material/Description';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const SearchComponent = () => {
     const navigate = useNavigate();
@@ -48,7 +55,7 @@ const SearchComponent = () => {
                 navigate(`${ROUTES.LIST_DOCUMENTS}/${formData.query}`);
                 return;
             }
-            return toast.error('Content does not exist')
+            return toast.error('Content does not exist');
         }
     }
 
@@ -60,13 +67,13 @@ const SearchComponent = () => {
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    marginTop={17}
+                    marginTop={14}
                     xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
                         <Typography sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
                             Search For ?
                         </Typography>
-                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '14px', textAlign: 'center',textTransform: 'uppercase' })}>
+                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '14px', textAlign: 'center', textTransform: 'uppercase' })}>
                             Online Law Reporting Portal provides instant and easy search interface
                             <br />
                             through different types of documents
@@ -121,6 +128,28 @@ const SearchComponent = () => {
                                 )}
                             </FormControl>
                         </Box>
+                        <Stack sx={{ justifyContent: 'center', mt: 2 }} direction="row" spacing={2}>
+                            <IconButton>
+                                <Tooltip title="On-Line Law Reports">
+                                    <ArticleIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                </Tooltip>
+                            </IconButton>
+                            <IconButton>
+                                <Tooltip title="High court bulletings">
+                                    <DescriptionIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                </Tooltip>
+                            </IconButton>
+                            <IconButton>
+                                <Tooltip title="Legal amendment">
+                                    <InsertDriveFileIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                </Tooltip>
+                            </IconButton>
+                            <IconButton>
+                                <Tooltip title="Journals">
+                                    <AssignmentIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                </Tooltip>
+                            </IconButton>
+                        </Stack>
                     </form>
                 </Grid>
             </Grid>
