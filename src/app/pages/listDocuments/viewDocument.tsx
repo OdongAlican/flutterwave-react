@@ -114,14 +114,12 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }
 
   const checkIfUserHasPaid = () => {
-
     const token = getAuthTokenFromSessionStorage();
     const body = { documentId: entry.id };
     axios.post(`${apiURL}payments/check-payment`, body, {
       headers: { "Authorization": token }
     }).then((response) => {
       handleClose();
-      console.log(response.data, 'response data');
       if (response.data?.paymentStatus === "true") {
         setIsPaid(true);
         return
@@ -133,7 +131,6 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   }
 
   const activeModalFxn = () => setComponent(authComponents.register);
-
   const previousPage = () => { changePage(-1); }
   const nextPage = () => changePage(1);
 
@@ -280,7 +277,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                   </Button>
                 </Typography>}
             </Typography>}
-            {(isPaid === false) && <Flutterwave makePayment={makePayment} />}
+            {(isPaid === false) && <Flutterwave docName={entry.properties['cm:title']} makePayment={makePayment} />}
           </Stack>
         </>
       ) : documentContent &&

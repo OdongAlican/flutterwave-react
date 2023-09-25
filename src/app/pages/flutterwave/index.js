@@ -8,7 +8,7 @@ import {
 } from 'flutterwave-react-v3';
 import { Button } from '@mui/material';
 
-export default function Flutterwave({ makePayment }) {
+export default function Flutterwave({ makePayment, docName }) {
   const [payment, setPayment] = useState();
   const config = {
     public_key: 'FLWPUBK-d19c3d98607c6855116185d37aa00bf5-X',
@@ -22,7 +22,7 @@ export default function Flutterwave({ makePayment }) {
       name: 'odong sunday',
     },
     customizations: {
-      title: 'My store',
+      title: `Payment for ${docName}`,
       description: 'Payment for documents',
       logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
     },
