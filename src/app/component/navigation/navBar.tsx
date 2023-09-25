@@ -17,6 +17,10 @@ import {
     useNavigate
 } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
+import { IUserState } from '../../pages/authentication/user_slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store';
+import { useEffect, useState } from 'react';
 
 const linkStyles = {
     textTransform: 'uppercase',
@@ -31,6 +35,16 @@ const linkStyles = {
 const NavBar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const { data }: IUserState = useSelector((state: RootState) => state?.userState);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (data?.firstName.length > 0) {
+            console.log(data, "response data inside!!!");
+            setIsAuthenticated(true);
+        }
+    }, [data])
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">
@@ -58,12 +72,12 @@ const NavBar = () => {
                         ...linkStyles,
                         borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
                     }}>Advanced Search</Button>
-                    <Button
+                    {isAuthenticated && <Button
                         onClick={() => navigate(ROUTES.AUDIT_TRAILS)}
                         size='small' sx={{
                             ...linkStyles,
                             borderBottom: pathname.includes(ROUTES.AUDIT_TRAILS) ? `2px solid ${cyan[700]}` : 'none',
-                        }}>Trails</Button>
+                        }}>Trails</Button>}
 
                 </Toolbar>
             </AppBar>

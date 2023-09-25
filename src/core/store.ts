@@ -4,10 +4,12 @@ import {
     Action
 } from '@reduxjs/toolkit';
 import entryReducer from '../app/pages/listDocuments/documents_slice';
+import userReducer from '../app/pages/authentication/user_slice';
 
 export const store = configureStore({
     reducer: {
         entryState: entryReducer,
+        userState: userReducer,
     },
 });
 

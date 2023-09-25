@@ -23,6 +23,8 @@ import { apiURL } from '../../../core/api/baseURL';
 import { IAuthState } from './interface';
 import { accessTokenKey } from '../../../utills/constants';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { loadUser } from './user_slice';
 interface ILogin {
     setRegisterModal: () => void;
     handleClose: () => void;
@@ -32,6 +34,7 @@ interface ILogin {
 const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => {
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,6 +57,8 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
             setAccessTokenFxn(response.data?.accesstoken as string)
             setLoggingIn(false);
             handleClose();
+            console.log(response.data, "response data");
+            dispatch(loadUser(response.data));
             toast.success(`Welcome ${response.data.firstName}`);
         }).catch((error: any) => {
             toast.error('Something went wrong. Confirm your credential');
