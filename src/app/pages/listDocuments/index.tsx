@@ -103,7 +103,7 @@ const ListDocuments = () => {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 10,
+                  pageSize: 5,
                 },
               },
             }}

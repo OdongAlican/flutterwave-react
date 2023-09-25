@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
     Box,
     Button,
@@ -25,7 +25,10 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import { blue, cyan } from '@mui/material/colors';
+import {
+    blue,
+    cyan
+} from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -62,8 +65,7 @@ const SearchComponent = () => {
             }
             return toast.error('Content does not exist');
         }
-    }
-    console.log(docType, "doc type");
+    };
 
     return (
         <Box sx={{ height: '100%' }}>

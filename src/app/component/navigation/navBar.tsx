@@ -58,7 +58,13 @@ const NavBar = () => {
                         ...linkStyles,
                         borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
                     }}>Advanced Search</Button>
-                    
+                    <Button
+                        onClick={() => navigate(ROUTES.AUDIT_TRAILS)}
+                        size='small' sx={{
+                            ...linkStyles,
+                            borderBottom: pathname.includes(ROUTES.AUDIT_TRAILS) ? `2px solid ${cyan[700]}` : 'none',
+                        }}>Trails</Button>
+
                 </Toolbar>
             </AppBar>
         </Box >
