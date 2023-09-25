@@ -3,6 +3,7 @@ import {
     Avatar,
     Box,
     Button,
+    IconButton,
     Toolbar,
     Typography
 } from '@mui/material';
@@ -34,7 +35,9 @@ const NavBar = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">
                 <Toolbar>
-                    <Avatar sx={{ mr: 2, bgcolor: grey[50] }} alt="LDC" src={Logo} />
+                    <IconButton onClick={() => navigate(ROUTES.HOME)}>
+                        <Avatar sx={{ mr: 2, bgcolor: grey[50] }} alt="LDC" src={Logo} />
+                    </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textTransform: 'uppercase', fontSize: '16px', fontWeight: 'bold' }}>
                         Law <span>Development</span> Center
                         <Typography sx={{
@@ -55,6 +58,7 @@ const NavBar = () => {
                         ...linkStyles,
                         borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
                     }}>Advanced Search</Button>
+                    
                 </Toolbar>
             </AppBar>
         </Box >
