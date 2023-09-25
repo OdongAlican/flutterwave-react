@@ -60,3 +60,12 @@ export const authComponents: {
     register: 'resgister',
     login: 'login'
 };
+
+export const documentTypes: {
+    [key: string]: string
+} = {
+    ['legal document']: 'legal document',
+    ['high court bulletings']: 'high court bulletings',
+    ['online law report']: 'online law report',
+    ['journal']: 'journal'
+}

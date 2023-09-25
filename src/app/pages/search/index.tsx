@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -24,16 +25,20 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import { cyan } from '@mui/material/colors';
+import { blue, cyan } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { documentTypes } from '../../../utills/constants';
 
 const SearchComponent = () => {
+    const [docType, setDocType] = useState<string>('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const selectDocumentType = (doc: string) => setDocType(doc);
 
     const {
         handleSubmit,
@@ -58,6 +63,7 @@ const SearchComponent = () => {
             return toast.error('Content does not exist');
         }
     }
+    console.log(docType, "doc type");
 
     return (
         <Box sx={{ height: '100%' }}>
@@ -86,7 +92,7 @@ const SearchComponent = () => {
                                     rules={{ required: true }}
                                     render={({ field: { onChange, onBlur } }) => (
                                         <BootstrapInput
-                                            placeholder='Search text'
+                                            placeholder={`Search ${docType}`}
                                             InputProps={{
                                                 style: {
                                                     padding: 0,
@@ -129,24 +135,44 @@ const SearchComponent = () => {
                             </FormControl>
                         </Box>
                         <Stack sx={{ justifyContent: 'center', mt: 2 }} direction="row" spacing={2}>
-                            <IconButton>
+                            <IconButton onClick={() => selectDocumentType(documentTypes['online law report'])}>
                                 <Tooltip title="On-Line Law Reports">
-                                    <ArticleIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                    <ArticleIcon
+                                        sx={(theme) => ({
+                                            fontSize: '48px',
+                                            color: `${docType === documentTypes['online law report'] ? blue[500] :
+                                                theme.palette.grey[300]}`,
+                                        })} />
                                 </Tooltip>
                             </IconButton>
-                            <IconButton>
+                            <IconButton onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
                                 <Tooltip title="High court bulletings">
-                                    <DescriptionIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                    <DescriptionIcon
+                                        sx={(theme) => ({
+                                            fontSize: '48px',
+                                            color: `${docType === documentTypes['high court bulletings'] ? blue[500] :
+                                                theme.palette.grey[300]}`,
+                                        })} />
                                 </Tooltip>
                             </IconButton>
-                            <IconButton>
-                                <Tooltip title="Legal amendment">
-                                    <InsertDriveFileIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                            <IconButton onClick={() => selectDocumentType(documentTypes['legal document'])}>
+                                <Tooltip title="Legal document">
+                                    <InsertDriveFileIcon
+                                        sx={(theme) => ({
+                                            fontSize: '48px',
+                                            color: `${docType === documentTypes['legal document'] ? blue[500] :
+                                                theme.palette.grey[300]}`,
+                                        })} />
                                 </Tooltip>
                             </IconButton>
-                            <IconButton>
+                            <IconButton onClick={() => selectDocumentType(documentTypes['journal'])}>
                                 <Tooltip title="Journals">
-                                    <AssignmentIcon sx={(theme) => ({ fontSize: '48px', color: theme.palette.grey[300] })} />
+                                    <AssignmentIcon
+                                        sx={(theme) => ({
+                                            fontSize: '48px',
+                                            color: `${docType === documentTypes['journal'] ? blue[500] :
+                                                theme.palette.grey[300]}`,
+                                        })} />
                                 </Tooltip>
                             </IconButton>
                         </Stack>
