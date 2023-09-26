@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -42,6 +42,7 @@ const SearchComponent = () => {
     const dispatch = useDispatch();
 
     const selectDocumentType = (doc: string) => setDocType(doc);
+    useEffect(() => { setDocType(documentTypes['online law report']) }, []);
 
     const {
         handleSubmit,
@@ -78,10 +79,17 @@ const SearchComponent = () => {
                     marginTop={14}
                     xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
-                        <Typography sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
-                            Search For ?
+                        <Typography
+                            sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
+                            Search For
                         </Typography>
-                        <Typography sx={(theme) => ({ color: theme.palette.grey[50], fontSize: '14px', textAlign: 'center', textTransform: 'uppercase' })}>
+                        <Typography
+                            sx={(theme) => ({
+                                color: theme.palette.grey[50],
+                                fontSize: '15px',
+                                textAlign: 'center',
+                                textTransform: 'none'
+                            })}>
                             Online Law Reporting Portal provides instant and easy search interface
                             <br />
                             through different types of documents
@@ -98,29 +106,24 @@ const SearchComponent = () => {
                                             InputProps={{
                                                 style: {
                                                     padding: 0,
-                                                    borderRadius: 25,
-                                                    height: '45px',
                                                     backgroundColor: '#fff',
                                                     paddingRight: '10px'
                                                 },
-                                                startAdornment: <InputAdornment position="start">
+                                                endAdornment: <InputAdornment position="end">
                                                     <Button
                                                         type='submit'
                                                         variant='contained'
                                                         sx={{
-                                                            bgcolor: cyan[700],
+                                                            width: '100px',
                                                             borderRadius: 25,
-                                                            width: '200px',
-                                                            borderTopRightRadius: '0',
-                                                            borderBottomRightRadius: '0',
-                                                            height: '45px'
+                                                            textTransform: 'none'
                                                         }}
                                                     >
                                                         Search
                                                     </Button>
                                                 </InputAdornment>,
-                                                endAdornment: <InputAdornment position='end' >
-                                                    <SearchIcon />
+                                                startAdornment: <InputAdornment position='end' >
+                                                    <SearchIcon fontSize='small' sx={{ mx: 1 }} />
                                                 </InputAdornment>
                                             }}
                                             id='query'
@@ -142,7 +145,7 @@ const SearchComponent = () => {
                                     <ArticleIcon
                                         sx={(theme) => ({
                                             fontSize: '48px',
-                                            color: `${docType === documentTypes['online law report'] ? blue[500] :
+                                            color: `${docType === documentTypes['online law report'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>
@@ -152,7 +155,7 @@ const SearchComponent = () => {
                                     <DescriptionIcon
                                         sx={(theme) => ({
                                             fontSize: '48px',
-                                            color: `${docType === documentTypes['high court bulletings'] ? blue[500] :
+                                            color: `${docType === documentTypes['high court bulletings'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>
@@ -162,7 +165,7 @@ const SearchComponent = () => {
                                     <InsertDriveFileIcon
                                         sx={(theme) => ({
                                             fontSize: '48px',
-                                            color: `${docType === documentTypes['legal document'] ? blue[500] :
+                                            color: `${docType === documentTypes['legal document'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>
@@ -172,7 +175,7 @@ const SearchComponent = () => {
                                     <AssignmentIcon
                                         sx={(theme) => ({
                                             fontSize: '48px',
-                                            color: `${docType === documentTypes['journal'] ? blue[500] :
+                                            color: `${docType === documentTypes['journal'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>

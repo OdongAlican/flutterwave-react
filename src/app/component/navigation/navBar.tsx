@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import Logo from '../../../assets/images/Logo.png';
 import {
-    cyan,
+    blue,
     grey
 } from '@mui/material/colors';
 import {
@@ -23,9 +23,8 @@ import { RootState } from '../../../core/store';
 import { useEffect, useState } from 'react';
 
 const linkStyles = {
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
     color: '#FFF',
-    borderRadius: '0px ',
     '&:hover': {
         color: 'white',
         borderBotton: `2px solid red`
@@ -57,7 +56,7 @@ const NavBar = () => {
                         <Typography sx={{
                             fontSize: '12px',
                             fontWeight: 'bold',
-                            color: `${cyan[700]}`
+                            color: `${blue[700]}`
                         }}>A Tradition of Legal Excellence</Typography>
                     </Typography>
                     <Button
@@ -65,18 +64,18 @@ const NavBar = () => {
                         size='small' sx={{
                             ...linkStyles,
                             mr: '10px',
-                            borderBottom: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
+                            backgroundColor: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                             p: 0
                         }}>Home</Button>
                     <Button size='small' sx={{
                         ...linkStyles,
-                        borderBottom: pathname.includes(ROUTES.LIST_DOCUMENTS) ? `2px solid ${cyan[700]}` : 'none',
+                        backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
                     {isAuthenticated && <Button
                         onClick={() => navigate(ROUTES.AUDIT_TRAILS)}
                         size='small' sx={{
                             ...linkStyles,
-                            borderBottom: pathname.includes(ROUTES.AUDIT_TRAILS) ? `2px solid ${cyan[700]}` : 'none',
+                            backgroundColor: pathname.includes(ROUTES.AUDIT_TRAILS) ? blue[700] : 'none',
                         }}>Trails</Button>}
 
                 </Toolbar>
