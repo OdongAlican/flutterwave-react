@@ -29,8 +29,8 @@ import { blue } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+// import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+// import AssignmentIcon from '@mui/icons-material/Assignment';
 import { documentTypes } from '../../../utills/constants';
 
 const SearchComponent = () => {
@@ -160,7 +160,7 @@ const SearchComponent = () => {
                                         })} />
                                 </Tooltip>
                             </IconButton>
-                            <IconButton onClick={() => selectDocumentType(documentTypes['legal document'])}>
+                            {/* <IconButton onClick={() => selectDocumentType(documentTypes['legal document'])}>
                                 <Tooltip title="Legal document">
                                     <InsertDriveFileIcon
                                         sx={(theme) => ({
@@ -169,8 +169,8 @@ const SearchComponent = () => {
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>
-                            </IconButton>
-                            <IconButton onClick={() => selectDocumentType(documentTypes['journal'])}>
+                            </IconButton> */}
+                            {/* <IconButton onClick={() => selectDocumentType(documentTypes['journal'])}>
                                 <Tooltip title="Journals">
                                     <AssignmentIcon
                                         sx={(theme) => ({
@@ -179,7 +179,7 @@ const SearchComponent = () => {
                                                 theme.palette.grey[300]}`,
                                         })} />
                                 </Tooltip>
-                            </IconButton>
+                            </IconButton> */}
                         </Stack>
                     </form>
                 </Grid>

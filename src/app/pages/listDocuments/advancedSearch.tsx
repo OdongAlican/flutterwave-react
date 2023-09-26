@@ -7,12 +7,15 @@ import {
     Typography
 } from '@mui/material';
 import SelectOption from '../../component/form/selectOptions';
-import { courtTypes, documentTypesArray } from '../../../utills/constants';
+import {
+    courtTypes,
+    documentTypesArray
+} from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
 import LoopIcon from '@mui/icons-material/Loop';
 
 interface IAdvancedSearch {
-    onDocumentTypeChange: (text: string) => void;
+    onDocumentTypeChange: (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>) => void;
 }
 
 const AdvancedSearch = ({
@@ -29,9 +32,10 @@ const AdvancedSearch = ({
                             <Grid item xs={12}>
                                 <FormControl size='small' fullWidth>
                                     <SelectOption
+                                        name='docType'
                                         options={documentTypesArray}
                                         label='Select Document type'
-                                        onChange={onDocumentTypeChange}
+                                        onChange={(e: any) => onDocumentTypeChange(e)}
                                         id='filterEntries'
                                     />
                                 </FormControl>
@@ -39,9 +43,10 @@ const AdvancedSearch = ({
                             <Grid item xs={12}>
                                 <FormControl size='small' fullWidth>
                                     <SelectOption
+                                        name='court'
                                         options={courtTypes}
                                         label='Select Court'
-                                        onChange={onDocumentTypeChange}
+                                        onChange={(e: any) => onDocumentTypeChange(e)}
                                         id='filterEntries'
                                     />
                                 </FormControl>
@@ -49,8 +54,10 @@ const AdvancedSearch = ({
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
                                     <BootstrapInput
+                                        name='judge'
                                         size='small'
                                         label='Judge'
+                                        onChange={(e: any) => onDocumentTypeChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,
@@ -66,8 +73,10 @@ const AdvancedSearch = ({
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
                                     <BootstrapInput
+                                        name='parties'
                                         size='small'
                                         label='Parties'
+                                        onChange={(e: any) => onDocumentTypeChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,
@@ -83,8 +92,10 @@ const AdvancedSearch = ({
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
                                     <BootstrapInput
+                                        name='year'
                                         size='small'
                                         label='Year'
+                                        onChange={(e: any) => onDocumentTypeChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,

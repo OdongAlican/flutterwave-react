@@ -9,7 +9,6 @@ import {
     IconButton,
     Button,
     CircularProgress,
-    Link
 } from '@mui/material';
 import {
     useForm,
@@ -28,8 +27,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import { toast } from 'react-toastify';
 
-const SignUp = () => {
+const SignUp = ({ handleClose }: {
+    handleClose: () => void;
+}) => {
     const [register, setRegister] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -53,6 +55,8 @@ const SignUp = () => {
         axios.post(`${apiURL}auth/register`, formData).then((response) => {
             console.log(response.data, "response data");
             setRegister(true);
+            toast.success('Successfully registered');
+            handleClose();
         }).catch((error: any) => {
             setRegister(true);
             console.log(error);
@@ -311,7 +315,7 @@ const SignUp = () => {
                                         size='large'
                                         sx={{
                                             textTransform: 'none',
-                                            width: '100%',
+                                            width: '200px',
                                             px: 2
                                         }}
                                         startIcon={
@@ -327,14 +331,6 @@ const SignUp = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Box sx={{
-                        width: '100%',
-                        py: 1,
-                        textAlign: 'center',
-                        cursor: 'pointer'
-                    }}>
-                        <Link>Sign in</Link>
-                    </Box>
                 </Grid>
             </form>
         </Box>

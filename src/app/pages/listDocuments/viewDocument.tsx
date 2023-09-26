@@ -216,7 +216,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                 setAccessTokenFxn={setAccessTokenFxn}
                 setRegisterModal={activeModalFxn}
                 handleClose={handleClose} />
-              : <SignUp />
+              : <SignUp handleClose={handleClose} />
             }
           </AuthModal>
         ) : open && accessToken?.length > 0 ? (

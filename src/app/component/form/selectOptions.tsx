@@ -17,9 +17,10 @@ interface SelectProps {
     label: string;
     onChange: (value: string) => void;
     id: string;
+    name?: string
 }
 
-const SelectOption: React.FC<SelectProps> = ({ options, label, onChange, id }) => {
+const SelectOption: React.FC<SelectProps> = ({ options, label, onChange, id, name }) => {
     const handleChange = (event: SelectChangeEvent<string>) => {
         onChange(event.target.value as string);
     };
@@ -34,6 +35,7 @@ const SelectOption: React.FC<SelectProps> = ({ options, label, onChange, id }) =
         <Box component='div' sx={{ width: '100%' }}>
             <InputLabel id={id}>{label}</InputLabel>
             <Select
+                name={name}
                 sx={{ width: '100%' }}
                 label={label}
                 id={id}

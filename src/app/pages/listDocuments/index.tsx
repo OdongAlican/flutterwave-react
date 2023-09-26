@@ -5,8 +5,7 @@ React, {
 } from 'react';
 import {
   Box,
-  Card,
-  Typography
+  Card
 } from '@mui/material';
 import { fetchDocuments } from './documents_api';
 import {
@@ -34,6 +33,14 @@ import ModalComponent from '../../component/modal';
 import DocumentViewer from './viewDocument';
 import AdvancedSearch from './advancedSearch';
 
+const initialAdvancedSreachState = {
+  docType: '',
+  court: '',
+  judge: '',
+  parties: '',
+  year: ''
+}
+
 const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
 
@@ -41,6 +48,13 @@ const ListDocuments = () => {
   const [filterState, setFilterState] = useState<string>(entriesColumns[0].value);
   const [filteredEntries, setFilteredEntries] = useState<Array<IEntry>>(entriesMocks);
   const { query } = useParams();
+  const [advancedSearchState, setAdvancedSearchState] = useState<{
+    docType: string;
+    court: string;
+    judge: string;
+    parties: string;
+    year: string;
+  }>(initialAdvancedSreachState)
 
   const {
     columns,
@@ -73,7 +87,21 @@ const ListDocuments = () => {
     setFilteredEntries(searchTableData(filterValue, filterState, entries));
   };
 
-  const onDocumentTypeChange = (text: string) => console.log(text, "document type")
+  const onDocumentTypeChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>) => {
+    if(e.currentTarget){
+      const { name, value } = e.currentTarget
+    setAdvancedSearchState(() => {
+      return {
+        ...advancedSearchState,
+        [name]: value
+      }
+    });
+    }
+  };
+
+  useEffect(() => {
+    console.log(advancedSearchState, "advancedSearchState")
+  }, [advancedSearchState])
 
   return (
     <Box sx={{ bgcolor: '#FFF' }}>
