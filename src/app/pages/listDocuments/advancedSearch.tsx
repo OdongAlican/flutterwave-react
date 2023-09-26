@@ -7,9 +7,8 @@ import {
     Typography
 } from '@mui/material';
 import SelectOption from '../../component/form/selectOptions';
-import { courtTypes, documentTypesArray, entriesColumns } from '../../../utills/constants';
+import { courtTypes, documentTypesArray } from '../../../utills/constants';
 import { BootstrapInput } from '../../component/form/input';
-import DatePickerValue from '../../component/form/datePicker';
 import LoopIcon from '@mui/icons-material/Loop';
 
 interface IAdvancedSearch {
@@ -48,8 +47,59 @@ const AdvancedSearch = ({
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
+                                <FormControl fullWidth>
+                                    <BootstrapInput
+                                        size='small'
+                                        label='Judge'
+                                        InputProps={{
+                                            style: {
+                                                padding: 0,
+                                                backgroundColor: '#fff',
+                                                paddingRight: '10px'
+                                            }
+                                        }}
+                                        id='query'
+                                        variant="outlined"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl fullWidth>
+                                    <BootstrapInput
+                                        size='small'
+                                        label='Parties'
+                                        InputProps={{
+                                            style: {
+                                                padding: 0,
+                                                backgroundColor: '#fff',
+                                                paddingRight: '10px'
+                                            }
+                                        }}
+                                        id='query'
+                                        variant="outlined"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl fullWidth>
+                                    <BootstrapInput
+                                        size='small'
+                                        label='Year'
+                                        InputProps={{
+                                            style: {
+                                                padding: 0,
+                                                backgroundColor: '#fff',
+                                                paddingRight: '10px'
+                                            }
+                                        }}
+                                        id='query'
+                                        variant="outlined"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <FormControl size='small' fullWidth>
-                                    <Button sx={{ px: 2 }} startIcon={<LoopIcon />} variant="contained">Refresh</Button>
+                                    <Button sx={{ px: 2 }} startIcon={<LoopIcon />} variant="contained">Search</Button>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -60,4 +110,4 @@ const AdvancedSearch = ({
     )
 }
 
-export default AdvancedSearch
+export default AdvancedSearch;
