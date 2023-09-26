@@ -5,7 +5,8 @@ React, {
 } from 'react';
 import {
   Box,
-  Card
+  Card,
+  Typography
 } from '@mui/material';
 import { fetchDocuments } from './documents_api';
 import {
@@ -31,6 +32,7 @@ import {
 } from '../../../utills/constants';
 import ModalComponent from '../../component/modal';
 import DocumentViewer from './viewDocument';
+import AdvancedSearch from './advancedSearch';
 
 const ListDocuments = () => {
   const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
@@ -72,7 +74,7 @@ const ListDocuments = () => {
   };
 
   return (
-    <Box sx={{ px: 4 }}>
+    <Box sx={{ bgcolor: '#FFF' }}>
       {
         state === crudState.read.value ? (
           <ModalComponent open={open} handleClose={handleClose} >
@@ -80,9 +82,9 @@ const ListDocuments = () => {
           </ModalComponent>
         ) : null
       }
-      <Card sx={{ pb: 2 }} >
+      <Card sx={{ pb: 2, display: 'flex' }} >
         <Box
-          sx={{ width: '100%', overflowX: 'auto' }}
+          sx={{ width: '75%', overflowX: 'auto' }}
         >
           <StyledDataGrid
             {...filteredEntries}
@@ -108,6 +110,22 @@ const ListDocuments = () => {
               },
             }}
             pageSizeOptions={[5, 10, 15]}
+
+          />
+        </Box>
+        <Box
+          sx={(theme) => ({
+            p: 2,
+            width: '25%',
+            borderLeft: `1px solid ${theme.palette.grey[300]}`
+          })}>
+          <AdvancedSearch
+            filteredEntries={filteredEntries}
+            onNameChange={onNameChange}
+            onDateChange={onDateChange}
+            refresh={refresh}
+            onColumnNameChange={onColumnNameChange}
+            filterState={filterState}
           />
         </Box>
       </Card>

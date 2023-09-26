@@ -24,6 +24,7 @@ import { useEffect, useState } from 'react';
 
 const linkStyles = {
     textTransform: 'capitalize',
+    paddingX: 1,
     color: '#FFF',
     '&:hover': {
         color: 'white',

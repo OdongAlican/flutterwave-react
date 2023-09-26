@@ -3,6 +3,7 @@ import { Typography, styled } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+    borderRadius: '0px !important',
     display: "flex",
     "& .MuiDataGrid-columnHeaders": {
         fontSize: 15,
@@ -41,6 +42,6 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 export const RowTypography = styled(Typography)(({ theme }) => ({
     color: theme.palette.grey[800],
     fontWeight: 400,
-    fontSize: '15px',
+    fontSize: '14px',
     lineHeight: '19.07px'
 }));

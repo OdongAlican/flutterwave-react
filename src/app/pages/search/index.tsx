@@ -25,10 +25,7 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import {
-    blue,
-    cyan
-} from '@mui/material/colors';
+import { blue } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -81,7 +78,10 @@ const SearchComponent = () => {
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
                         <Typography
                             sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
-                            Search For
+                            <span style={{
+                                padding: '0 10px',
+                                borderRight: '4px solid #FFF'
+                            }}>Search For</span>
                         </Typography>
                         <Typography
                             sx={(theme) => ({
