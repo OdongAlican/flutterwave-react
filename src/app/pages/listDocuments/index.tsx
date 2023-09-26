@@ -73,6 +73,8 @@ const ListDocuments = () => {
     setFilteredEntries(searchTableData(filterValue, filterState, entries));
   };
 
+  const onDocumentTypeChange = (text: string) => console.log(text, "document type")
+
   return (
     <Box sx={{ bgcolor: '#FFF' }}>
       {
@@ -84,7 +86,7 @@ const ListDocuments = () => {
       }
       <Card sx={{ pb: 2, display: 'flex' }} >
         <Box
-          sx={{ width: '75%', overflowX: 'auto' }}
+          sx={{ width: '70%', overflowX: 'auto' }}
         >
           <StyledDataGrid
             {...filteredEntries}
@@ -116,16 +118,11 @@ const ListDocuments = () => {
         <Box
           sx={(theme) => ({
             p: 2,
-            width: '25%',
+            width: '30%',
             borderLeft: `1px solid ${theme.palette.grey[300]}`
           })}>
           <AdvancedSearch
-            filteredEntries={filteredEntries}
-            onNameChange={onNameChange}
-            onDateChange={onDateChange}
-            refresh={refresh}
-            onColumnNameChange={onColumnNameChange}
-            filterState={filterState}
+            onDocumentTypeChange={onDocumentTypeChange}
           />
         </Box>
       </Card>
