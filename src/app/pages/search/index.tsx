@@ -95,14 +95,17 @@ const SearchComponent = () => {
                             <span>Search For
                                 <Typewriter
                                     options={{
-                                        autoStart: true,
-                                        loop: true,
+                                        strings: [
+                                            `<span style="color: ${blue[500]}">Uganda Law Reports</span>`,
+                                            `<span style="color: ${blue[500]}">High Court Bulletings</span>`,
+                                          ],
+                                          autoStart: true,
+                                          loop: true,
+                                          delay: 50,
+                                          skipAddStyles: true
                                     }}
                                     onInit={(typewriter) => {
                                         typewriter
-                                            .typeString("Uganda Law Report")
-                                            .deleteAll()
-                                            .typeString("High Court Bulletings")
                                             .deleteAll()
                                             .start()
                                             .pauseFor(2500)
