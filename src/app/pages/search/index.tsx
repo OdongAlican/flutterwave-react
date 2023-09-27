@@ -87,22 +87,28 @@ const SearchComponent = () => {
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    marginTop={5}
+                    marginTop={3}
                     xs={12}>
-                    <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
+                    <form style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }} autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
                         <Typography
-                            sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
-                            <span>Search For
+                            sx={{ color: '#fff', fontSize: '3rem', textAlign: 'center', fontWeight: 700 }}>
+                            <Typography sx={{
+                                display: 'flex',
+                                fontSize: '3rem',
+                                fontWeight: 700
+                            }}> <Typography sx={{ mr: 2, fontSize: '3rem', fontWeight: 700 }}>
+                                Search For
+                                </Typography> 
                                 <Typewriter
                                     options={{
                                         strings: [
-                                            `<span style="color: ${blue[500]}">Uganda Law Reports</span>`,
-                                            `<span style="color: ${blue[500]}">High Court Bulletings</span>`,
-                                          ],
-                                          autoStart: true,
-                                          loop: true,
-                                          delay: 50,
-                                          skipAddStyles: true
+                                            `<span style="color: ${blue[700]}">Uganda Law Reports</span>`,
+                                            `<span style="color: ${blue[700]}">High Court Bulletings</span>`,
+                                        ],
+                                        autoStart: true,
+                                        loop: true,
+                                        delay: 50,
+                                        skipAddStyles: true
                                     }}
                                     onInit={(typewriter) => {
                                         typewriter
@@ -111,7 +117,7 @@ const SearchComponent = () => {
                                             .pauseFor(2500)
                                     }}
                                 />
-                            </span>
+                            </Typography>
                         </Typography>
                         <Typography
                             sx={(theme) => ({
@@ -124,7 +130,7 @@ const SearchComponent = () => {
                             <br />
                             through different types of documents
                         </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mt: 3, width: '65%' }}>
                             <FormControl fullWidth>
                                 <Controller
                                     control={control}
@@ -135,6 +141,7 @@ const SearchComponent = () => {
                                             placeholder={`Search ${docType}`}
                                             InputProps={{
                                                 style: {
+                                                    height: '90px',
                                                     padding: 0,
                                                     backgroundColor: '#fff',
                                                     paddingRight: '10px'
