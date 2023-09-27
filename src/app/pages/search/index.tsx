@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 import {
     Box,
     Button,
@@ -29,9 +32,20 @@ import { blue } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
-// import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-// import AssignmentIcon from '@mui/icons-material/Assignment';
 import { documentTypes } from '../../../utills/constants';
+import Typewriter from "typewriter-effect";
+
+const IconButtonStyle = {
+    bgcolor: "#FFF",
+    borderRadius: '5px !important',
+    p: 3,
+    pt: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    '&:hover': {
+        bgcolor: blue[500]
+    }
+};
 
 const SearchComponent = () => {
     const [docType, setDocType] = useState<string>('');
@@ -73,15 +87,28 @@ const SearchComponent = () => {
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    marginTop={14}
+                    marginTop={5}
                     xs={12}>
                     <form autoComplete='false' onSubmit={handleSubmit(onSubmit)}>
                         <Typography
                             sx={{ color: '#fff', fontSize: '38px', textAlign: 'center' }}>
-                            <span style={{
-                                padding: '0 10px',
-                                borderRight: '4px solid #FFF'
-                            }}>Search For</span>
+                            <span>Search For
+                                <Typewriter
+                                    options={{
+                                        autoStart: true,
+                                        loop: true,
+                                    }}
+                                    onInit={(typewriter) => {
+                                        typewriter
+                                            .typeString("Uganda Law Report")
+                                            .deleteAll()
+                                            .typeString("High Court Bulletings")
+                                            .deleteAll()
+                                            .start()
+                                            .pauseFor(2500)
+                                    }}
+                                />
+                            </span>
                         </Typography>
                         <Typography
                             sx={(theme) => ({
@@ -140,46 +167,42 @@ const SearchComponent = () => {
                             </FormControl>
                         </Box>
                         <Stack sx={{ justifyContent: 'center', mt: 2 }} direction="row" spacing={2}>
-                            <IconButton onClick={() => selectDocumentType(documentTypes['online law report'])}>
-                                <Tooltip title="On-Line Law Reports">
-                                    <ArticleIcon
-                                        sx={(theme) => ({
-                                            fontSize: '48px',
-                                            color: `${docType === documentTypes['online law report'] ? blue[700] :
-                                                theme.palette.grey[300]}`,
-                                        })} />
-                                </Tooltip>
-                            </IconButton>
-                            <IconButton onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
-                                <Tooltip title="High court bulletings">
+                            <Tooltip title="High court bulletings">
+                                <IconButton
+                                    sx={IconButtonStyle}
+                                    onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
                                     <DescriptionIcon
+                                        fontSize='large'
                                         sx={(theme) => ({
-                                            fontSize: '48px',
                                             color: `${docType === documentTypes['high court bulletings'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
-                                </Tooltip>
-                            </IconButton>
-                            {/* <IconButton onClick={() => selectDocumentType(documentTypes['legal document'])}>
-                                <Tooltip title="Legal document">
-                                    <InsertDriveFileIcon
+                                    <Typography sx={{
+                                        textTransform: "uppercase",
+                                        fontSize: '13px',
+                                        mt: 2,
+                                        fontWeight: 'bold'
+                                    }}>High court <br /> bulletings</Typography>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="On-Line Law Reports">
+                                <IconButton
+                                    sx={IconButtonStyle}
+                                    onClick={() => selectDocumentType(documentTypes['online law report'])}>
+                                    <ArticleIcon
+                                        fontSize='large'
                                         sx={(theme) => ({
-                                            fontSize: '48px',
-                                            color: `${docType === documentTypes['legal document'] ? blue[700] :
+                                            color: `${docType === documentTypes['online law report'] ? blue[700] :
                                                 theme.palette.grey[300]}`,
                                         })} />
-                                </Tooltip>
-                            </IconButton> */}
-                            {/* <IconButton onClick={() => selectDocumentType(documentTypes['journal'])}>
-                                <Tooltip title="Journals">
-                                    <AssignmentIcon
-                                        sx={(theme) => ({
-                                            fontSize: '48px',
-                                            color: `${docType === documentTypes['journal'] ? blue[700] :
-                                                theme.palette.grey[300]}`,
-                                        })} />
-                                </Tooltip>
-                            </IconButton> */}
+                                    <Typography sx={{
+                                        textTransform: "uppercase",
+                                        fontSize: '13px',
+                                        mt: 2,
+                                        fontWeight: 'bold'
+                                    }}>Uganda Law <br /> Reports</Typography>
+                                </IconButton>
+                            </Tooltip>
                         </Stack>
                     </form>
                 </Grid>
