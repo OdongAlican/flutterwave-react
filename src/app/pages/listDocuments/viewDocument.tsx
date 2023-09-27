@@ -191,7 +191,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   return (
     <Box>
       <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}`, justifyContent: 'space-between' }}>
-        <Avatar alt="LDC" src={Logo} />
+        <Avatar sx={{ width: 60, height: 60 }} alt="LDC" src={Logo} />
         <Box>
           {accessToken?.length === 0 && <Tooltip title="Download document">
             <IconButton onClick={handleDownloadLinkClick}>
@@ -299,7 +299,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                     </Button>
                   </Typography>}
               </Typography>}
-              {(isPaid === false) && <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />}
+              {(isPaid === false && accessToken?.length) && <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />}
             </Stack>}
         </>
       ) : documentContent &&

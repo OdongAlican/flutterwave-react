@@ -6,18 +6,41 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+const styles = {
+  container: {
+    position: 'relative',
+    height: '100%',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: `url(${Background})`,
+  },
+};
+
 const App = () => {
   return (
-    <Box sx={{
-      height: '100%',
-      backgroundImage: `url(${Background})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: '100% 100%'
-    }}>
-      <ToastContainer />
-      <Router>
-        <AppRoutes />
-      </Router>
+    <Box sx={styles.container}>
+      <Box sx={styles.overlay}>
+        <Box sx={{
+          ...styles.backgroundImage
+        }}>
+          <ToastContainer />
+          <Router>
+            <AppRoutes />
+          </Router>
+        </Box>
+      </Box>
     </Box>
   );
 }

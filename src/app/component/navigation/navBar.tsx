@@ -61,7 +61,7 @@ const NavBar = () => {
                         <Typography sx={{
                             fontSize: '12px',
                             fontWeight: 'bold',
-                            color: `${blue[700]}`
+                            color: `${blue[400]}`
                         }}>A Tradition of Legal Excellence</Typography>
                     </Typography>
                     <Button

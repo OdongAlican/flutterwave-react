@@ -105,8 +105,8 @@ const SearchComponent = () => {
                                 <Typewriter
                                     options={{
                                         strings: [
-                                            `<span style="color: ${blue[700]}">Uganda Law Reports</span>`,
-                                            `<span style="color: ${blue[700]}">High Court Bulletings</span>`,
+                                            `<span style="color: ${blue[400]}">Uganda Law Reports</span>`,
+                                            `<span style="color: ${blue[400]}">High Court Bulletings</span>`,
                                         ],
                                         autoStart: true,
                                         loop: true,
