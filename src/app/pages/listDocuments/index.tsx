@@ -19,6 +19,7 @@ import { entriesMocks } from '../../../utills/mocks';
 import ColumnComponent from './columns';
 import CustomGridToolBar from './gridToolBar';
 import {
+  determineSearchKey,
   formatDate,
   searchTableData
 } from '../../../utills/helpers';
@@ -110,19 +111,20 @@ const ListDocuments = () => {
   };
 
 
-  const onSubmit = async () => {
+  const onSubmit = async (from: string) => {
     /**
      - Search the content with the first data in the object.
      - Then filter the response with the result retrieved.
      */
-
-    const data: IResponseData = await fetchDocuments(inputValue as string);
+    const data: IResponseData = await fetchDocuments(
+      from === 'top' ? (inputValue as string)
+        : determineSearchKey(advancedSearchState));
 
     if (data?.status === 200
       && data.statusText === 'OK') {
       const res = data.data.list.entries.map((entry) => entry.entry);
       dispatch(loadData(res));
-      if (res.length < 0) {
+      if (res.length === 0) {
         return toast.error('Content does not exist');
       }
     }
@@ -151,7 +153,7 @@ const ListDocuments = () => {
               <Button
                 type='button'
                 variant='contained'
-                onClick={onSubmit}
+                onClick={() => onSubmit('top')}
                 sx={{
                   width: '100px',
                   borderRadius: 25,
@@ -220,7 +222,7 @@ const ListDocuments = () => {
             <AdvancedSearch
               handleChange={handleChange}
               handleSelectChange={handleSelectChange}
-              onSubmit={onSubmit}
+              onSubmit={() => onSubmit('filter')}
             />
           </Box>
         </Card>

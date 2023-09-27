@@ -46,3 +46,25 @@ export const formatDate = (date: string): string => {
     const timeFormat = result[1].split(':');
     return `${result[0]}  ${timeFormat[0]}:${timeFormat[1]}`;
 };
+
+interface IAdvancedSearch {
+    docType: string;
+    court: string;
+    judge: string;
+    parties: string;
+    year: string;
+}
+
+export const determineSearchKey = ({
+    docType,
+    court,
+    judge,
+    parties,
+    year
+}: IAdvancedSearch): string => {
+    return docType?.length > 0 ? docType
+        : court?.length > 0 ? court
+            : judge?.length > 0 ? judge
+                : parties?.length > 0 ? parties
+                    : year
+};
