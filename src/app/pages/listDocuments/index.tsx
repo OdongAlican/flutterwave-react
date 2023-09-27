@@ -87,21 +87,18 @@ const ListDocuments = () => {
     setFilteredEntries(searchTableData(filterValue, filterState, entries));
   };
 
-  const onDocumentTypeChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>) => {
-    if(e.currentTarget){
-      const { name, value } = e.currentTarget
-    setAdvancedSearchState(() => {
-      return {
-        ...advancedSearchState,
-        [name]: value
-      }
-    });
-    }
-  };
+  const handleSelectChange = (value: string, name: string) => {
+    setAdvancedSearchState(
+      { ...advancedSearchState, [name]: value }
+    )
+  }
 
-  useEffect(() => {
-    console.log(advancedSearchState, "advancedSearchState")
-  }, [advancedSearchState])
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget
+    setAdvancedSearchState(
+      { ...advancedSearchState, [name]: value }
+    )
+  };
 
   return (
     <Box sx={{ bgcolor: '#FFF' }}>
@@ -150,7 +147,8 @@ const ListDocuments = () => {
             borderLeft: `1px solid ${theme.palette.grey[300]}`
           })}>
           <AdvancedSearch
-            onDocumentTypeChange={onDocumentTypeChange}
+            handleChange={handleChange}
+            handleSelectChange={handleSelectChange}
           />
         </Box>
       </Card>

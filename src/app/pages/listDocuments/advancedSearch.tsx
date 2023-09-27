@@ -15,11 +15,12 @@ import { BootstrapInput } from '../../component/form/input';
 import LoopIcon from '@mui/icons-material/Loop';
 
 interface IAdvancedSearch {
-    onDocumentTypeChange: (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>) => void;
+    handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+    handleSelectChange: (value: string, name: string) => void;
 }
 
 const AdvancedSearch = ({
-    onDocumentTypeChange,
+    handleChange, handleSelectChange
 }: IAdvancedSearch) => {
 
     return (
@@ -35,7 +36,7 @@ const AdvancedSearch = ({
                                         name='docType'
                                         options={documentTypesArray}
                                         label='Select Document type'
-                                        onChange={(e: any) => onDocumentTypeChange(e)}
+                                        onChange={handleSelectChange}
                                         id='filterEntries'
                                     />
                                 </FormControl>
@@ -46,7 +47,7 @@ const AdvancedSearch = ({
                                         name='court'
                                         options={courtTypes}
                                         label='Select Court'
-                                        onChange={(e: any) => onDocumentTypeChange(e)}
+                                        onChange={handleSelectChange}
                                         id='filterEntries'
                                     />
                                 </FormControl>
@@ -57,7 +58,7 @@ const AdvancedSearch = ({
                                         name='judge'
                                         size='small'
                                         label='Judge'
-                                        onChange={(e: any) => onDocumentTypeChange(e)}
+                                        onChange={(e: any) => handleChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,
@@ -76,7 +77,7 @@ const AdvancedSearch = ({
                                         name='parties'
                                         size='small'
                                         label='Parties'
-                                        onChange={(e: any) => onDocumentTypeChange(e)}
+                                        onChange={(e: any) => handleChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,
@@ -95,7 +96,7 @@ const AdvancedSearch = ({
                                         name='year'
                                         size='small'
                                         label='Year'
-                                        onChange={(e: any) => onDocumentTypeChange(e)}
+                                        onChange={(e: any) => handleChange(e)}
                                         InputProps={{
                                             style: {
                                                 padding: 0,

@@ -15,14 +15,14 @@ interface ISelectOption {
 interface SelectProps {
     options: ISelectOption[];
     label: string;
-    onChange: (value: string) => void;
+    onChange: (value: string, name: string) => void;
     id: string;
     name?: string
 }
 
 const SelectOption: React.FC<SelectProps> = ({ options, label, onChange, id, name }) => {
-    const handleChange = (event: SelectChangeEvent<string>) => {
-        onChange(event.target.value as string);
+    const handleChange = (event: SelectChangeEvent<string>, name: string) => {
+        onChange(event.target.value as string, name);
     };
 
     const determineAttributes = (option: ISelectOption, attr: string) => {
@@ -39,7 +39,7 @@ const SelectOption: React.FC<SelectProps> = ({ options, label, onChange, id, nam
                 sx={{ width: '100%' }}
                 label={label}
                 id={id}
-                onChange={handleChange}>
+                onChange={(e: any) => handleChange(e, (name as string))}>
                 {options.map((option) => (
                     <MenuItem
                         key={determineAttributes(option, 'key')}

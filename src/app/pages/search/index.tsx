@@ -27,7 +27,7 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import { blue, grey } from '@mui/material/colors';
+import { blue } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import { documentTypes } from '../../../utills/constants';
 import Typewriter from "typewriter-effect";
