@@ -158,7 +158,8 @@ const SearchComponent = () => {
                                                             width: '100px',
                                                             borderRadius: 25,
                                                             textTransform: 'none',
-                                                            height: '45px'
+                                                            height: '45px',
+                                                            background: blue[400]
                                                         }}
                                                     >
                                                         Search
@@ -188,8 +189,7 @@ const SearchComponent = () => {
                                     onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
                                     <i style={{
                                         fontSize: '40px',
-                                        color: `${docType === documentTypes['high court bulletings']
-                                            ? blue[500] : grey[300]}`,
+                                        color:  blue[500]
                                     }}
                                         className="fa fa-files-o"></i>
                                     <Typography sx={{
@@ -206,8 +206,7 @@ const SearchComponent = () => {
                                     onClick={() => selectDocumentType(documentTypes['online law report'])}>
                                     <i style={{
                                         fontSize: '40px',
-                                        color: `${docType === documentTypes['online law report']
-                                            ? blue[500] : grey[300]}`,
+                                        color: blue[500]
                                     }}
                                         className="fa fa-files-o"></i>
                                     <Typography sx={{
