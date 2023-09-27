@@ -11,7 +11,6 @@ import {
     InputAdornment,
     Stack,
     Typography,
-    IconButton,
     Tooltip
 } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -28,11 +27,10 @@ import { IResponseData } from '../listDocuments/interface';
 import { fetchDocuments } from '../listDocuments/documents_api';
 import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
-import { blue } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import { documentTypes } from '../../../utills/constants';
 import Typewriter from "typewriter-effect";
-import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
 import { StyledIconButton } from '../../component/styled/iconButton';
 
 const IconButtonStyle = {
@@ -81,6 +79,8 @@ const SearchComponent = () => {
             return toast.error('Content does not exist');
         }
     };
+
+    console.log(docType, "doc type")
 
     return (
         <Box sx={{ height: '100%' }}>
@@ -182,16 +182,16 @@ const SearchComponent = () => {
                             </FormControl>
                         </Box>
                         <Stack sx={{ justifyContent: 'center', mt: 2 }} direction="row" spacing={2}>
-                            <Tooltip title="High court bulletings">
+                            <Tooltip title="High Court Bulletings">
                                 <StyledIconButton
                                     sx={IconButtonStyle}
                                     onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
-                                    <FileCopyOutlinedIcon
-                                        fontSize='large'
-                                        sx={(theme) => ({
-                                            color: `${docType === documentTypes['high court bulletings'] ? blue[500] :
-                                                theme.palette.grey[300]}`,
-                                        })} />
+                                    <i style={{
+                                        fontSize: '40px',
+                                        color: `${docType === documentTypes['high court bulletings']
+                                            ? blue[500] : grey[300]}`,
+                                    }}
+                                        className="fa fa-files-o"></i>
                                     <Typography sx={{
                                         textTransform: "uppercase",
                                         fontSize: '13px',
@@ -204,12 +204,12 @@ const SearchComponent = () => {
                                 <StyledIconButton
                                     sx={IconButtonStyle}
                                     onClick={() => selectDocumentType(documentTypes['online law report'])}>
-                                    <FileCopyOutlinedIcon
-                                        fontSize='large'
-                                        sx={(theme) => ({
-                                            color: `${docType === documentTypes['online law report'] ? blue[500] :
-                                                theme.palette.grey[300]}`
-                                        })} />
+                                    <i style={{
+                                        fontSize: '40px',
+                                        color: `${docType === documentTypes['online law report']
+                                            ? blue[500] : grey[300]}`,
+                                    }}
+                                        className="fa fa-files-o"></i>
                                     <Typography sx={{
                                         textTransform: "uppercase",
                                         fontSize: '13px',
