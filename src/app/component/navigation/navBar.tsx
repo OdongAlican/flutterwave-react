@@ -24,11 +24,10 @@ import { useEffect, useState } from 'react';
 
 const linkStyles = {
     textTransform: 'capitalize',
-    paddingX: 1,
     color: '#FFF',
+    borderRadius: '30px',
     '&:hover': {
         color: 'white',
-        borderBotton: `2px solid red`
     }
 };
 
@@ -62,19 +61,19 @@ const NavBar = () => {
                     </Typography>
                     <Button
                         onClick={() => navigate(ROUTES.HOME)}
-                        size='small' sx={{
+                        size='medium' sx={{
                             ...linkStyles,
                             mr: '10px',
                             backgroundColor: !pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
-                            p: 0
+                            px: 3
                         }}>Home</Button>
-                    <Button size='small' sx={{
+                    <Button size='medium' sx={{
                         ...linkStyles,
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
                     {isAuthenticated && <Button
                         onClick={() => navigate(ROUTES.AUDIT_TRAILS)}
-                        size='small' sx={{
+                        size='medium' sx={{
                             ...linkStyles,
                             backgroundColor: pathname.includes(ROUTES.AUDIT_TRAILS) ? blue[700] : 'none',
                         }}>Trails</Button>}

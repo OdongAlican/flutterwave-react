@@ -97,8 +97,8 @@ const SearchComponent = () => {
                                 fontSize: '3rem',
                                 fontWeight: 700
                             }}> <Typography sx={{ mr: 2, fontSize: '3rem', fontWeight: 700 }}>
-                                Search For
-                                </Typography> 
+                                    Search For
+                                </Typography>
                                 <Typewriter
                                     options={{
                                         strings: [
@@ -122,7 +122,7 @@ const SearchComponent = () => {
                         <Typography
                             sx={(theme) => ({
                                 color: theme.palette.grey[50],
-                                fontSize: '15px',
+                                fontSize: '1rem',
                                 textAlign: 'center',
                                 textTransform: 'none'
                             })}>
@@ -144,7 +144,8 @@ const SearchComponent = () => {
                                                     height: '90px',
                                                     padding: 0,
                                                     backgroundColor: '#fff',
-                                                    paddingRight: '10px'
+                                                    paddingRight: '25px',
+                                                    paddingLeft: '15px',
                                                 },
                                                 endAdornment: <InputAdornment position="end">
                                                     <Button
@@ -153,7 +154,8 @@ const SearchComponent = () => {
                                                         sx={{
                                                             width: '100px',
                                                             borderRadius: 25,
-                                                            textTransform: 'none'
+                                                            textTransform: 'none',
+                                                            height: '45px'
                                                         }}
                                                     >
                                                         Search
