@@ -80,8 +80,6 @@ const SearchComponent = () => {
         }
     };
 
-    console.log(docType, "doc type")
-
     return (
         <Box sx={{ height: '100%' }}>
             <Grid sx={{ height: '100%', display: 'flex', alignItems: 'center' }} container xs={12}>

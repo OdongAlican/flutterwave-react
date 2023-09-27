@@ -17,10 +17,11 @@ import LoopIcon from '@mui/icons-material/Loop';
 interface IAdvancedSearch {
     handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
     handleSelectChange: (value: string, name: string) => void;
+    onSubmit: () => void;
 }
 
 const AdvancedSearch = ({
-    handleChange, handleSelectChange
+    handleChange, handleSelectChange, onSubmit
 }: IAdvancedSearch) => {
 
     return (
@@ -111,7 +112,9 @@ const AdvancedSearch = ({
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControl size='small' fullWidth>
-                                    <Button sx={{ px: 2 }} startIcon={<LoopIcon />} variant="contained">Search</Button>
+                                    <Button 
+                                    onClick={onSubmit}
+                                    sx={{ px: 2 }} startIcon={<LoopIcon />} variant="contained">Search</Button>
                                 </FormControl>
                             </Grid>
                         </Grid>

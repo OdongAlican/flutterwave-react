@@ -57,7 +57,6 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
             setAccessTokenFxn(response.data?.accesstoken as string)
             setLoggingIn(false);
             handleClose();
-            console.log(response.data, "response data");
             dispatch(loadUser(response.data));
             toast.success(`Welcome ${response.data.firstName}`);
         }).catch((error: any) => {
