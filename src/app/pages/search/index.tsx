@@ -30,20 +30,23 @@ import { useDispatch } from 'react-redux';
 import { loadData } from '../listDocuments/documents_slice';
 import { blue } from '@mui/material/colors';
 import { toast } from 'react-toastify';
-import ArticleIcon from '@mui/icons-material/Article';
-import DescriptionIcon from '@mui/icons-material/Description';
 import { documentTypes } from '../../../utills/constants';
 import Typewriter from "typewriter-effect";
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
+import { StyledIconButton } from '../../component/styled/iconButton';
 
 const IconButtonStyle = {
     bgcolor: "#FFF",
     borderRadius: '5px !important',
     p: 3,
-    pt: 1,
+    pt: 2,
+    fontWeight: 'bold',
+    pb: 6,
     display: 'flex',
     flexDirection: 'column',
     '&:hover': {
-        bgcolor: blue[500]
+        bgcolor: blue[500],
+        color: '#FFF',
     }
 };
 
@@ -180,13 +183,13 @@ const SearchComponent = () => {
                         </Box>
                         <Stack sx={{ justifyContent: 'center', mt: 2 }} direction="row" spacing={2}>
                             <Tooltip title="High court bulletings">
-                                <IconButton
+                                <StyledIconButton
                                     sx={IconButtonStyle}
                                     onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
-                                    <DescriptionIcon
+                                    <FileCopyOutlinedIcon
                                         fontSize='large'
                                         sx={(theme) => ({
-                                            color: `${docType === documentTypes['high court bulletings'] ? blue[700] :
+                                            color: `${docType === documentTypes['high court bulletings'] ? blue[500] :
                                                 theme.palette.grey[300]}`,
                                         })} />
                                     <Typography sx={{
@@ -195,17 +198,17 @@ const SearchComponent = () => {
                                         mt: 2,
                                         fontWeight: 'bold'
                                     }}>High court <br /> bulletings</Typography>
-                                </IconButton>
+                                </StyledIconButton>
                             </Tooltip>
                             <Tooltip title="On-Line Law Reports">
-                                <IconButton
+                                <StyledIconButton
                                     sx={IconButtonStyle}
                                     onClick={() => selectDocumentType(documentTypes['online law report'])}>
-                                    <ArticleIcon
+                                    <FileCopyOutlinedIcon
                                         fontSize='large'
                                         sx={(theme) => ({
-                                            color: `${docType === documentTypes['online law report'] ? blue[700] :
-                                                theme.palette.grey[300]}`,
+                                            color: `${docType === documentTypes['online law report'] ? blue[500] :
+                                                theme.palette.grey[300]}`
                                         })} />
                                     <Typography sx={{
                                         textTransform: "uppercase",
@@ -213,7 +216,7 @@ const SearchComponent = () => {
                                         mt: 2,
                                         fontWeight: 'bold'
                                     }}>Uganda Law <br /> Reports</Typography>
-                                </IconButton>
+                                </StyledIconButton>
                             </Tooltip>
                         </Stack>
                     </form>

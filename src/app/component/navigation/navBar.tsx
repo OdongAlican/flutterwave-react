@@ -49,7 +49,12 @@ const NavBar = () => {
             <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">
                 <Toolbar>
                     <IconButton onClick={() => navigate(ROUTES.HOME)}>
-                        <Avatar sx={{ mr: 2, bgcolor: grey[50] }} alt="LDC" src={Logo} />
+                        <Avatar sx={{
+                            width: 56,
+                            height: 56,
+                            mr: 2,
+                            bgcolor: grey[50]
+                        }} alt="LDC" src={Logo} />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textTransform: 'uppercase', fontSize: '16px', fontWeight: 'bold' }}>
                         Law <span>Development</span> Center
