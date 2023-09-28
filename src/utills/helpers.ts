@@ -69,20 +69,40 @@ export const determineSearchKey = ({
                     : year
 };
 
-export const filterDataTableAdvanced = (data: IAdvancedSearch, filteredEntries: Array<IEntry>) => {
+export const filterDataTableAdvanced = (data: IAdvancedSearch, filteredEntries: Array<IEntry>): Array<IEntry> => {
 
-    const test: Array<IEntry> = filteredEntries.filter(entry => {
-        console.log(data.court?.length, "court data!!")
+    const response: Array<IEntry> = filteredEntries.filter(entry => {
+
         if (
             (data.court?.length > 0 &&
                 entry.properties['ldc:court']?.length > 0 &&
-                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1)
+                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1) &&
+
+            (data.judge?.length > 0 &&
+                entry.properties['ldc:judge']?.length > 0 &&
+                entry.properties['ldc:judge'][0]?.toLowerCase().indexOf(data.judge?.toLowerCase()) !== -1)
         ) {
-            console.log(entry.properties, 'response')
+            return entry
+        }
+
+        else if (
+            (data.court?.length === 0 &&
+                entry.properties['ldc:court']?.length > 0 &&
+                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1) &&
+            (data.judge?.length > 0)
+        ) {
+            return entry
+        }
+
+        if (
+            (data.court?.length === 0) &&
+            (data.judge?.length > 0 &&
+                entry.properties['ldc:judge']?.length > 0 &&
+                entry.properties['ldc:judge'][0]?.toLowerCase().indexOf(data.judge?.toLowerCase()) !== -1)
+        ) {
             return entry
         }
     });
 
-    console.log(test, "test response")
-    return test
+    return response
 };

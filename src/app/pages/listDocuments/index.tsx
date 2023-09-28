@@ -113,7 +113,7 @@ const ListDocuments = () => {
   };
 
   const filterCurrentData = () => {
-    console.log(filterDataTableAdvanced(advancedSearchState, filteredEntries))
+    setFilteredEntries(filterDataTableAdvanced(advancedSearchState, filteredEntries))
   }
 
   const onSubmit = async (from: string) => {
