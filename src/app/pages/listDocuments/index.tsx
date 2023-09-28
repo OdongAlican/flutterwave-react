@@ -7,7 +7,8 @@ import {
   Box,
   Button,
   Card,
-  InputAdornment
+  InputAdornment,
+  Typography
 } from '@mui/material';
 import { fetchDocuments } from './documents_api';
 import {
@@ -134,9 +135,20 @@ const ListDocuments = () => {
     <>
       <Box sx={{
         display: 'flex',
-        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: "column",
         my: 3,
       }}>
+        <Typography sx={{
+          mr: 2, fontSize: '3rem', 
+          fontWeight: 700, color: '#FFF',
+          textAlign: 'center',
+          width: '65%'
+        }}>
+          Law Development Center
+          Online Directory
+          Advanced Search
+        </Typography>
         <BootstrapInput
           style={{ width: '65%' }}
           onChange={(e: any) => setInputValues(e.target.value)}

@@ -21,6 +21,7 @@ import { IUserState } from '../../pages/authentication/user_slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store';
 import { useEffect, useState } from 'react';
+import { removeAuthTokenFromSessionStorage } from '../../../utills/session';
 
 const linkStyles = {
     textTransform: 'capitalize',
@@ -39,10 +40,15 @@ const NavBar = () => {
 
     useEffect(() => {
         if (data?.firstName.length > 0) {
-            console.log(data, "response data inside!!!");
             setIsAuthenticated(true);
         }
-    }, [data])
+    }, [data]);
+
+    const logOut = () => {
+        setIsAuthenticated(false);
+        removeAuthTokenFromSessionStorage();
+        navigate(ROUTES.HOME);
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -77,11 +83,11 @@ const NavBar = () => {
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
                     {isAuthenticated && <Button
-                        onClick={() => navigate(ROUTES.AUDIT_TRAILS)}
+                        onClick={logOut}
                         size='medium' sx={{
                             ...linkStyles,
                             backgroundColor: pathname.includes(ROUTES.AUDIT_TRAILS) ? blue[700] : 'none',
-                        }}>Trails</Button>}
+                        }}>Log Out</Button>}
 
                 </Toolbar>
             </AppBar>
