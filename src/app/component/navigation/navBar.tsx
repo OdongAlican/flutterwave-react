@@ -44,6 +44,12 @@ const NavBar = () => {
         }
     }, [data]);
 
+    useEffect(() => {
+        if (data?.firstName.length > 0) {
+            setIsAuthenticated(true);
+        }
+    }, []);
+
     const logOut = () => {
         setIsAuthenticated(false);
         removeAuthTokenFromSessionStorage();

@@ -193,7 +193,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       <Box sx={{ width: '100%', display: 'flex', borderBottom: `1px solid ${grey[400]}`, justifyContent: 'space-between' }}>
         <Avatar sx={{ width: 60, height: 60 }} alt="LDC" src={Logo} />
         <Box>
-          {accessToken?.length === 0 && <Tooltip title="Download document">
+          {(accessToken?.length > 0 && isPaid) && <Tooltip title="Download document">
             <IconButton onClick={handleDownloadLinkClick}>
               <FileDownloadIcon />
             </IconButton>
