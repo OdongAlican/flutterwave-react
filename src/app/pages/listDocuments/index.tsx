@@ -21,6 +21,7 @@ import ColumnComponent from './columns';
 import CustomGridToolBar from './gridToolBar';
 import {
   determineSearchKey,
+  filterDataTableAdvanced,
   formatDate,
   searchTableData
 } from '../../../utills/helpers';
@@ -111,6 +112,9 @@ const ListDocuments = () => {
     )
   };
 
+  const filterCurrentData = () => {
+    console.log(filterDataTableAdvanced(advancedSearchState, filteredEntries))
+  }
 
   const onSubmit = async (from: string) => {
     /**
@@ -234,7 +238,7 @@ const ListDocuments = () => {
             <AdvancedSearch
               handleChange={handleChange}
               handleSelectChange={handleSelectChange}
-              onSubmit={() => onSubmit('filter')}
+              onSubmit={() => filterCurrentData()}
             />
           </Box>
         </Card>

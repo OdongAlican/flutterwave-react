@@ -68,3 +68,21 @@ export const determineSearchKey = ({
                 : parties?.length > 0 ? parties
                     : year
 };
+
+export const filterDataTableAdvanced = (data: IAdvancedSearch, filteredEntries: Array<IEntry>) => {
+
+    const test: Array<IEntry> = filteredEntries.filter(entry => {
+        console.log(data.court?.length, "court data!!")
+        if (
+            (data.court?.length > 0 &&
+                entry.properties['ldc:court']?.length > 0 &&
+                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1)
+        ) {
+            console.log(entry.properties, 'response')
+            return entry
+        }
+    });
+
+    console.log(test, "test response")
+    return test
+};
