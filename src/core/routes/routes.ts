@@ -1,9 +1,11 @@
 const HOME: string = "/";
 const LIST_DOCUMENTS: string = "list-documents";
-const AUDIT_TRAILS: string = "audit-trails";
+const MY_DOCUMENTS: string = "my-documents";
+const BOOKMARKS: string = "bookmarks";
 
 export const ROUTES = {
     HOME,
     LIST_DOCUMENTS,
-    AUDIT_TRAILS
+    MY_DOCUMENTS,
+    BOOKMARKS
 };

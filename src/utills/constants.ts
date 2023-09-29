@@ -126,3 +126,11 @@ export const courtTypes: Array<{
             label: 'African Court on Human and Peoples Rights'
         }
     ]
+
+export const pages: Array<
+    { key: string, id: number }
+> = [
+        { key: 'Bookmarks', id: 1 },
+        { key: 'My Douments', id: 2 },
+        { key: 'Logout', id: 3 },
+    ]

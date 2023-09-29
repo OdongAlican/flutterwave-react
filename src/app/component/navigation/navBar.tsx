@@ -1,10 +1,14 @@
+import { useContext, useState } from 'react';
 import {
     AppBar,
     Avatar,
     Box,
     Button,
     IconButton,
+    Menu,
+    MenuItem,
     Toolbar,
+    Tooltip,
     Typography
 } from '@mui/material';
 import Logo from '../../../assets/images/Logo.png';
@@ -17,9 +21,9 @@ import {
     useNavigate
 } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
-import { useContext } from 'react';
 import { removeAuthTokenFromSessionStorage } from '../../../utills/session';
 import { LoginContext } from '../../context/login';
+import { pages } from '../../../utills/constants';
 
 const linkStyles = {
     textTransform: 'capitalize',
@@ -33,14 +37,29 @@ const linkStyles = {
 const NavBar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const { isAuth, setAuth } = useContext(LoginContext);
 
-    const logOut = () => {
+    const logOut = (page: number) => {
+        if (page !== 3) return;
         setAuth(false)
         removeAuthTokenFromSessionStorage();
         navigate(ROUTES.HOME);
+    };
+
+    const mangePageRouting = (page: number) => {
+        if(page === 1) navigate(ROUTES.BOOKMARKS);
+        if(page === 2) navigate(ROUTES.MY_DOCUMENTS);
     }
+
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -74,13 +93,42 @@ const NavBar = () => {
                         ...linkStyles,
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
-                    {isAuth && <Button
-                        onClick={logOut}
-                        size='medium' sx={{
-                            ...linkStyles,
-                            backgroundColor: pathname.includes(ROUTES.AUDIT_TRAILS) ? blue[700] : 'none',
-                        }}>Log Out</Button>}
+                    {isAuth && <Box sx={{ flexGrow: 0, ml: 2 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar
+                                    alt="Odong Sunday" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {pages.map((page) => (
+                                <MenuItem
+                                    key={page.id} onClick={() => {
+                                        handleCloseUserMenu()
+                                        page.id === 3 ? logOut(page.id) : mangePageRouting(page.id)
+                                    }}>
+                                    <Typography
 
+                                        textAlign="center">{page.key}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>}
                 </Toolbar>
             </AppBar>
         </Box >

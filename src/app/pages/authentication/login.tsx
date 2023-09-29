@@ -37,15 +37,13 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const dispatch = useDispatch();
     
-    const { isAuth, setAuth } = useContext(LoginContext);
+    const { setAuth } = useContext(LoginContext);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
-    console.log(isAuth, "is authenticated");
-    
     const {
         control,
         handleSubmit,

@@ -8,6 +8,7 @@ import ListDocuments from '../../app/pages/listDocuments';
 import SearchComponent from '../../app/pages/search';
 import AuditTrails from '../../app/pages/trails';
 import { PrivateRoute } from './privateRoute';
+import BookMarks from '../../app/pages/bookmarks';
 
 const AppRoutes = () => {
     return (
@@ -16,7 +17,10 @@ const AppRoutes = () => {
                 <Route index element={<SearchComponent />} />
                 <Route path={`${ROUTES.LIST_DOCUMENTS}/:query`} element={<ListDocuments />} />
                 <Route element={<PrivateRoute />}>
-                    <Route path={ROUTES.AUDIT_TRAILS} element={<AuditTrails />} />
+                    <Route path={ROUTES.MY_DOCUMENTS} element={<AuditTrails />} />
+                </Route>
+                <Route element={<PrivateRoute />}>
+                    <Route path={ROUTES.BOOKMARKS} element={<BookMarks />} />
                 </Route>
             </Route>
         </Routes>
