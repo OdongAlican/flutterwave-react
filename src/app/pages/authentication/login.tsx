@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     Grid,
     Box,
@@ -25,6 +25,7 @@ import { accessTokenKey } from '../../../utills/constants';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './user_slice';
+import { LoginContext } from '../../context/login';
 interface ILogin {
     setRegisterModal: () => void;
     handleClose: () => void;
@@ -35,12 +36,16 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const dispatch = useDispatch();
+    
+    const { isAuth, setAuth } = useContext(LoginContext);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
+    console.log(isAuth, "is authenticated");
+    
     const {
         control,
         handleSubmit,
@@ -54,7 +59,8 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
         setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
             sessionStorage.setItem(accessTokenKey, response.data?.accesstoken);
-            setAccessTokenFxn(response.data?.accesstoken as string)
+            setAccessTokenFxn(response.data?.accesstoken as string);
+            setAuth(true)
             setLoggingIn(false);
             handleClose();
             dispatch(loadUser(response.data));

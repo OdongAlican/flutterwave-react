@@ -184,10 +184,13 @@ const SearchComponent = () => {
                             <Tooltip title="High Court Bulletings">
                                 <StyledIconButton
                                     sx={IconButtonStyle}
-                                    onClick={() => selectDocumentType(documentTypes['high court bulletings'])}>
+                                    onClick={() => {
+                                        navigate(`${ROUTES.LIST_DOCUMENTS}/high`)
+                                        selectDocumentType(documentTypes['high court bulletings'])
+                                    }}>
                                     <i style={{
                                         fontSize: '40px',
-                                        color:  blue[500]
+                                        color: blue[500]
                                     }}
                                         className="fa fa-files-o"></i>
                                     <Typography sx={{
@@ -201,7 +204,10 @@ const SearchComponent = () => {
                             <Tooltip title="On-Line Law Reports">
                                 <StyledIconButton
                                     sx={IconButtonStyle}
-                                    onClick={() => selectDocumentType(documentTypes['online law report'])}>
+                                    onClick={() => {
+                                        navigate(`${ROUTES.LIST_DOCUMENTS}/law`)
+                                        selectDocumentType(documentTypes['online law report'])
+                                        }}>
                                     <i style={{
                                         fontSize: '40px',
                                         color: blue[500]

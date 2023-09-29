@@ -17,11 +17,9 @@ import {
     useNavigate
 } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
-import { IUserState } from '../../pages/authentication/user_slice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { removeAuthTokenFromSessionStorage } from '../../../utills/session';
+import { LoginContext } from '../../context/login';
 
 const linkStyles = {
     textTransform: 'capitalize',
@@ -35,23 +33,11 @@ const linkStyles = {
 const NavBar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const { data }: IUserState = useSelector((state: RootState) => state?.userState);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (data?.firstName.length > 0) {
-            setIsAuthenticated(true);
-        }
-    }, [data]);
-
-    useEffect(() => {
-        if (data?.firstName.length > 0) {
-            setIsAuthenticated(true);
-        }
-    }, []);
+    const { isAuth, setAuth } = useContext(LoginContext);
 
     const logOut = () => {
-        setIsAuthenticated(false);
+        setAuth(false)
         removeAuthTokenFromSessionStorage();
         navigate(ROUTES.HOME);
     }
@@ -88,7 +74,7 @@ const NavBar = () => {
                         ...linkStyles,
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
-                    {isAuthenticated && <Button
+                    {isAuth && <Button
                         onClick={logOut}
                         size='medium' sx={{
                             ...linkStyles,

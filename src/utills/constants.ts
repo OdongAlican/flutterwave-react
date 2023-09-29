@@ -1,4 +1,5 @@
 export const accessTokenKey: string = "@access-token";
+export const isAuthenticated: string = "@is-authenticated";
 export const entriesColumns: Array<{
     value: string;
     label: string
