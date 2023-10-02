@@ -39,7 +39,7 @@ const NavBar = () => {
     const navigate = useNavigate();
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const { isAuth, setAuth } = useContext(LoginContext);
+    const { isAuth, setAuth, currentUserData } = useContext(LoginContext);
 
     const logOut = (page: number) => {
         if (page !== 3) return;
@@ -49,8 +49,8 @@ const NavBar = () => {
     };
 
     const mangePageRouting = (page: number) => {
-        if(page === 1) navigate(ROUTES.BOOKMARKS);
-        if(page === 2) navigate(ROUTES.MY_DOCUMENTS);
+        if (page === 1) navigate(ROUTES.BOOKMARKS);
+        if (page === 2) navigate(ROUTES.MY_DOCUMENTS);
     }
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -94,10 +94,9 @@ const NavBar = () => {
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
                     {isAuth && <Box sx={{ flexGrow: 0, ml: 2 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title={currentUserData.lastName}>
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar
-                                    alt="Odong Sunday" src="/static/images/avatar/2.jpg" />
+                                <Avatar >{currentUserData?.lastName?.charAt(0)}</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -1,4 +1,5 @@
 export const accessTokenKey: string = "@access-token";
+export const currentUser: string = "@current-user";
 export const isAuthenticated: string = "@is-authenticated";
 export const entriesColumns: Array<{
     value: string;

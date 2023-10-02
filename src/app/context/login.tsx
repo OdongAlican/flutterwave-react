@@ -4,13 +4,28 @@ import {
     useEffect,
     useState
 } from "react";
-import { getAuthTokenFromSessionStorage } from "../../utills/session";
+import {
+    getAuthTokenFromSessionStorage,
+    getUserFromSessionStorage
+} from "../../utills/session";
 import { isAuthenticated } from "../../utills/constants";
+import { IRegister } from "../pages/authentication/interface";
 
+const initialUser = {
+    firstname: "",
+    lastname: "",
+    phonenumber: "",
+    location: "",
+    email: "",
+    password: "",
+    username: "",
+}
 interface ILoginContext {
     isAuth: boolean;
     token: string;
     setAuth: (token: boolean) => void;
+    setCurrentUserData: (user: IRegister) => void;
+    currentUserData: IRegister
 }
 
 interface ILoginProvider {
@@ -19,28 +34,40 @@ interface ILoginProvider {
 
 export const LoginContext = createContext<ILoginContext>({
     isAuth: false,
+    setCurrentUserData: () => { },
     token: "",
-    setAuth: () => { }
+    setAuth: () => { },
+    currentUserData: initialUser
 });
 
 const LoginProvider = ({ children }: ILoginProvider) => {
     const [isAuth, setAuth] = useState<boolean>((getAuthTokenFromSessionStorage() as string)?.length > 0 ? true : false)
+    const [currentUserData, setCurrentUserData] = useState<IRegister>(initialUser)
     const [token, setToken] = useState<string>("");
 
     useEffect(() => {
         sessionStorage.setItem(isAuthenticated, JSON.stringify(isAuth))
+        // sessionStorage.setItem(currentUser, JSON.stringify(currentUserData));
     }, [isAuth]);
 
     useEffect(() => {
         const data = getAuthTokenFromSessionStorage() as string;
+        const userData = getUserFromSessionStorage();
+        setCurrentUserData(userData)
+        console.log(userData, "user data")
         setToken(data);
     }, []);
+
+    console.log(currentUserData, "currentUserData!!");
 
     return (
         <LoginContext.Provider value={{
             isAuth,
             token,
-            setAuth
+            setAuth,
+            setCurrentUserData,
+            currentUserData
+
         }}>
             {children}
         </LoginContext.Provider>
