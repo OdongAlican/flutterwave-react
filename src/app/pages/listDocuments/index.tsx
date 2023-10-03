@@ -117,10 +117,6 @@ const ListDocuments = () => {
   }
 
   const onSubmit = async (from: string) => {
-    /**
-     - Search the content with the first data in the object.
-     - Then filter the response with the result retrieved.
-     */
     const data: IResponseData = await fetchDocuments(
       from === 'top' ? (inputValue as string)
         : determineSearchKey(advancedSearchState));

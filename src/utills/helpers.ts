@@ -71,39 +71,51 @@ export const determineSearchKey = ({
 
 export const filterDataTableAdvanced = (data: IAdvancedSearch, filteredEntries: Array<IEntry>): Array<IEntry> => {
 
-    const response: Array<IEntry> = filteredEntries.filter(entry => {
+    let response: Array<IEntry> = filteredEntries;
 
-        if (
-            (data.court?.length > 0 &&
-                entry.properties['ldc:court']?.length > 0 &&
-                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1) &&
+    if (data.court.length > 0) {
+        response = filteredEntries.filter(entry => {
+            if (
+                (entry.properties['ldc:court']?.length > 0 &&
+                    entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1)
+            ) {
+                return entry
+            }
+        })
+    }
 
-            (data.judge?.length > 0 &&
-                entry.properties['ldc:judge']?.length > 0 &&
-                entry.properties['ldc:judge'][0]?.toLowerCase().indexOf(data.judge?.toLowerCase()) !== -1)
-        ) {
-            return entry
-        }
+    if (data.judge.length > 0) {
+        response = response.filter(entry => {
+            if (
+                (entry.properties['ldc:judge']?.length > 0 &&
+                    entry.properties['ldc:judge'][0]?.toLowerCase().indexOf(data.judge?.toLowerCase()) !== -1)
+            ) {
+                return entry
+            }
+        })
+    }
 
-        else if (
-            (data.court?.length === 0 &&
-                entry.properties['ldc:court']?.length > 0 &&
-                entry.properties['ldc:court']?.toLowerCase().indexOf(data.court?.toLowerCase()) !== -1) &&
-            (data.judge?.length > 0)
-        ) {
-            return entry
-        }
+    if (data.parties.length > 0) {
+        response = response.filter(entry => {
+            if (
+                (entry.properties['ldc:parties']?.length > 0 &&
+                    entry.properties['ldc:parties']?.toLowerCase().indexOf(data.parties?.toLowerCase()) !== -1)
+            ) {
+                return entry
+            }
+        })
+    }
 
-        if (
-            (data.court?.length === 0) &&
-            (data.judge?.length > 0 &&
-                entry.properties['ldc:judge']?.length > 0 &&
-                entry.properties['ldc:judge'][0]?.toLowerCase().indexOf(data.judge?.toLowerCase()) !== -1)
-        ) {
-            return entry
-        }
-    });
+    if (data.year.length > 0) {
+        response = response.filter(entry => {
+            if (
+                (entry.properties['ldc:judgementDate']?.length > 0 &&
+                    entry.properties['ldc:judgementDate']?.toLowerCase().indexOf(data.year?.toLowerCase()) !== -1)
+            ) {
+                return entry
+            }
+        })
+    }
 
-    return response
+    return response;
 };
-
