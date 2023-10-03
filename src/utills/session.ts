@@ -8,6 +8,10 @@ export const removeAuthTokenFromSessionStorage = () =>{
     return sessionStorage.removeItem(accessTokenKey)
 }
 
-export const getUserFromSessionStorage = () => {
-    return JSON.parse(sessionStorage.getItem(currentUser) || '')
+export const removeUserFromSessionStorage = () =>{
+    return sessionStorage.removeItem(currentUser)
 }
+
+export const getUserFromSessionStorage = () => {
+    return JSON.parse(sessionStorage.getItem(currentUser) || '');
+};

@@ -8,7 +8,9 @@ import {
     getAuthTokenFromSessionStorage,
     getUserFromSessionStorage
 } from "../../utills/session";
-import { isAuthenticated } from "../../utills/constants";
+import {
+    isAuthenticated
+} from "../../utills/constants";
 import { IRegister } from "../pages/authentication/interface";
 
 const initialUser = {
@@ -47,18 +49,20 @@ const LoginProvider = ({ children }: ILoginProvider) => {
 
     useEffect(() => {
         sessionStorage.setItem(isAuthenticated, JSON.stringify(isAuth))
-        // sessionStorage.setItem(currentUser, JSON.stringify(currentUserData));
     }, [isAuth]);
 
-    useEffect(() => {
-        const data = getAuthTokenFromSessionStorage() as string;
-        const userData = getUserFromSessionStorage();
-        setCurrentUserData(userData)
-        console.log(userData, "user data")
-        setToken(data);
-    }, []);
+    // useEffect(() => {
+    //     console.log(currentUserData, "current user data")
+    //     sessionStorage.setItem(currentUser, JSON.stringify(currentUserData));
+    // }, [currentUserData]);
 
-    console.log(currentUserData, "currentUserData!!");
+    useEffect(() => {
+        const tokenData = getAuthTokenFromSessionStorage() as string;
+        const userData = getUserFromSessionStorage();
+        console.log(userData, "user data!!")
+        setCurrentUserData(userData)
+        setToken(tokenData);
+    }, []);
 
     return (
         <LoginContext.Provider value={{

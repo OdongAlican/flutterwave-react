@@ -21,7 +21,10 @@ import {
     useNavigate
 } from 'react-router';
 import { ROUTES } from '../../../core/routes/routes';
-import { removeAuthTokenFromSessionStorage } from '../../../utills/session';
+import {
+    removeAuthTokenFromSessionStorage,
+    removeUserFromSessionStorage
+} from '../../../utills/session';
 import { LoginContext } from '../../context/login';
 import { pages } from '../../../utills/constants';
 
@@ -45,6 +48,7 @@ const NavBar = () => {
         if (page !== 3) return;
         setAuth(false)
         removeAuthTokenFromSessionStorage();
+        removeUserFromSessionStorage();
         navigate(ROUTES.HOME);
     };
 
@@ -61,6 +65,7 @@ const NavBar = () => {
         setAnchorElUser(null);
     };
 
+    console.log(currentUserData, "current user data");
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">

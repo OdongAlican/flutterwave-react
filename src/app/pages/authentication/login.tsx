@@ -37,7 +37,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const dispatch = useDispatch();
     
-    const { setAuth } = useContext(LoginContext);
+    const { setAuth, setCurrentUserData } = useContext(LoginContext);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,8 +60,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
             sessionStorage.setItem(currentUser, JSON.stringify(response.data));
             setAccessTokenFxn(response.data?.accesstoken as string);
             setAuth(true)
-            console.log(response.data, "response data")
-            // setCurrentUserData(response.data)
+            setCurrentUserData(response.data)
             setLoggingIn(false);
             handleClose();
             dispatch(loadUser(response.data));

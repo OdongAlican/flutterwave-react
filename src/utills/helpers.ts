@@ -106,3 +106,4 @@ export const filterDataTableAdvanced = (data: IAdvancedSearch, filteredEntries: 
 
     return response
 };
+
