@@ -51,16 +51,8 @@ const LoginProvider = ({ children }: ILoginProvider) => {
         sessionStorage.setItem(isAuthenticated, JSON.stringify(isAuth))
     }, [isAuth]);
 
-    // useEffect(() => {
-    //     console.log(currentUserData, "current user data")
-    //     sessionStorage.setItem(currentUser, JSON.stringify(currentUserData));
-    // }, [currentUserData]);
-
     useEffect(() => {
         const tokenData = getAuthTokenFromSessionStorage() as string;
-        // const userData = getUserFromSessionStorage();
-        // console.log(userData, "user data!!")
-        // setCurrentUserData(userData)
         setToken(tokenData);
     }, []);
 

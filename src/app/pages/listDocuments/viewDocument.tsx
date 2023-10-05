@@ -74,6 +74,8 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     setAccessToken(token);
   }
 
+  console.log(entry, "entry");
+
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
 
@@ -173,19 +175,27 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     }
   }, []);
 
-  const makePayment = (payment: any) => {
+  // const makePayment = (payment: any) => {
+  const makePayment = () => {
     const token = getAuthTokenFromSessionStorage();
-    const body = { documentId: entry.id };
-    if (payment?.status === "successful") {
-      axios.post(`${apiURL}payments/make-payment`, body, {
-        headers: { "Authorization": token }
-      }).then(() => {
-        handleClose();
-        setIsPaid(true);
-      }).catch((error: any) => {
-        console.log(error)
-      });
-    }
+    const body = { 
+      documentId: entry.id,
+      paymentStatus: true,
+      documentName: entry.properties['cm:title'],
+      amount: 5000,
+      dateOfPurchase: '12-02-2023'
+     };
+    // if (payment?.status === "successful") {
+    axios.post(`${apiURL}payments/make-payment`, body, {
+      headers: { "Authorization": token }
+    }).then(() => {
+      handleClose();
+      console.log('is paid!!')
+      setIsPaid(true);
+    }).catch((error: any) => {
+      console.log(error)
+    });
+    // }
   };
 
   return (
@@ -227,10 +237,10 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
-              <Typography sx={{ my: 1.5, fontSize: '14px', fontWeight: 'bold'}}>
+              <Typography sx={{ my: 1.5, fontSize: '14px', fontWeight: 'bold' }}>
                 Purchase Document to have a full preview
               </Typography>
-              <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} />
+              {/* <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} /> */}
             </Box>
           </AuthModal>
         ) : null
@@ -299,7 +309,16 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
                     </Button>
                   </Typography>}
               </Typography>}
-              {(isPaid === false && accessToken?.length) && <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />}
+              {(isPaid === false && accessToken?.length)
+                &&
+
+                <Button
+                  onClick={makePayment}
+                  size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>
+                  Purchase Document
+                </Button>
+                // <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />
+              }
             </Stack>}
         </>
       ) : documentContent &&
