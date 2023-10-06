@@ -1,4 +1,7 @@
-import { useContext, useState } from 'react';
+import {
+    useContext,
+    useState
+} from 'react';
 import {
     Grid,
     Box,
@@ -21,7 +24,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { apiURL } from '../../../core/api/baseURL';
 import { IAuthState } from './interface';
-import { accessTokenKey, currentUser } from '../../../utills/constants';
+import { 
+    accessTokenKey, 
+    currentUser 
+} from '../../../utills/constants';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './user_slice';
@@ -36,7 +42,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
     const [loggingIn, setLoggingIn] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const dispatch = useDispatch();
-    
+
     const { setAuth, setCurrentUserData } = useContext(LoginContext);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -57,7 +63,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
         setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
             sessionStorage.setItem(accessTokenKey, response.data?.accesstoken);
-            sessionStorage.setItem(currentUser, JSON.stringify(response.data));
+            sessionStorage.setItem(currentUser, JSON.stringify({ ...response.data, id: response.data?.userId }));
             setAccessTokenFxn(response.data?.accesstoken as string);
             setAuth(true)
             setCurrentUserData(response.data)

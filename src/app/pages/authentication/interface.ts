@@ -4,6 +4,7 @@ export interface IAuthState {
 }
 
 export interface IRegister {
+    userId?: string;
     id?: string;
     firstname: string;
     firstName?: string;

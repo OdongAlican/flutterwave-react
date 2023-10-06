@@ -1,4 +1,5 @@
 import {
+    useContext,
     useEffect,
     useState
 } from 'react';
@@ -15,10 +16,12 @@ import ColumnComponent from './columns';
 import { crudState } from '../../../utills/constants';
 import ModalComponent from '../../component/modal';
 import DocumentViewer from '../listDocuments/viewDocument';
+import { LoginContext } from '../../context/login';
 
 
 const MyDocuments = () => {
     const [documents, setDocuments] = useState<IDocument[]>([]);
+    const {currentUserData } = useContext(LoginContext);
 
     const {
         columns,
@@ -29,7 +32,7 @@ const MyDocuments = () => {
     } = ColumnComponent();
 
     const fetchDocuments = () => {
-        axios.get(`${apiURL}payments/transactions/1`).then((response) => {
+        axios.get(`${apiURL}payments/transactions/${currentUserData.userId}`).then((response) => {
             setDocuments(response.data);
         }).catch((error: any) => {
             console.log(error);
