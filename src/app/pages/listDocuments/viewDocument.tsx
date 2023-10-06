@@ -183,8 +183,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       paymentStatus: true,
       documentName: entry.properties['cm:title'],
       amount: 5000,
-      dateOfPurchase: '12-02-2023'
+      dateOfPurchase: new Date()
      };
+
+     console.log(body, 'request body!!');
+
     // if (payment?.status === "successful") {
     axios.post(`${apiURL}payments/make-payment`, body, {
       headers: { "Authorization": token }

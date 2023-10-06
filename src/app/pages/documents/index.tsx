@@ -27,7 +27,7 @@ const MyDocuments = () => {
     const { columns } = ColumnComponent();
 
     const fetchDocuments = () => {
-        axios.get(`${apiURL}payments/transactions/2`).then((response) => {
+        axios.get(`${apiURL}payments/transactions/1`).then((response) => {
             console.log(response.data, "response data");
             setDocuments(response.data);
         }).catch((error: any) => {
@@ -66,15 +66,12 @@ const MyDocuments = () => {
         ) : null
       } */}
 
-                <Card sx={{ pb: 2, display: 'flex' }} >
-                    <Box
-                        sx={{ width: '100%', overflowX: 'auto' }}
-                    >
+                <Card sx={{ pb: 2, display: 'flex' }}>
+                    <Box sx={{ width: '100%', overflowX: 'auto' }}>
                         <StyledDataGrid
                             {...documents}
                             autoHeight
                             rows={documents}
-
                             columns={columns}
                             initialState={{
                                 pagination: {
