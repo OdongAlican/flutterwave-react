@@ -30,6 +30,7 @@ interface IProperties {
     [key: string]: string | Array<string> | any
 };
 export interface IEntry {
+    documentId?: string;
     createdAt: string,
     isFolder: boolean,
     isFavorite: boolean,

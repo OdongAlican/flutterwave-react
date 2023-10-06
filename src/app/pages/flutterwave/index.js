@@ -41,7 +41,6 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
       onClick={() => {
         handleFlutterPayment({
           callback: (response) => {
-            console.log(response);
             setPayment(response)
             closePaymentModal();
           },

@@ -65,7 +65,6 @@ const NavBar = () => {
         setAnchorElUser(null);
     };
 
-    console.log(currentUserData, "current user data");
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar sx={{ boxShadow: 'none', background: 'transparent', p: 2 }} position="static">

@@ -74,8 +74,6 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     setAccessToken(token);
   }
 
-  console.log(entry, "entry");
-
   useEffect(() => {
     const apiUrl = `${baseUrl}nodes/{documentId}/content`;
 
@@ -186,14 +184,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       dateOfPurchase: new Date()
      };
 
-     console.log(body, 'request body!!');
-
     // if (payment?.status === "successful") {
     axios.post(`${apiURL}payments/make-payment`, body, {
       headers: { "Authorization": token }
     }).then(() => {
       handleClose();
-      console.log('is paid!!')
       setIsPaid(true);
     }).catch((error: any) => {
       console.log(error)

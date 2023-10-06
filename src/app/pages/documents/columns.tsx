@@ -1,8 +1,26 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { RowTypography } from "../../component/dataGrid/dataGrid";
 import { Button } from "@mui/material";
+import { useState } from "react";
+import { IEntry } from "../listDocuments/interface";
+import { entriesMocks } from "../../../utills/mocks";
+import { crudState } from "../../../utills/constants";
+import { fetchSingleDocument } from "../listDocuments/documents_api";
 
 const ColumnComponent = () => {
+    const [state, setState] = useState<string>('');
+    const [entry, setEntry] = useState<IEntry>(entriesMocks[0]);
+    const [open, setOpen] = useState<boolean>(false);
+    const handleClose = () => setOpen(false);
+
+    const viewEntry = async (entry: IEntry) => {
+        const id = entry?.documentId as string
+        const response = await fetchSingleDocument(id);
+
+        setEntry(response);
+        setState(crudState.read.value);
+        setOpen(true);
+    }
 
     const columns: GridColDef[] = [
         {
@@ -56,13 +74,17 @@ const ColumnComponent = () => {
             renderCell: params => (
                 <Button
                     sx={{ textTransform: 'none' }}
-                    // onClick={() => viewEntry(params.row)}
+                    onClick={() => viewEntry(params.row)}
                     variant="outlined">Details</Button>
             )
         },
     ];
     return {
-        columns
+        columns,
+        state,
+        open,
+        handleClose,
+        entry
     }
 }
 
