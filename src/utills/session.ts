@@ -4,14 +4,14 @@ export const getAuthTokenFromSessionStorage = () => {
     return sessionStorage.getItem(accessTokenKey)
 }
 
-export const removeAuthTokenFromSessionStorage = () =>{
+export const removeAuthTokenFromSessionStorage = () => {
     return sessionStorage.removeItem(accessTokenKey)
 }
 
-export const removeUserFromSessionStorage = () =>{
+export const removeUserFromSessionStorage = () => {
     return sessionStorage.removeItem(currentUser)
 }
 
 export const getUserFromSessionStorage = () => {
-    return JSON.parse(sessionStorage.getItem(currentUser) || '');
+    return JSON.parse(sessionStorage.getItem(currentUser) || '{}');
 };

@@ -9,7 +9,8 @@ import {
     getUserFromSessionStorage
 } from "../../utills/session";
 import {
-    isAuthenticated
+    isAuthenticated,
+    userInfo
 } from "../../utills/constants";
 import { IRegister } from "../pages/authentication/interface";
 
@@ -44,15 +45,21 @@ export const LoginContext = createContext<ILoginContext>({
 
 const LoginProvider = ({ children }: ILoginProvider) => {
     const [isAuth, setAuth] = useState<boolean>((getAuthTokenFromSessionStorage() as string)?.length > 0 ? true : false)
-    const [currentUserData, setCurrentUserData] = useState<IRegister>(initialUser)
+    const [currentUserData, setCurrentUserData] = useState<IRegister>(getUserFromSessionStorage())
     const [token, setToken] = useState<string>("");
 
     useEffect(() => {
-        sessionStorage.setItem(isAuthenticated, JSON.stringify(isAuth))
+        sessionStorage.setItem(isAuthenticated, JSON.stringify(isAuth));
     }, [isAuth]);
 
     useEffect(() => {
+        sessionStorage.setItem(userInfo, JSON.stringify(currentUserData));
+    }, [currentUserData]);
+
+    useEffect(() => {
         const tokenData = getAuthTokenFromSessionStorage() as string;
+        const userData = getUserFromSessionStorage() as IRegister;
+        setCurrentUserData(userData);
         setToken(tokenData);
     }, []);
 

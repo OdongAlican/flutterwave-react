@@ -1,5 +1,4 @@
 import {
-    useContext,
     useEffect,
     useState
 } from 'react';
@@ -8,12 +7,8 @@ import {
     Card,
     Typography
 } from '@mui/material'
-import { LoginContext } from '../../context/login';
 import axios from 'axios';
 import { apiURL } from '../../../core/api/baseURL';
-import { IEntriesState } from '../listDocuments/documents_slice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store';
 import { StyledDataGrid } from '../../component/dataGrid/dataGrid';
 import { IDocument } from './interface';
 import ColumnComponent from './columns';
@@ -23,7 +18,6 @@ import DocumentViewer from '../listDocuments/viewDocument';
 
 
 const MyDocuments = () => {
-    const { data }: IEntriesState = useSelector((state: RootState) => state?.entryState);
     const [documents, setDocuments] = useState<IDocument[]>([]);
 
     const {

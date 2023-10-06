@@ -3,13 +3,10 @@ import {
   Card
 } from "@mui/material";
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { apiURL } from "../../../core/api/baseURL";
-import { LoginContext } from "../../context/login";
 
 const BookMarks = () => {
-
-  const { currentUserData } = useContext(LoginContext);
 
   const fetchBookmarks = () => {
     axios.post(`${apiURL}payments/transactions/2`).then((response) => {
