@@ -1,5 +1,4 @@
-import React,
-{
+import {
   memo,
   useEffect,
   useState
@@ -41,7 +40,8 @@ import Login from '../authentication/login';
 import { authComponents } from '../../../utills/constants';
 import SignUp from '../authentication/signUp';
 import { getAuthTokenFromSessionStorage } from '../../../utills/session';
-import Flutterwave from '../flutterwave';
+// import Flutterwave from '../flutterwave';
+import { toast } from 'react-toastify';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -176,13 +176,13 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
   // const makePayment = (payment: any) => {
   const makePayment = () => {
     const token = getAuthTokenFromSessionStorage();
-    const body = { 
+    const body = {
       documentId: entry.id,
       paymentStatus: true,
       documentName: entry.properties['cm:title'],
       amount: 5000,
       dateOfPurchase: new Date()
-     };
+    };
 
     // if (payment?.status === "successful") {
     axios.post(`${apiURL}payments/make-payment`, body, {
@@ -190,6 +190,7 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     }).then(() => {
       handleClose();
       setIsPaid(true);
+      toast.success('Payment was successfull');
     }).catch((error: any) => {
       console.log(error)
     });
@@ -238,6 +239,11 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <Typography sx={{ my: 1.5, fontSize: '14px', fontWeight: 'bold' }}>
                 Purchase Document to have a full preview
               </Typography>
+              <Button
+                onClick={makePayment}
+                size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>
+                Purchase Document
+              </Button>
               {/* <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} /> */}
             </Box>
           </AuthModal>

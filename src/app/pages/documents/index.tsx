@@ -17,11 +17,11 @@ import { crudState } from '../../../utills/constants';
 import ModalComponent from '../../component/modal';
 import DocumentViewer from '../listDocuments/viewDocument';
 import { LoginContext } from '../../context/login';
-
+import CustomRowOverlay from '../../component/dataGrid/customRowOverlay';
 
 const MyDocuments = () => {
     const [documents, setDocuments] = useState<IDocument[]>([]);
-    const {currentUserData } = useContext(LoginContext);
+    const { currentUserData } = useContext(LoginContext);
 
     const {
         columns,
@@ -73,6 +73,9 @@ const MyDocuments = () => {
                 <Card sx={{ pb: 2, display: 'flex' }}>
                     <Box sx={{ width: '100%', overflowX: 'auto' }}>
                         <StyledDataGrid
+                            slots={{
+                                noRowsOverlay: CustomRowOverlay
+                            }}
                             {...documents}
                             autoHeight
                             rows={documents}
