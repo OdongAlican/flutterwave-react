@@ -40,8 +40,8 @@ import Login from '../authentication/login';
 import { authComponents } from '../../../utills/constants';
 import SignUp from '../authentication/signUp';
 import { getAuthTokenFromSessionStorage } from '../../../utills/session';
-// import Flutterwave from '../flutterwave';
 import { toast } from 'react-toastify';
+import Flutterwave from '../flutterwave';
 pdfjs.GlobalWorkerOptions.workerSrc = `http://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface IDocumentViewer { entry: IEntry; handleModalClose: () => void };
@@ -239,12 +239,12 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               <Typography sx={{ my: 1.5, fontSize: '14px', fontWeight: 'bold' }}>
                 Purchase Document to have a full preview
               </Typography>
-              <Button
+              {/* <Button
                 onClick={makePayment}
                 size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>
                 Purchase Document
-              </Button>
-              {/* <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} /> */}
+              </Button> */}
+              <Flutterwave inModal={true} docName={entry.properties['cm:title']} makePayment={makePayment} />
             </Box>
           </AuthModal>
         ) : null
@@ -316,12 +316,12 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
               {(isPaid === false && accessToken?.length)
                 &&
 
-                <Button
-                  onClick={makePayment}
-                  size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>
-                  Purchase Document
-                </Button>
-                // <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />
+                // <Button
+                //   onClick={makePayment}
+                //   size='small' sx={{ ml: 'auto', height: '35px' }} variant='contained'>
+                //   Purchase Document
+                // </Button>
+                <Flutterwave inModal={false} docName={entry.properties['cm:title']} makePayment={makePayment} />
               }
             </Stack>}
         </>
