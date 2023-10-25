@@ -7,9 +7,12 @@ import {
   closePaymentModal
 } from 'flutterwave-react-v3';
 import { Button } from '@mui/material';
+import { getUserFromSessionStorage } from '../../../utills/session';
 
 export default function Flutterwave({ makePayment, docName, inModal }) {
   const [payment, setPayment] = useState();
+  const [currentUserData, setCurrentUserData] = useState(getUserFromSessionStorage())
+
   const config = {
     public_key: 'FLWPUBK-d19c3d98607c6855116185d37aa00bf5-X',
     tx_ref: Date.now(),
@@ -18,7 +21,7 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'kiizaj2@gmail.com',
-      phone_number: '0777338787',
+      phone_number: currentUserData?.phonenumber,
       name: 'odong sunday',
     },
     customizations: {
@@ -31,8 +34,12 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
   const handleFlutterPayment = useFlutterwave(config);
 
   useEffect(() => {
+    const userData = getUserFromSessionStorage()
+        setCurrentUserData(userData);
     makePayment(payment);
   }, [payment]);
+
+  console.log(currentUserData, "currentUserData")
 
 
   return (

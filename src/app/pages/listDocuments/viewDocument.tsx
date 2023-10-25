@@ -340,3 +340,4 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
 }
 
 export default memo(DocumentViewer);
+

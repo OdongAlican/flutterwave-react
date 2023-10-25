@@ -62,6 +62,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
     const onSubmit = (formData: IAuthState) => {
         setLoggingIn(true);
         axios.post(`${apiURL}auth/login`, formData).then((response) => {
+            console.log(response, "login response");
             sessionStorage.setItem(accessTokenKey, response.data?.accesstoken);
             sessionStorage.setItem(currentUser, JSON.stringify({ ...response.data, id: response.data?.userId }));
             setAccessTokenFxn(response.data?.accesstoken as string);
@@ -70,7 +71,7 @@ const Login = ({ setRegisterModal, handleClose, setAccessTokenFxn }: ILogin) => 
             setLoggingIn(false);
             handleClose();
             dispatch(loadUser(response.data));
-            toast.success(`Welcome ${response.data.firstName}`);
+            toast.success(`Welcome ${response.data.firstname}`);
         }).catch((error: any) => {
             toast.error('Something went wrong. Confirm your credential');
             setLoggingIn(false);

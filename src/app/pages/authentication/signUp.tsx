@@ -52,6 +52,7 @@ const SignUp = ({ handleClose }: {
     const onSubmit = (formData: IRegister) => {
         setRegister(true);
         axios.post(`${apiURL}auth/register`, formData).then((response) => {
+            console.log(response, "registered user")
             setRegister(true);
             toast.success('Successfully registered');
             handleClose();
