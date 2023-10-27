@@ -32,7 +32,7 @@ const MyDocuments = () => {
     } = ColumnComponent();
 
     const fetchDocuments = () => {
-        axios.get(`${apiURL}payments/transactions/${currentUserData.userId}`).then((response) => {
+        axios.get(`${apiURL}payments/transactions/${currentUserData.id}`).then((response) => {
             setDocuments(response.data);
         }).catch((error: any) => {
             console.log(error);

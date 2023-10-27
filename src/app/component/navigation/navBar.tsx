@@ -56,7 +56,7 @@ const NavBar = () => {
     };
 
     const mangePageRouting = (page: number) => {
-        if (page === 1) navigate(ROUTES.BOOKMARKS);
+        if (page === 1) navigate(ROUTES.HOME);
         if (page === 2) navigate(ROUTES.MY_DOCUMENTS);
     }
 
@@ -101,9 +101,9 @@ const NavBar = () => {
                         backgroundColor: pathname.includes(ROUTES.LIST_DOCUMENTS) ? blue[700] : 'none',
                     }}>Advanced Search</Button>
                     {isAuth && <Box sx={{ flexGrow: 0, ml: 2 }}>
-                        <Tooltip title={currentUserData.lastName}>
+                        <Tooltip sx={{ textTransform: "capitalize" }} title={currentUserData.lastname}>
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar >{currentUserData?.lastName?.charAt(0)}</Avatar>
+                                <Avatar sx={{ textTransform: 'uppercase' }} >{currentUserData?.lastname?.charAt(0)}</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -20,9 +20,9 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
     currency: 'UGX',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
-      email: 'kiizaj2@gmail.com',
+      email: 'ldc@ldc.ac.ug',
       phone_number: currentUserData?.phonenumber,
-      name: 'odong sunday',
+      name: 'LDC Uganda',
     },
     customizations: {
       title: `Payment for ${docName}`,

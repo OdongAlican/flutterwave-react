@@ -132,7 +132,7 @@ export const courtTypes: Array<{
 export const pages: Array<
     { key: string, id: number }
 > = [
-        { key: 'Bookmarks', id: 1 },
+        { key: 'Home', id: 1 },
         { key: 'My Douments', id: 2 },
         { key: 'Logout', id: 3 },
     ]
