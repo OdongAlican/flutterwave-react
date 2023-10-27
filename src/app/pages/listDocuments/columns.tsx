@@ -5,6 +5,8 @@ import { IEntry } from "./interface";
 import { useState } from "react";
 import { entriesMocks } from "../../../utills/mocks";
 import { crudState } from "../../../utills/constants";
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import { blue } from "@mui/material/colors";
 
 const ColumnComponent = () => {
     const [entry, setEntry] = useState<IEntry>(entriesMocks[0]);
@@ -21,28 +23,15 @@ const ColumnComponent = () => {
     const columns: GridColDef[] = [
         {
             field: 'documentTitle',
-            headerName: 'Title',
+            headerName: 'Name',
             description: 'This column displays document title.',
             flex: 1.5,
             minWidth: 150,
             renderCell: params => {
                 return (
-                    <RowTypography>
+                    <RowTypography sx={{ color: blue[500], textTransform: 'uppercase' }}>
+                        <InsertDriveFileIcon fontSize="small" sx={{ color: blue[500], fontSize: '13px', mr: 0.5 }} />
                         {params.row.properties['cm:title']}
-                    </RowTypography>
-                )
-            }
-        },
-        {
-            field: 'judge',
-            headerName: 'Judge',
-            description: 'This column displays the Judge name',
-            flex: 1,
-            minWidth: 100,
-            renderCell: params => {
-                return (
-                    <RowTypography>
-                        {params.row.properties["ldc:judge"]}
                     </RowTypography>
                 )
             }
@@ -55,7 +44,7 @@ const ColumnComponent = () => {
             minWidth: 100,
             renderCell: params => {
                 return (
-                    <RowTypography>
+                    <RowTypography sx={{ textTransform: 'uppercase', fontSize: "13px" }}>
                         {params.row.properties["ldc:court"]}
                     </RowTypography>
                 )
@@ -71,6 +60,20 @@ const ColumnComponent = () => {
                 return (
                     <RowTypography>
                         {params.row.properties["ldc:parties"]}
+                    </RowTypography>
+                )
+            }
+        },
+        {
+            field: 'judge',
+            headerName: 'Judge',
+            description: 'This column displays the Judge name',
+            flex: 1,
+            minWidth: 100,
+            renderCell: params => {
+                return (
+                    <RowTypography>
+                        {params.row.properties["ldc:judge"]}
                     </RowTypography>
                 )
             }
@@ -113,7 +116,7 @@ const ColumnComponent = () => {
                 <Button
                     sx={{ textTransform: 'none' }}
                     onClick={() => viewEntry(params.row)}
-                    variant="outlined">Details</Button>
+                    variant="outlined">View</Button>
             )
         },
     ];

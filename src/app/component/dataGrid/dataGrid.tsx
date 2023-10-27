@@ -10,6 +10,7 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
         borderTop: "0.6px solid rgba(0,0,0,0.05) !important",
     },
     "& .MuiDataGrid-row": {
+        maxHeight: 'none !important',
         "&:hover": {
             cursor: "pointer"
         }
@@ -33,6 +34,12 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     },
     "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
         outline: "none !important",
+    },
+    "&.MuiDataGrid-root .MuiDataGrid-cell": {
+        whiteSpace: "normal !important",
+        wordWrap: "break-word !important",
+        lineHeight: 'unset !important',
+        maxHeight: 'none !important',
     },
     '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
         outline: 'none !important',

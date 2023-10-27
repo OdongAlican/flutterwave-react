@@ -38,7 +38,6 @@ const BookMarks = () => {
   }, []);
 
   return (
-
     <>
       <Box sx={{
         display: 'flex',

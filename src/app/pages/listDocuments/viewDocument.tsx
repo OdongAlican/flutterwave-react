@@ -173,8 +173,8 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
     }
   }, []);
 
-  // const makePayment = (payment: any) => {
-  const makePayment = () => {
+  const makePayment = (payment: any) => {
+    // const makePayment = () => {
     const token = getAuthTokenFromSessionStorage();
     const body = {
       documentId: entry.id,
@@ -184,17 +184,17 @@ const DocumentViewer = ({ entry, handleModalClose }: IDocumentViewer) => {
       dateOfPurchase: new Date()
     };
 
-    // if (payment?.status === "successful") {
-    axios.post(`${apiURL}payments/make-payment`, body, {
-      headers: { "Authorization": token }
-    }).then(() => {
-      handleClose();
-      setIsPaid(true);
-      toast.success('Payment was successfull');
-    }).catch((error: any) => {
-      console.log(error)
-    });
-    // }
+    if (payment?.status === "successful") {
+      axios.post(`${apiURL}payments/make-payment`, body, {
+        headers: { "Authorization": token }
+      }).then(() => {
+        handleClose();
+        setIsPaid(true);
+        toast.success('Payment was successfull');
+      }).catch((error: any) => {
+        console.log(error)
+      });
+    }
   };
 
   return (

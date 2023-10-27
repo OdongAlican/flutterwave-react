@@ -27,8 +27,14 @@ import {
 } from '../../../utills/helpers';
 import { Dayjs } from 'dayjs';
 import { useParams } from 'react-router';
-import { IEntriesState, loadData } from './documents_slice';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  IEntriesState,
+  loadData
+} from './documents_slice';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import { RootState } from '../../../core/store';
 import {
   crudState,
@@ -140,7 +146,7 @@ const ListDocuments = () => {
         my: 3,
       }}>
         <Typography sx={{
-          mr: 2, fontSize: '3rem', 
+          mr: 2, fontSize: '3rem',
           fontWeight: 700, color: '#FFF',
           textAlign: 'center',
           width: '65%'
@@ -217,7 +223,7 @@ const ListDocuments = () => {
               initialState={{
                 pagination: {
                   paginationModel: {
-                    pageSize: 5,
+                    pageSize: 10,
                   },
                 },
               }}
