@@ -18,7 +18,7 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
     tx_ref: Date.now(),
     amount: 500,
     currency: 'UGX',
-    payment_options: 'card,mobilemoney,ussd',
+    payment_options: 'card,ussd,mobilemoneyuganda',
     customer: {
       email: 'ldc@ldc.ac.ug',
       phone_number: currentUserData?.phonenumber,
@@ -38,9 +38,6 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
         setCurrentUserData(userData);
     makePayment(payment);
   }, [payment]);
-
-  console.log(currentUserData, "currentUserData")
-
 
   return (
     <Button
