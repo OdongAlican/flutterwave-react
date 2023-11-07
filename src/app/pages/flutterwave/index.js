@@ -9,7 +9,11 @@ import {
 import { Button } from '@mui/material';
 import { getUserFromSessionStorage } from '../../../utills/session';
 
-export default function Flutterwave({ makePayment, docName, inModal }) {
+export default function Flutterwave({
+  makePayment,
+  docName,
+  inModal
+}) {
   const [payment, setPayment] = useState();
   const [currentUserData, setCurrentUserData] = useState(getUserFromSessionStorage())
 
@@ -18,16 +22,16 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
     tx_ref: Date.now(),
     amount: 500,
     currency: 'UGX',
-    payment_options: 'card,ussd,mobilemoneyuganda',
+    payment_options: 'card,mobilemoney,ussd',
     customer: {
-      email: 'ldc@ldc.ac.ug',
+      email: 'kiizaj2@gmail.com',
       phone_number: currentUserData?.phonenumber,
       name: 'LDC Uganda',
     },
     customizations: {
       title: `Payment for ${docName}`,
       description: 'Payment for documents',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+      logo: 'https://www.ldc.ac.ug/sites/files/Logo_1_c.png'
     },
   };
 
@@ -35,7 +39,7 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
 
   useEffect(() => {
     const userData = getUserFromSessionStorage()
-        setCurrentUserData(userData);
+    setCurrentUserData(userData);
     makePayment(payment);
   }, [payment]);
 
@@ -43,13 +47,16 @@ export default function Flutterwave({ makePayment, docName, inModal }) {
     <Button
       size='small' sx={{ ml: `${!inModal ? 'auto' : ''}`, height: '35px' }} variant='contained'
       onClick={() => {
-        handleFlutterPayment({
-          callback: (response) => {
-            setPayment(response)
-            closePaymentModal();
-          },
-          onClose: () => { },
-        });
+        console.log(window, window.FlutterwaveCheckout, "windows flutterwave!!")
+        if (window.FlutterwaveCheckout) {
+          handleFlutterPayment({
+            callback: (response) => {
+              setPayment(response)
+              closePaymentModal();
+            },
+            onClose: () => { },
+          });
+        }
       }}
     >
       Purchase Document
